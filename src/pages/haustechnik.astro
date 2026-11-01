@@ -1,5 +1,6 @@
 ---
 import Page from '../layouts/Page.astro';
+import Faq from '../components/Faq.astro';
 import Screenshot from '../components/Screenshot.astro';
 import { LINKS, SITE } from '../site';
 
@@ -95,7 +96,7 @@ const schema = [
     '@type': 'SoftwareApplication',
     name: 'OpenGewerk Haustechnik',
     applicationCategory: 'BusinessApplication',
-    applicationSubCategory: 'Technisches Gebäudemanagement, Betreiberverantwortung',
+    applicationSubCategory: 'CAFM, Technisches Gebäudemanagement, Betreiberverantwortung',
     operatingSystem: 'Linux, Docker',
     url: SITE.url + '/haustechnik/',
     description:
@@ -123,17 +124,19 @@ const schema = [
 ---
 
 <Page
-  title="OpenGewerk Haustechnik: Open-Source-Software für Betreiber von Gebäuden"
-  description="Anlagen, Betreiberpflichten mit Fundstelle, Rundgänge ohne Netz und Nachweise, die sich nach der Unterschrift nicht mehr ändern. Self-hosted, ohne Lizenzkosten, AGPL-3.0."
+  title="OpenGewerk Haustechnik: Open-Source-CAFM für Betreiber von Gebäuden"
+  description="Quelloffenes CAFM für das technische Gebäudemanagement: Anlagen, Betreiberpflichten mit Fundstelle, Rundgänge ohne Netz und Nachweise, die nach der Unterschrift bleiben. Self-hosted, ohne Lizenzkosten."
   breadcrumb="Haustechnik"
   schema={schema}
 >
   <section class="section section-dark">
-    <div class="wrap measure stack">
+    <div class="wrap hero">
+      <div>
       <h1>Software für Betreiber von Gebäuden und ihre Haustechnik</h1>
       <p class="lead">
-        OpenGewerk Haustechnik führt Liegenschaften, Gebäude, Räume und technische
-        Anlagen in einem Datenmodell, dazu die Pflichten, die an ihnen hängen, und die
+        Ein quelloffenes CAFM für das technische Gebäudemanagement. OpenGewerk
+        Haustechnik führt Liegenschaften, Gebäude, Räume und technische Anlagen in einem
+        Datenmodell, dazu die Pflichten, die an ihnen hängen, und die
         Nachweise, mit denen sie erfüllt werden. Rundgänge und Prüfungen laufen auf dem
         Telefon auch ohne Netz. Die Software läuft auf dem eigenen Server und kostet
         keine Lizenz.
@@ -142,17 +145,14 @@ const schema = [
         <a class="button button-primary" href="/self-hosting/#haustechnik">Installieren</a>
         <a class="button button-outline" href="/haustechnik/stand/">Wie weit sie ist</a>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
+      </div>
       <Screenshot
         src={overview}
         alt="Übersicht im Büro mit sechs Zahlen von überfällig über nie erfasst bis Mängel über Frist, darunter die Pflichten, die in den nächsten 30 Tagen fällig sind, und rechts die Pflichten ohne einen einzigen Nachweis"
         caption="Die Übersicht der Technischen Leitung: überfällig, bald fällig, nie erfasst und Mängel über ihrer Frist."
         eager={true}
         draft={true}
+        hero={true}
       />
     </div>
   </section>
@@ -353,7 +353,7 @@ const schema = [
 
   <section class="section section-tint">
     <div class="wrap stack-loose">
-      <h2>Was sie anders macht als CAFM, Instandhaltungssoftware und Excel</h2>
+      <h2>Was sie anders macht als kommerzielle CAFM-Systeme, Instandhaltungssoftware und Excel</h2>
       <p class="lead">
         Verglichen wurde mit zwölf CAFM-Systemen, zwölf quelloffenen Systemen, zehn
         mobilen Checklisten- und Wartungswerkzeugen und den öffentlichen Vergaben seit
@@ -452,16 +452,7 @@ const schema = [
   <section class="section section-tint">
     <div class="wrap">
       <h2>Häufige Fragen zur Haustechnik</h2>
-      <div class="qa-grid">
-        {
-          questions.map((entry) => (
-            <div>
-              <h3>{entry.question}</h3>
-              <p>{entry.answer}</p>
-            </div>
-          ))
-        }
-      </div>
+      <Faq items={questions} />
     </div>
   </section>
 </Page>
