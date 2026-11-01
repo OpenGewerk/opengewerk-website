@@ -269,9 +269,16 @@
   .wrap > p,
   .wrap > ul,
   .wrap > ol,
-  .wrap > :is(h1, h2, h3, h4),
   .lead {
     max-width: var(--measure);
+  }
+
+  /* Headings are not running text. Held to the measure of a paragraph they
+   * broke after half the line at the larger sizes, with the room right there;
+   * they take the width of their column and wrap only where it ends. */
+  .wrap > :is(h1, h2, h3, h4),
+  .measure > :is(h1, h2, h3, h4) {
+    max-width: none;
   }
 
   /* Questions and answers in columns. One column of short blocks leaves the
