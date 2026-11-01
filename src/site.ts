@@ -8,7 +8,7 @@ export const SITE = {
   tagline: 'Self-hosted Software für Handwerk und Haustechnik',
   /** What the project is in two sentences. The front page and llms.txt both open with it. */
   description:
-    'Quelloffene Software auf dem eigenen Server: die Handwerkersoftware für Elektro und PV und OpenGewerk Haustechnik für Betreiber von Gebäuden. Offline vor Ort, ohne Lizenzkosten, AGPL-3.0.',
+    'Open-Source-Software auf dem eigenen Server: die Handwerkersoftware für Elektro und PV, CRM und ERP in einem, und OpenGewerk Haustechnik für Betreiber von Gebäuden. Offline vor Ort, ohne Lizenzkosten, AGPL-3.0.',
   /** Falls back as the Open Graph image wherever a page brings none. */
   socialImage: '/marke/social.png',
 } as const;

@@ -62,9 +62,9 @@ const questions = [
       'Später ja, das ist der ausdrückliche Anspruch des Finance-Moduls. Der Umstieg ist aber erst nach einem bestandenen Parallelbetrieb vorgesehen, bei dem beide Systeme eine Zeit lang nebeneinander laufen und dieselben Zahlen liefern müssen.',
   },
   {
-    question: 'Warum nicht Odoo mit einem Handwerksmodul?',
+    question: 'Warum nicht Odoo, Dolibarr oder ERPNext?',
     answer:
-      'Odoo ist quelloffen und kann vieles, bleibt aber ein allgemeines ERP. Die Tiefe, um die es hier geht, also Anlage, Stromkreis, Prüfprotokoll und Messgeräte-Import, müsste als eigenes Modul entstehen und mit jedem Versionssprung nachgezogen werden.',
+      'Alle drei sind quelloffen, lassen sich selbst hosten und bringen CRM und ERP mit. Sie bleiben aber allgemeine Systeme für jede Branche. Die Tiefe, um die es hier geht, also Anlage, Stromkreis, Prüfprotokoll und Messgeräte-Import, müsste dort als eigenes Modul entstehen und mit jedem Versionssprung nachgezogen werden. In OpenGewerk gehört sie von Anfang an zum selben Datenmodell wie Kunde, Auftrag und Rechnung.',
   },
   {
     question: 'Was, wenn das Projekt eingestellt wird?',
@@ -87,8 +87,8 @@ const schema = [
 ---
 
 <Page
-  title="OpenGewerk im Vergleich zu anderer Handwerkersoftware"
-  description="Was OpenGewerk anders macht als openHandwerk, plancraft, HERO, sevdesk, Lexware und Odoo, und wofür die etablierten Anbieter heute die bessere Wahl sind."
+  title="OpenGewerk im Vergleich: Handwerkersoftware und Open-Source-ERP"
+  description="Was OpenGewerk anders macht als openHandwerk, plancraft, HERO, sevdesk, Lexware, Odoo, Dolibarr und ERPNext, und wofür die etablierten Anbieter heute die bessere Wahl sind."
   breadcrumb="Vergleich"
   schema={schema}
 >
