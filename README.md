@@ -14,9 +14,9 @@
 
 ## Zweck
 
-Eine statische Seite mit einer Seite je Thema, gebaut mit Astro, damit ein Suchender etwas findet und ein Betrieb einschätzen kann, ob das Projekt für ihn in Frage kommt. Sie stellt zwei Anwendungen vor: die Handwerkersoftware mit ihren Seiten von "Handwerk" bis "Stand" und OpenGewerk Haustechnik unter `/haustechnik/`. Die Startseite ist das Dach über beiden.
+Der Quelltext von [opengewerk.de](https://opengewerk.de), statisch gebaut mit Astro, eine Seite je Thema. Die Website stellt zwei Open-Source-Anwendungen vor, beide self-hosted: die Handwerkersoftware mit CRM und ERP in einem, unter `/funktionen/` mit den Unterseiten Elektro und PV und Buchhaltung, und OpenGewerk Haustechnik, ein CAFM für Betreiber von Gebäuden, unter `/haustechnik/`. Die Startseite führt zu beiden. Dazu kommen Seiten zum Selbsthosten, ein Vergleich mit anderen Lösungen, der Stand beider Anwendungen und wie man mitmacht.
 
-Die Seite ist bewusst ehrlich über den Stand. Jede Seite nennt, was gebaut ist und was nicht, und die Vergleichsseite nennt auch die Fälle, in denen ein anderes Produkt heute die bessere Wahl ist.
+Jede Seite nennt, was gebaut ist und was nicht. Die Vergleichsseite nennt auch die Fälle, in denen ein anderes Produkt heute besser passt, und ein Bild, das nicht die gebaute Oberfläche zeigt, trägt die Marke "Entwurf".
 
 ## Entwickeln
 
