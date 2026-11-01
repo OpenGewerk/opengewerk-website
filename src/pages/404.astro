@@ -1,6 +1,6 @@
 ---
 import Page from '../layouts/Page.astro';
-import { LINKS, NAVIGATION } from '../site';
+import { LINKS, PAGES } from '../site';
 ---
 
 <Page
@@ -27,7 +27,7 @@ import { LINKS, NAVIGATION } from '../site';
           <p>Worum es bei OpenGewerk geht, in Kürze.</p>
         </a>
         {
-          NAVIGATION.map((entry) => (
+          PAGES.map((entry) => (
             <a class="target card stack" href={entry.href}>
               <h3>{entry.label}</h3>
               <p>{entry.hint}</p>

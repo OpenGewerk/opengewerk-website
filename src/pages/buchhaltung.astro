@@ -3,7 +3,7 @@ import Page from '../layouts/Page.astro';
 import Screenshot from '../components/Screenshot.astro';
 import { LINKS } from '../site';
 
-import invoice from '../assets/screens/rechnung-festgeschrieben.png';
+import invoice from '../assets/screens/schlussrechnung.png';
 
 const stages = [
   {
@@ -31,24 +31,46 @@ const stages = [
 
 <Page
   title="Buchhaltung in OpenGewerk: GoBD, E-Rechnung und eigenes Journal"
-  description="Vollständige Buchhaltung statt DATEV-Exportknopf: Journal, offene Posten, EÜR, Umsatzsteuer-Voranmeldung, Bilanz. GoBD als Bauprinzip, XRechnung und ZUGFeRD im Ausgang."
+  description="Was für die Buchhaltung in OpenGewerk geplant ist: Journal, offene Posten, EÜR, Umsatzsteuer-Voranmeldung, Bilanz. Gebaut sind schon die Festschreibung nach GoBD und die E-Rechnung im Ausgang."
   breadcrumb="Buchhaltung"
+  parent={{ name: 'Handwerkersoftware', path: '/funktionen/' }}
 >
   <section class="section section-dark">
     <div class="wrap measure stack">
-      <h1>Buchhaltung, die nicht am Exportknopf endet</h1>
+      <h1>Buchhaltung im selben Programm wie der Auftrag</h1>
       <p class="lead">
-        Viele Handwerkerprogramme schreiben Rechnungen und geben die Zahlen dann an ein
-        zweites Programm weiter. Der Betrieb zahlt damit zweimal, pflegt zwei
-        Stammdatensätze und hat an der Nahtstelle die Fehler. OpenGewerk führt die
-        Buchhaltung im selben Datenmodell wie den Auftrag.
+        Viele Handwerkerprogramme schreiben Rechnungen und geben die Zahlen an ein
+        zweites Programm weiter. Der Betrieb zahlt dann zweimal, pflegt zwei
+        Stammdatensätze, und an der Nahtstelle entstehen die Fehler. OpenGewerk soll
+        die Buchhaltung im selben Datenmodell führen wie den Auftrag.
       </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap measure is-centered">
+      <div class="note">
+        <h2 class="note-title">Was heute schon steht</h2>
+        <p>
+          Von der Buchhaltung selbst ist noch nichts gebaut: kein Journal, keine offenen
+          Posten, kein Abschluss. Von der ersten Stufe stehen Angebot,
+          Auftragsbestätigung, Regiebericht, Abschlags- und Schlussrechnung, die
+          Rechnung über mehrere Regieberichte und Storno, als PDF und als E-Rechnung.
+          An einer Abschlagsrechnung wird erfasst, was darauf eingegangen ist, und die
+          Schlussrechnung zieht genau das ab. Lieferschein und Gutschrift fehlen noch.
+          Darunter liegen Nummernkreise mit Festschreibung, das Audit-Log mit der
+          Hashkette und die Regel-Engine mit den gesetzlichen Werten. Der produktive
+          Einsatz beginnt im eigenen Betrieb und erst nach einem bestandenen
+          Parallelbetrieb neben der bisherigen Lösung.
+        </p>
+        <p><a href="/roadmap/">Der Fahrplan im Einzelnen</a></p>
+      </div>
     </div>
   </section>
 
   <section class="section section-tint">
     <div class="wrap stack-loose">
-      <h2>In vier Stufen, nicht auf einmal</h2>
+      <h2>Geplant in vier Stufen</h2>
       <p class="lead">
         Die Buchhaltung wächst gestaffelt. Jede Stufe ist für sich benutzbar, und keine
         verlangt, dass die darüber schon fertig ist.
@@ -69,18 +91,17 @@ const stages = [
   <section class="section">
     <div class="wrap split">
       <div class="stack">
-        <h2>Festschreiben statt nachbessern</h2>
+        <h2>Festschreiben nach GoBD</h2>
         <p>
           Ein Beleg ist entweder Entwurf oder festgeschrieben. Danach ändert sich an
           ihm nichts mehr: eine Korrektur ist ein Storno und ein neuer Beleg, beides
-          nachvollziehbar. Belegnummern sind je Kreis und Jahr lückenlos, und eine
-          Lücke wäre ein Fehler und keine Kleinigkeit.
+          nachvollziehbar. Belegnummern sind je Kreis und Jahr lückenlos.
         </p>
         <p>
           Darunter liegt ein Audit-Log auf Feldebene mit einer Hashkette. Die Sicherung
           hält den Kopf dieser Kette fest, ein Prüflauf hält ihn später gegen die
-          laufende Datenbank. Damit lässt sich zeigen, dass nachträglich nichts
-          verändert wurde, und nicht nur behaupten.
+          laufende Datenbank. Damit lässt sich belegen, dass nachträglich nichts
+          verändert wurde.
         </p>
       </div>
       <Screenshot
@@ -99,8 +120,8 @@ const stages = [
           <h2>E-Rechnung</h2>
           <p>
             XRechnung und ZUGFeRD im Ausgang, seit September 2026 gebaut. Ob eine
-            Rechnung als E-Rechnung hinausgeht, entscheiden die Stammdaten des Kunden
-            und kein Schalter an der Rechnung: an ein Unternehmen im Inland als
+            Rechnung als E-Rechnung hinausgeht, entscheiden die Stammdaten des Kunden:
+            an ein Unternehmen im Inland als
             E-Rechnung, an eine Privatperson als PDF. Nach dem Festschreiben stehen
             beide Dateien bereit, das ZUGFeRD-PDF für Unternehmen und die XRechnung für
             Behörden.
@@ -116,22 +137,21 @@ const stages = [
         <article class="card stack">
           <h2>Gesetzliche Werte als Datensatz</h2>
           <p>
-            Steuersätze, Fristen und der Basiszinssatz nach §247 BGB stehen nicht im
-            Quelltext, sondern in versionierten Regelpaketen mit Gültigkeitszeitraum
-            und Fundstelle. Ein neuer Basiszinssatz ist damit ein Eintrag und keine
-            neue Programmfassung.
+            Steuersätze, Fristen und der Basiszinssatz nach §247 BGB stehen in
+            versionierten Regelpaketen mit Gültigkeitszeitraum und Fundstelle. Ein
+            neuer Basiszinssatz ist damit ein neuer Eintrag; eine neue Programmfassung
+            braucht es dafür nicht.
           </p>
           <p>
             Für einen Tag, für den kein belegter Wert vorliegt, gibt die Engine keine
-            Antwort. Eine erfundene wäre schlimmer als keine.
+            Antwort.
           </p>
         </article>
 
         <article class="card stack">
-          <h2>Der Steuerberater arbeitet mit</h2>
+          <h2>Geplant: Der Steuerberater arbeitet mit</h2>
           <p>
-            Statt Belege per E-Mail zu schicken, bekommt die Kanzlei einen begrenzten
-            Zugriff auf die Instanz: abgestufte Rechte, ein Zugriffslog, Rückfragen
+            Die Kanzlei soll einen begrenzten Zugriff auf die Instanz bekommen: abgestufte Rechte, ein Zugriffslog, Rückfragen
             direkt am Beleg und Buchungsvorschläge, die der Betrieb freigibt.
           </p>
           <p>
@@ -143,26 +163,6 @@ const stages = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap measure is-centered">
-      <div class="note">
-        <h2 class="note-title">Stand heute</h2>
-        <p>
-          Von der Buchhaltung selbst ist noch nichts gebaut: kein Journal, keine offenen
-          Posten, kein Abschluss. Von der ersten Stufe stehen Angebot,
-          Auftragsbestätigung, Regiebericht, Abschlags- und Schlussrechnung, die
-          Rechnung über mehrere Regieberichte und Storno, als PDF und als E-Rechnung.
-          An einer Abschlagsrechnung wird erfasst, was darauf eingegangen ist, und die
-          Schlussrechnung zieht genau das ab. Lieferschein und Gutschrift fehlen noch.
-          Darunter liegen Nummernkreise mit Festschreibung, das Audit-Log mit der
-          Hashkette und die Regel-Engine mit den gesetzlichen Werten. Der produktive
-          Einsatz beginnt im eigenen Betrieb und erst nach einem bestandenen
-          Parallelbetrieb neben der bisherigen Lösung.
-        </p>
-        <p><a href="/roadmap/">Der Fahrplan im Einzelnen</a></p>
-      </div>
-    </div>
-  </section>
 </Page>
 
 <style>

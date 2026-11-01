@@ -65,12 +65,12 @@ const questions = [
   {
     question: 'Was kostet OpenGewerk Haustechnik?',
     answer:
-      'Nichts an Lizenzgebühren. Die Software steht unter der AGPL-3.0 und läuft auf einem Server, den der Betreiber selbst stellt oder mietet. Es gibt keine Kosten je Nutzer, Arbeitsplatz oder Fläche, und auch die Pflichtenpakete kosten nichts: ein Paket gegen Geld wäre dieselbe Bezahlgrenze an anderer Stelle.',
+      'Keine Lizenzgebühren. Die Software steht unter der AGPL-3.0 und läuft auf einem Server, den der Betreiber selbst stellt oder mietet. Es gibt keine Kosten je Nutzer, Arbeitsplatz oder Fläche, und auch die Pflichtenpakete kosten nichts: ein Paket gegen Geld wäre dieselbe Bezahlgrenze an anderer Stelle.',
   },
   {
     question: 'Kann ich sie heute schon einsetzen?',
     answer:
-      'Ja, als frühe Fassung. Phase 1, der Umfang für den ersten produktiven Einsatz, ist als Fassung 0.1.0 am 15.10.2026 erschienen, die neueste ist 0.2.4 vom 23.10.2026. Installiert wird aus dem Paket der Release-Seite mit einem Befehl, die Abbilder sind signiert. Der Pilotbetrieb hat damit zunächst neben seiner bisherigen Anwendung gearbeitet und diese inzwischen abgeschaltet. Möglich gemacht hat das Phase 2: Was sie bringt, von Störmeldungen über Lager und Fremdfirmen bis zu weiteren Paketen, den Funktionen der DSGVO und signierten PDFs, ist nach einer externen Sicherheitsprüfung mit der Fassung 0.2.0 erschienen.',
+      'Ja, als frühe Fassung. Phase 1, der Umfang für den ersten produktiven Einsatz, ist am 15.10.2026 als Fassung 0.1.0 erschienen. Phase 2 mit Störmeldungen, Lager, Fremdfirmen, weiteren Paketen, den Funktionen der DSGVO und signierten PDFs folgte nach einer externen Sicherheitsprüfung am 21.10.2026 als 0.2.0; die neueste Fassung ist 0.2.5 vom 30.10.2026. Installiert wird aus dem Paket der Release-Seite mit einem Befehl, die Abbilder sind signiert. Der Pilotbetrieb hat zuerst neben seiner bisherigen Anwendung gearbeitet und diese nach Phase 2 abgeschaltet.',
   },
   {
     question: 'Bringt sie einen vollständigen Pflichtenkatalog mit?',
@@ -139,10 +139,8 @@ const schema = [
         keine Lizenz.
       </p>
       <div class="button-row hero-buttons">
-        <a class="button button-primary" href="/haustechnik/stand/">Wie weit sie ist</a>
-        <a class="button button-outline" href={LINKS.haustechnik} rel="noopener">
-          Quelltext auf GitHub
-        </a>
+        <a class="button button-primary" href="/self-hosting/#haustechnik">Installieren</a>
+        <a class="button button-outline" href="/haustechnik/stand/">Wie weit sie ist</a>
       </div>
     </div>
   </section>
@@ -186,7 +184,7 @@ const schema = [
   <section class="section">
     <div class="wrap split">
       <div class="stack">
-        <h2>Die Pflicht ist der Kern, nicht die Checkliste</h2>
+        <h2>Um die Pflicht herum gebaut</h2>
         <p>
           Eine Checkliste sagt, was jemand getan hat. Eine Pflicht sagt, was getan
           werden muss, nach welcher Vorschrift, bis wann, wer dafür einsteht und womit
@@ -195,8 +193,8 @@ const schema = [
         </p>
         <p>
           Ein Rundgang, die Prüfung durch eine Fremdfirma und ein Wartungsauftrag sind
-          drei Wege, dieselbe Pflicht zu erfüllen, und keine drei Module mit je eigener
-          Wahrheit. Wann eine Anlage das nächste Mal dran ist, folgt aus ihren Pflichten
+          drei Wege, dieselbe Pflicht zu erfüllen, und alle drei schreiben in dieselben
+          Daten. Wann eine Anlage das nächste Mal dran ist, folgt aus ihren Pflichten
           und Nachweisen und steht in keinem Feld, das jemand pflegen müsste.
         </p>
         <p>
@@ -227,9 +225,9 @@ const schema = [
         <p>
           Welche Prüfung für welche Anlagenart gilt, in welchem Abstand, durch wen und
           nach welcher Vorschrift, steht in offenen Pflichtenpaketen: mit Fundstelle,
-          Gültigkeitszeitraum und Geltungsbereich, als Daten im Repository und nicht als
-          Code. Eine geänderte Vorschrift ist ein neuer Datensatz mit Gültigkeitsbeginn,
-          kein neues Release.
+          Gültigkeitszeitraum und Geltungsbereich, als Daten im Repository. Eine geänderte
+          Vorschrift ist ein neuer Datensatz mit Gültigkeitsbeginn; eine neue
+          Programmfassung braucht es dafür nicht.
         </p>
         <p>
           Das System schlägt vor, der Betreiber entscheidet. Ob eine Pflicht für eine
@@ -241,8 +239,7 @@ const schema = [
         <p>
           Jeder Eintrag sagt, wann er zuletzt gegen seine Quelle geprüft wurde und ob
           jemand vom Fach ihn abgenommen hat. Ein offener Katalog deckt weniger ab als
-          ein redaktionell gepflegter Regelwerksdienst, und er sagt das, statt es zu
-          verstecken.
+          ein redaktionell gepflegter Regelwerksdienst, und so steht es auch im Katalog.
         </p>
         <p><a href={LINKS.haustechnikPackages} rel="noopener">Die Pakete auf GitHub</a></p>
       </div>
@@ -252,14 +249,14 @@ const schema = [
   <section class="section">
     <div class="wrap split">
       <div class="stack">
-        <h2>Der Rundgang im Keller braucht kein Netz</h2>
+        <h2>Rundgänge im Keller, auch ohne Netz</h2>
         <p>
           Technikzentrale, Keller und Aufzugsschacht haben selten Empfang. Rundgänge und
           Prüfungen laufen deshalb auf dem Telefon vollständig ohne Verbindung:
           Prüfpunkt, Messwert mit Grenzwert, Zählerstand, Foto und Bemerkung, jede
           Eingabe sofort auf dem Gerät gesichert. Mit dem nächsten Empfang gleicht das
-          Gerät ab, und ein Konflikt bekommt einen eigenen Bildschirm, statt still
-          aufgelöst zu werden.
+          Gerät ab, und ein Konflikt landet auf einem eigenen Bildschirm, wo ein
+          Mensch entscheidet.
         </p>
         <p>
           Ein Punkt eines Rundgangs kann eine Pflicht erfüllen. Die monatliche
@@ -315,21 +312,21 @@ const schema = [
           <h3>Zuständigkeitsbereiche</h3>
           <p>
             Wer für die Liegenschaften im Norden zuständig ist, sieht und bearbeitet die
-            im Süden nicht, und sein Gerät hält sie nicht. Das setzt die Datenbank durch
-            und nicht die Oberfläche. Mehrere Betreiber auf einer Instanz sind
+            im Süden nicht, und sein Gerät hält sie nicht. Durchgesetzt wird das in der
+            Datenbank, für jeden Weg, auf dem jemand zugreift. Mehrere Betreiber auf einer Instanz sind
             voneinander getrennt.
           </p>
         </article>
         <article class="card stack">
-          <h3>Vier Rollen zum Start</h3>
+          <h3>Rollen und Rechte</h3>
           <p>
-            Leitung, Technische Leitung, Objektleitung und Haustechnik, jede mit ihren
-            Rechten. Kein Recht ändert oder löscht einen Nachweis, ersetzt eine
+            Vier Rollen sind dabei: Leitung, Technische Leitung, Objektleitung und
+            Haustechnik. Eigene Rollen kann der Betreiber dazu anlegen. Kein Recht ändert oder löscht einen Nachweis, ersetzt eine
             Unterschrift oder überspringt eine Abnahme.
           </p>
         </article>
         <article class="card stack">
-          <h3>Mitbestimmung als Bauprinzip</h3>
+          <h3>Mitbestimmung</h3>
           <p>
             Die Software hält fest, wer einen Nachweis unterschrieben hat, weil das sein
             Zweck ist. Sie wertet nicht aus, wer wie viel oder wie schnell arbeitet, und
@@ -417,16 +414,16 @@ const schema = [
       <p>
         Mandantentrennung in der Datenbank, Anmeldung mit zweitem Faktor, Rechte, der
         Abgleich ohne Netz, das Änderungsprotokoll mit Hashkette und die Engines für
-        Regeln, Fristen und Formulare werden nicht ein zweites Mal gebaut. Sie liegen im
-        Repository der Handwerkersoftware in eigenen Paketen, und die Haustechnik bindet
-        einen festen Stand davon ein. Eine Sicherheitskorrektur dort kommt so auch hier
+        Regeln, Fristen und Formulare kommen aus dem Repository der Handwerkersoftware,
+        wo sie in eigenen Paketen liegen; die Haustechnik bindet einen festen Stand davon
+        ein. Eine Sicherheitskorrektur dort kommt so auch hier
         an.
       </p>
-      <h2>Ehrlich zum Stand</h2>
+      <h2>Wie weit sie ist</h2>
       <p>
         Phase 1, der Umfang für den ersten produktiven Einsatz bei einem Träger mit rund
         zwanzig Liegenschaften, ist fertig und als Fassung 0.1.0 am 15.10.2026
-        erschienen, die neueste ist 0.2.4. Darin stehen Liegenschaften bis zum Raum,
+        erschienen; die neueste ist 0.2.5 vom 30.10.2026. Darin stehen Liegenschaften bis zum Raum,
         Anlagen mit Akte, Import, Etiketten und Zählern, das Pflichtenverzeichnis mit
         Vorschlägen aus den Paketen und seinen Fristen, Prüfungen vor Ort mit
         Unterschrift, Nachweise mit PDF, Mängel, Aufträge im Büro und vor Ort, die

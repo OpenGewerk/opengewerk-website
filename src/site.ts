@@ -58,13 +58,41 @@ export const LINKS = {
   apiSpec: 'https://github.com/opengewerk/opengewerk-api-spec',
 } as const;
 
-// The hint is what a page is about in one line. The navigation has no room for
-// it, the page that catches a wrong address has nothing but room.
+// The main navigation names each thing a visitor might be looking for once:
+// the two applications, running them, the comparison, the state and how to
+// take part. Pages that belong to an application sit under it; `also` lists
+// them so the entry stays marked there.
 export const NAVIGATION = [
   {
     href: '/funktionen/',
-    label: 'Handwerk',
-    hint: 'Die Handwerkersoftware: was gebaut ist, was teilweise steht und was noch fehlt.',
+    label: 'Handwerkersoftware',
+    also: ['/elektro-und-pv/', '/buchhaltung/'],
+  },
+  { href: '/haustechnik/', label: 'Haustechnik', also: [] },
+  { href: '/self-hosting/', label: 'Selbst hosten', also: [] },
+  { href: '/alternativen/', label: 'Vergleich', also: [] },
+  { href: '/roadmap/', label: 'Stand', also: [] },
+  { href: '/mitmachen/', label: 'Mitmachen', also: [] },
+] as const;
+
+// Every page with its one-line hint, in reading order. The footer, the page
+// that catches a wrong address and llms.txt list these; the navigation has no
+// room for the hints.
+export const PAGES = [
+  {
+    href: '/funktionen/',
+    label: 'Handwerkersoftware',
+    hint: 'Für Elektro- und PV-Betriebe: vom Angebot bis zur E-Rechnung, mit dem Stand je Bereich.',
+  },
+  {
+    href: '/elektro-und-pv/',
+    label: 'Elektro und PV',
+    hint: 'Die Anlage bis zum Stromkreis, das Prüfprotokoll und die PV-Struktur.',
+  },
+  {
+    href: '/buchhaltung/',
+    label: 'Buchhaltung',
+    hint: 'Was geplant ist: eigenes Journal, GoBD, E-Rechnung im Ein- und Ausgang.',
   },
   {
     href: '/haustechnik/',
@@ -72,29 +100,24 @@ export const NAVIGATION = [
     hint: 'Für Betreiber von Gebäuden: Anlagen, Pflichten, Rundgänge und Nachweise.',
   },
   {
-    href: '/elektro-und-pv/',
-    label: 'Elektro und PV',
-    hint: 'Anlage bis zum Stromkreis, Prüfprotokolle, Messgeräte-Import.',
-  },
-  {
-    href: '/buchhaltung/',
-    label: 'Buchhaltung',
-    hint: 'Eigenes Journal statt Exportknopf, GoBD, E-Rechnung.',
+    href: '/haustechnik/stand/',
+    label: 'Stand der Haustechnik',
+    hint: 'Was in OpenGewerk Haustechnik gebaut ist und was als Nächstes kommt.',
   },
   {
     href: '/self-hosting/',
     label: 'Selbst hosten',
-    hint: 'Start über Docker, Sicherung, Update, Datenschutz.',
+    hint: 'Start über Docker, Sicherung, Update und was der Server braucht.',
   },
   {
     href: '/alternativen/',
     label: 'Vergleich',
-    hint: 'Gegenüber openHandwerk, plancraft, sevdesk und Odoo.',
+    hint: 'Gegenüber openHandwerk, plancraft, sevdesk, Odoo, Dolibarr und ERPNext.',
   },
   {
     href: '/roadmap/',
-    label: 'Stand',
-    hint: 'Die Phasen der Handwerkersoftware und wo sie gerade steht.',
+    label: 'Stand der Handwerkersoftware',
+    hint: 'Die Phasen und wo die Handwerkersoftware gerade steht.',
   },
   {
     href: '/mitmachen/',
