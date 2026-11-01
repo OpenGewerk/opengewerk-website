@@ -1,0 +1,104 @@
+---
+// Questions that open on click. Native details and summary: a keyboard opens
+// them with Enter or Space, a screen reader announces them as expandable, and
+// without JavaScript they work all the same. The page keeps its FAQPage data.
+interface Props {
+  items: { question: string; answer: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((entry, index) => (
+      <details class="faq-item" open={index === 0}>
+        <summary>
+          <span class="faq-question">{entry.question}</span>
+          <span class="faq-icon" aria-hidden="true" />
+        </summary>
+        <p class="faq-answer">{entry.answer}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    max-width: 52rem;
+    margin-block-start: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding-block: var(--space-s);
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--font-l);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover .faq-question {
+    color: var(--copper-text);
+  }
+
+  summary:focus-visible {
+    outline: 3px solid var(--copper-solid);
+    outline-offset: 4px;
+    border-radius: var(--radius-s);
+  }
+
+  /* A plus that turns into a minus: two bars, the upright one folds away. */
+  .faq-icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: rgb(200 103 31 / 0.12);
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 0.85rem;
+    height: 2px;
+    background: var(--copper-text);
+    translate: -50% -50%;
+  }
+
+  .faq-icon::after {
+    rotate: 90deg;
+  }
+
+  details[open] .faq-icon::after {
+    rotate: 0deg;
+  }
+
+  .faq-answer {
+    margin: 0 0 var(--space-s);
+    max-width: 46rem;
+    color: var(--ink-muted);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-icon::after {
+      transition: rotate 200ms ease;
+    }
+  }
+</style>

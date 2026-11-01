@@ -8,6 +8,7 @@ import offer from '../assets/screens/angebot.png';
 import report from '../assets/screens/baustelle-regiebericht.png';
 import invoice from '../assets/screens/schlussrechnung.png';
 import job from '../assets/screens/auftrag.png';
+import customer from '../assets/screens/kundenakte.png';
 import conflict from '../assets/screens/abgleich-und-konflikt.png';
 import accounts from '../assets/screens/zugaenge.png';
 
@@ -116,25 +117,36 @@ const areas: Area[] = [
   breadcrumb="Handwerkersoftware"
 >
   <section class="section section-dark">
-    <div class="wrap measure stack">
+    <div class="wrap hero">
+      <div>
       <h1>Handwerkersoftware für Elektro- und PV-Betriebe</h1>
       <p class="lead">
-        Kundenverwaltung, Aufträge, Belege und Baustelle in einer Anwendung, auf dem
-        eigenen Server. Gebaut für Betriebe, die Anlagen errichten und prüfen; die
+        CRM &amp; ERP in einer Anwendung: Kundenverwaltung, Aufträge, Belege und
+        Baustelle, auf dem eigenen Server. Gebaut für Betriebe, die Anlagen errichten und prüfen; die
         kaufmännische Seite passt auf jeden Handwerksbetrieb.
       </p>
       <p class="button-row">
         <a class="button button-primary" href="/self-hosting/">Installieren</a>
         <a class="button button-outline" href="#stand">Was schon geht</a>
       </p>
+      </div>
+      <Screenshot
+        src={job}
+        alt="Auftrag im Büro mit der Kette der Belege von Angebot bis Rechnung, Notizen von der Baustelle, Zeiten und Dateien, rechts Kunde, Objekt, Anlage, Monteure und Aufgaben"
+        caption="Ein Auftrag im Büro, mit allem, was an ihm hängt."
+        draft={true}
+        eager={true}
+        hero={true}
+      />
     </div>
   </section>
 
   <section class="section section-tint">
     <div class="wrap">
-      <h2>Ein Auftrag von Anfang bis Ende</h2>
+      <h2>Vom Angebot bis zum Prüfprotokoll</h2>
       <ol class="steps">
         <li class="card stack">
+          <span class="step-number" aria-hidden="true">1</span>
           <h3>Angebot</h3>
           <p>
             Positionen mit Titeln und Textbausteinen, das PDF mit Briefkopf und die
@@ -143,6 +155,7 @@ const areas: Area[] = [
           </p>
         </li>
         <li class="card stack">
+          <span class="step-number" aria-hidden="true">2</span>
           <h3>Baustelle</h3>
           <p>
             Der Monteur sieht nur seine Aufträge, erfasst Zeit und Material im
@@ -151,6 +164,7 @@ const areas: Area[] = [
           </p>
         </li>
         <li class="card stack">
+          <span class="step-number" aria-hidden="true">3</span>
           <h3>Rechnung</h3>
           <p>
             Abschläge, Schlussrechnung und Storno. Unternehmen bekommen eine E-Rechnung
@@ -158,6 +172,7 @@ const areas: Area[] = [
           </p>
         </li>
         <li class="card stack">
+          <span class="step-number" aria-hidden="true">4</span>
           <h3>Prüfprotokoll</h3>
           <p>
             Die Erstprüfung nach VDE 0100-600 je Stromkreis, jeder Messwert mit
@@ -209,9 +224,9 @@ const areas: Area[] = [
         </p>
       </div>
       <Screenshot
-        src={job}
-        alt="Auftrag im Büro mit der Kette der Belege von Angebot bis Rechnung, Notizen von der Baustelle, Zeiten und Dateien, rechts Kunde, Objekt, Anlage, Monteure und Aufgaben"
-        caption="Der Auftrag im Büro, mit allem, was an ihm hängt."
+        src={customer}
+        alt="Kundenakte einer Hausverwaltung im Büro: ihre Objekte mit Anlagen, die laufenden Aufträge, Dateien, rechts Stammdaten, Ansprechpartner und Aufgaben"
+        caption="Ein Kunde mit seinen Objekten, Aufträgen und Dateien."
         draft={true}
       />
     </div>
@@ -343,8 +358,8 @@ const areas: Area[] = [
 
 <style>
   .steps {
+    max-width: none;
     list-style: none;
-    counter-reset: step;
     margin: var(--space-m) 0 0;
     padding: 0;
     display: grid;
@@ -352,14 +367,6 @@ const areas: Area[] = [
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   }
 
-  .steps > li {
-    counter-increment: step;
-  }
-
-  .steps h3::before {
-    content: counter(step) '. ';
-    color: var(--copper-text);
-  }
 
   .shot-trio {
     display: grid;

@@ -82,7 +82,7 @@ export const PAGES = [
   {
     href: '/funktionen/',
     label: 'Handwerkersoftware',
-    hint: 'Für Elektro- und PV-Betriebe: vom Angebot bis zur E-Rechnung, mit dem Stand je Bereich.',
+    hint: 'CRM & ERP für Elektro- und PV-Betriebe: vom Angebot bis zur E-Rechnung, mit dem Stand je Bereich.',
   },
   {
     href: '/elektro-und-pv/',
@@ -97,7 +97,7 @@ export const PAGES = [
   {
     href: '/haustechnik/',
     label: 'Haustechnik',
-    hint: 'Für Betreiber von Gebäuden: Anlagen, Pflichten, Rundgänge und Nachweise.',
+    hint: 'CAFM für Betreiber von Gebäuden: Anlagen, Pflichten, Rundgänge und Nachweise.',
   },
   {
     href: '/haustechnik/stand/',

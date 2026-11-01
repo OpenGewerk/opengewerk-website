@@ -1,19 +1,35 @@
 ---
-// One dialog per page shows any screenshot at full size. Every screenshot is a
-// link to its full file, so without JavaScript the browser opens that file and
+// One dialog per page shows any screenshot large. Every screenshot is a link
+// to its full file, so without JavaScript the browser opens that file and
 // nothing is lost; this script only turns the click into the dialog.
+//
+// The picture opens fitted to the window, whatever its shape, so a phone
+// screen and an office screen both show whole. From there it zooms in steps,
+// with the buttons, the keys + - 0 or a click on the picture.
 ---
 
 <dialog class="lightbox" aria-labelledby="lightbox-caption">
   <div class="lightbox-bar">
     <p id="lightbox-caption" class="lightbox-caption"></p>
-    <button type="button" class="button button-primary lightbox-close" autofocus>
-      Schließen
-    </button>
+    <div class="lightbox-tools">
+      <button type="button" class="lightbox-tool" data-zoom-step="-1" aria-label="Verkleinern">
+        <span aria-hidden="true">−</span>
+      </button>
+      <button type="button" class="lightbox-tool lightbox-level" data-zoom-fit aria-label="Einpassen">
+        100&nbsp;%
+      </button>
+      <button type="button" class="lightbox-tool" data-zoom-step="1" aria-label="Vergrößern">
+        <span aria-hidden="true">+</span>
+      </button>
+      <button type="button" class="button button-primary lightbox-close" autofocus>
+        Schließen
+      </button>
+    </div>
   </div>
   <div class="lightbox-stage">
     <img class="lightbox-image" alt="" />
   </div>
+  <p class="sr-only" aria-live="polite" data-zoom-status></p>
 </dialog>
 
 <script is:inline>
@@ -21,9 +37,47 @@
     const dialog = document.querySelector('.lightbox');
     if (!dialog || typeof dialog.showModal !== 'function') return;
 
+    const stage = dialog.querySelector('.lightbox-stage');
     const image = dialog.querySelector('.lightbox-image');
     const caption = dialog.querySelector('.lightbox-caption');
+    const level = dialog.querySelector('.lightbox-level');
+    const status = dialog.querySelector('[data-zoom-status]');
+    const steps = [1, 1.5, 2, 3, 4];
+    let step = 0;
     let opener = null;
+
+    // The fitted width: the largest the picture can be while all of it shows.
+    const fittedWidth = () => {
+      const room = stage.getBoundingClientRect();
+      const styles = getComputedStyle(stage);
+      const width = room.width - parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight);
+      const height = room.height - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom);
+      const ratio = image.naturalWidth / image.naturalHeight || 1;
+      return Math.max(1, Math.min(width, height * ratio, image.naturalWidth || width));
+    };
+
+    const apply = (keepCentre) => {
+      const before = keepCentre && {
+        x: (stage.scrollLeft + stage.clientWidth / 2) / stage.scrollWidth,
+        y: (stage.scrollTop + stage.clientHeight / 2) / stage.scrollHeight,
+      };
+      const zoom = steps[step];
+      image.style.width = `${Math.round(fittedWidth() * zoom)}px`;
+      dialog.toggleAttribute('data-zoomed', step > 0);
+      level.textContent = `${Math.round(zoom * 100)} %`;
+      dialog.querySelector('[data-zoom-step="-1"]').disabled = step === 0;
+      dialog.querySelector('[data-zoom-step="1"]').disabled = step === steps.length - 1;
+      if (before) {
+        stage.scrollLeft = before.x * stage.scrollWidth - stage.clientWidth / 2;
+        stage.scrollTop = before.y * stage.scrollHeight - stage.clientHeight / 2;
+      }
+    };
+
+    const zoomTo = (next) => {
+      step = Math.max(0, Math.min(steps.length - 1, next));
+      apply(true);
+      status.textContent = `Vergrößerung ${Math.round(steps[step] * 100)} Prozent`;
+    };
 
     document.addEventListener('click', (event) => {
       const link = event.target.closest('a[data-zoom]');
@@ -34,31 +88,50 @@
       const shown = link.querySelector('img');
       const figure = link.closest('figure');
       opener = link;
-      image.src = link.href;
+      step = 0;
       image.alt = shown ? shown.alt : '';
-      image.width = Number(link.dataset.width);
-      image.height = Number(link.dataset.height);
+      image.style.width = '';
       // The caption holds the badge and the text as separate spans; joined
       // without a gap they would read as one word.
       const parts = figure?.querySelectorAll('figcaption > *') ?? [];
       caption.textContent = Array.from(parts, (part) => part.textContent.trim()).join(': ');
+      image.onload = () => apply(false);
+      image.src = link.href;
       dialog.showModal();
+      if (image.complete) apply(false);
+    });
+
+    dialog.querySelectorAll('[data-zoom-step]').forEach((button) => {
+      button.addEventListener('click', () => zoomTo(step + Number(button.dataset.zoomStep)));
+    });
+    level.addEventListener('click', () => zoomTo(0));
+    image.addEventListener('click', () => zoomTo(step === 0 ? 2 : 0));
+
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === '+' || event.key === '=') zoomTo(step + 1);
+      else if (event.key === '-') zoomTo(step - 1);
+      else if (event.key === '0') zoomTo(0);
+      else return;
+      event.preventDefault();
     });
 
     dialog.querySelector('.lightbox-close').addEventListener('click', () => dialog.close());
 
-    // A click on the dark area around the picture closes it, a click on the
-    // picture itself does not: someone reading a detail should not lose it.
+    // A click on the dark area around the picture closes it.
     dialog.addEventListener('click', (event) => {
-      if (event.target === dialog || event.target.classList.contains('lightbox-stage')) {
-        dialog.close();
-      }
+      if (event.target === dialog || event.target === stage) dialog.close();
+    });
+
+    // A turned phone or a resized window fits the picture again at its step.
+    window.addEventListener('resize', () => {
+      if (dialog.open) apply(false);
     });
 
     // Escape closes the dialog natively. Either way the focus goes back to the
     // picture that was opened, so a keyboard user carries on where they were.
     dialog.addEventListener('close', () => {
       image.removeAttribute('src');
+      image.onload = null;
       opener?.focus();
       opener = null;
     });
@@ -89,38 +162,89 @@
 
   .lightbox-bar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-s);
+    gap: var(--space-xs) var(--space-s);
     padding: var(--space-xs) var(--space-s);
     border-bottom: 1px solid rgb(244 241 234 / 0.15);
   }
 
   .lightbox-caption {
     margin: 0;
+    flex: 1 1 16rem;
     font-size: var(--font-s);
     color: var(--ink-muted-on-dark);
   }
 
-  .lightbox-close {
-    flex: 0 0 auto;
+  .lightbox-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-inline-start: auto;
   }
 
-  /* Tall phone screens scroll inside the stage instead of shrinking until
-   * nothing is readable; wide office screens fit the width. */
+  .lightbox-tool {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 0.6rem;
+    border: 1px solid rgb(244 241 234 / 0.3);
+    border-radius: var(--radius-s);
+    background: transparent;
+    color: var(--ink-on-dark);
+    font: inherit;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+
+  .lightbox-tool > span {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .lightbox-tool:hover:not(:disabled) {
+    background: rgb(244 241 234 / 0.1);
+  }
+
+  .lightbox-tool:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .lightbox-tool:focus-visible,
+  .lightbox-close:focus-visible {
+    outline: 3px solid var(--copper-light);
+    outline-offset: 2px;
+  }
+
+  /* The stage takes all the height that is left. Fitted, the picture sits in
+   * its middle; zoomed, the stage scrolls in both directions. */
   .lightbox-stage {
     flex: 1 1 auto;
+    min-height: 0;
     overflow: auto;
     display: grid;
-    place-items: start center;
+    place-items: center;
     padding: var(--space-s);
   }
 
+  .lightbox[data-zoomed] .lightbox-stage {
+    place-items: start;
+  }
+
   .lightbox-image {
-    max-width: 100%;
+    display: block;
+    max-width: none;
     height: auto;
     border-radius: var(--radius-s);
     background: var(--surface);
+    cursor: zoom-in;
+  }
+
+  .lightbox[data-zoomed] .lightbox-image {
+    cursor: zoom-out;
+    margin: auto;
   }
 
   @media (prefers-reduced-motion: no-preference) {

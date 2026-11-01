@@ -90,8 +90,8 @@
     --font-m: clamp(1rem, 0.96rem + 0.2vw, 1.1875rem);
     --font-l: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
     --font-h3: clamp(1.25rem, 1.12rem + 0.6vw, 1.625rem);
-    --font-h2: clamp(1.5rem, 1.25rem + 1.2vw, 2.375rem);
-    --font-h1: clamp(2rem, 1.45rem + 2.6vw, 3.5rem);
+    --font-h2: clamp(1.5rem, 1.1rem + 1.25vw, 2.875rem);
+    --font-h1: clamp(2rem, 1.2rem + 2.4vw, 4.25rem);
 
     --space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
     --space-s: clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem);
@@ -107,7 +107,7 @@
      * three different x positions as the reader scrolled. Nothing about that
      * reads as a decision. Running text is held short by capping the text
      * itself, not by centring a narrower box inside the page. */
-    --width-page: 80rem;
+    --width-page: max(80rem, min(84vw, 112rem));
     --measure: 42rem;
 
     --radius: 10px;
@@ -269,9 +269,16 @@
   .wrap > p,
   .wrap > ul,
   .wrap > ol,
-  .wrap > :is(h1, h2, h3, h4),
   .lead {
     max-width: var(--measure);
+  }
+
+  /* Headings are not running text. Held to the measure of a paragraph they
+   * broke after half the line at the larger sizes, with the room right there;
+   * they take the width of their column and wrap only where it ends. */
+  .wrap > :is(h1, h2, h3, h4),
+  .measure > :is(h1, h2, h3, h4) {
+    max-width: none;
   }
 
   /* Questions and answers in columns. One column of short blocks leaves the
@@ -296,16 +303,21 @@
   }
 
   .section {
-    padding-block: var(--space-xl);
+    padding-block: clamp(2.5rem, 1.6rem + 3.2vw, 4.75rem);
   }
 
   .section-dark {
-    background: var(--slate);
+    background:
+      radial-gradient(56rem 28rem at 88% -12%, rgb(200 103 31 / 0.3), transparent 62%),
+      radial-gradient(40rem 22rem at -8% 112%, rgb(200 103 31 / 0.14), transparent 60%),
+      linear-gradient(rgb(244 241 234 / 0.035) 1px, transparent 1px) 0 0 / 2.5rem 2.5rem,
+      linear-gradient(90deg, rgb(244 241 234 / 0.035) 1px, transparent 1px) 0 0 / 2.5rem 2.5rem,
+      var(--slate);
     color: var(--ink-on-dark);
   }
 
   .section-tint {
-    background: var(--surface-sunken);
+    background: var(--ivory);
   }
 
   .section-dark a {
@@ -400,6 +412,10 @@
 
 @layer components {
   .button {
+    transition:
+      background-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 120ms ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -421,6 +437,11 @@
   .button-primary:hover {
     background: var(--copper-text);
     color: #ffffff;
+    box-shadow: 0 6px 18px rgb(158 78 18 / 0.32);
+  }
+
+  .button:active {
+    transform: translateY(1px);
   }
 
   .button-outline {
@@ -438,9 +459,10 @@
 
   .card {
     background: var(--surface);
-    border: 1px solid var(--line);
+    border: 1px solid rgb(27 36 48 / 0.07);
     border-radius: var(--radius);
     padding: var(--space-m);
+    box-shadow: 0 1px 2px rgb(27 36 48 / 0.05), 0 10px 28px -12px rgb(27 36 48 / 0.18);
   }
 
   .section-dark .card {
@@ -633,6 +655,121 @@
     padding: 0.6em 1em;
     border-radius: var(--radius-s);
   }
+  /* Hero with the product beside the words, as every comparable site does: a
+   * visitor sees what the software looks like before reading a paragraph. */
+  .hero {
+    display: grid;
+    gap: var(--space-l);
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr));
+  }
+
+  .hero .lead {
+    margin-block-start: var(--space-s);
+  }
+
+  .hero .button-row {
+    margin-block-start: var(--space-m);
+  }
+
+  /* Facts with a number, all of them checkable on the pages they lead to. */
+  .stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  }
+
+  .stats li {
+    border-inline-start: 3px solid var(--copper);
+    padding-inline-start: var(--space-s);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: var(--font-h2);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--slate);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    display: block;
+    margin-block-start: 0.25rem;
+    color: var(--ink-muted);
+    font-size: var(--font-s);
+  }
+
+  /* An icon on a copper tile in front of a card heading. */
+  .icon-tile {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    background: rgb(200 103 31 / 0.12);
+    color: var(--copper-text);
+  }
+
+  .icon-tile svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* A card that leads somewhere: an accent strip on top and a button pinned to
+   * the bottom, so both buttons of a pair sit on one line. */
+  .card-feature {
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--copper);
+  }
+
+  /* A badge in a card states a whole sentence; on a narrow phone it wraps
+   * instead of pushing the card wider than the screen. */
+  .card .badge {
+    white-space: normal;
+  }
+
+  .card-feature.is-slate {
+    border-top-color: var(--slate);
+  }
+
+  .card-feature > .button-row:last-child {
+    margin-top: auto;
+    padding-top: var(--space-s);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card-feature,
+    .card-hover {
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+
+    .card-feature:hover,
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 1px 2px rgb(27 36 48 / 0.06), 0 22px 40px -16px rgb(27 36 48 / 0.28);
+    }
+  }
+
+  /* Numbered steps: the number sits in a copper disc. */
+  .step-number {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: var(--copper-solid);
+    color: #ffffff;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
 }
 
 @layer utilities {

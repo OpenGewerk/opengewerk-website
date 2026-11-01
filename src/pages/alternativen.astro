@@ -1,5 +1,6 @@
 ---
 import Page from '../layouts/Page.astro';
+import Faq from '../components/Faq.astro';
 import { LINKS } from '../site';
 
 const comparison = [
@@ -177,16 +178,7 @@ const schema = [
   <section class="section section-tint">
     <div class="wrap">
       <h2>Häufige Fragen zum Vergleich</h2>
-      <div class="qa-grid">
-        {
-          questions.map((entry) => (
-            <div>
-              <h3>{entry.question}</h3>
-              <p>{entry.answer}</p>
-            </div>
-          ))
-        }
-      </div>
+      <Faq items={questions} />
     </div>
   </section>
 

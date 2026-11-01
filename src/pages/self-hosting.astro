@@ -1,5 +1,6 @@
 ---
 import Page from '../layouts/Page.astro';
+import Faq from '../components/Faq.astro';
 import { LINKS } from '../site';
 
 // Where each application explains its reverse proxy at length.
@@ -298,16 +299,7 @@ const schema = [
   <section class="section">
     <div class="wrap">
       <h2>Häufige Fragen zum Betrieb</h2>
-      <div class="qa-grid">
-        {
-          questions.map((entry) => (
-            <div>
-              <h3>{entry.question}</h3>
-              <p>{entry.answer}</p>
-            </div>
-          ))
-        }
-      </div>
+      <Faq items={questions} />
       <p class="button-row space-above">
         <a class="button button-primary" href={LINKS.repository} rel="noopener">
           Anleitung im Repository
