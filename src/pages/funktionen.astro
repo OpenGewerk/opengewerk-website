@@ -4,6 +4,9 @@ import Screenshot from '../components/Screenshot.astro';
 import AreaTable, { type Area } from '../components/AreaTable.astro';
 import { LINKS } from '../site';
 
+import offer from '../assets/screens/angebot.png';
+import report from '../assets/screens/baustelle-regiebericht.png';
+import invoice from '../assets/screens/schlussrechnung.png';
 import job from '../assets/screens/auftrag.png';
 import conflict from '../assets/screens/abgleich-und-konflikt.png';
 import accounts from '../assets/screens/zugaenge.png';
@@ -12,32 +15,12 @@ const areas: Area[] = [
   {
     title: 'Kunde, Objekt, Anlage',
     state: 'done',
-    detail: 'Kundenakte mit steuerlichen Angaben und Ansprechpartnern, dazu die Objekte des Kunden und die Anlagen im Objekt. Diese Kette ist der Kern des Datenmodells und nicht eine Ansicht darauf.',
+    detail: 'Kundenakte mit steuerlichen Angaben und Ansprechpartnern, dazu die Objekte des Kunden und die Anlagen im Objekt. Auf dieser Kette baut das ganze Datenmodell auf.',
   },
   {
     title: 'Aufträge',
     state: 'done',
     detail: 'Aufträge mit eigener Nummer, den Monteuren, die darauf eingeteilt sind, und Folgeaufträgen. Auf der Baustelle schließt der Monteur seinen Auftrag ab und schreibt Notizen daran.',
-  },
-  {
-    title: 'Anmeldung und Zugänge',
-    state: 'done',
-    detail: 'Anmeldung mit Passwort und zweitem Faktor, Wiederherstellungscodes, Passwort ändern und per Link zurückholen, Rollen vom Inhaber bis zum Monteur, Einladung über einen Einmal-Link, Geräteliste mit Widerruf, Passkeys mit Bestätigung durch Passwort und zweiten Faktor. Eine Instanz trägt mehrere Betriebe, gewechselt wird in der Kopfleiste ohne neue Anmeldung.',
-  },
-  {
-    title: 'Offline und Abgleich',
-    state: 'done',
-    detail: 'Die Baustellen-App hält ihre Daten auf dem Gerät, schickt Änderungen nach und zeigt einen Konflikt auf einem eigenen Bildschirm, statt still zu entscheiden. Das Gerät eines Monteurs hält nur die Aufträge, auf denen er eingeteilt ist.',
-  },
-  {
-    title: 'Nummernkreise und Festschreibung',
-    state: 'done',
-    detail: 'Lückenlose Belegnummern je Kreis und Jahr. Ein festgeschriebener Beleg ändert sich nicht mehr, er wird storniert. Das ist GoBD als Bauprinzip.',
-  },
-  {
-    title: 'Audit-Log',
-    state: 'done',
-    detail: 'Jede Änderung auf Feldebene, mit einer Hashkette darüber. Die Sicherung hält den Kopf der Kette fest, ein Prüflauf hält ihn gegen die laufende Datenbank. Der Inhaber sieht das Protokoll im Büro.',
   },
   {
     title: 'Angebot und Auftragsbestätigung',
@@ -47,12 +30,12 @@ const areas: Area[] = [
   {
     title: 'Regiebericht',
     state: 'done',
-    detail: 'Leistung, Arbeitszeit und Material auf der Baustelle erfassen, auch ohne Netz, dazu Felder, die der Betrieb selbst festlegt, etwa Wetter oder Anfahrt, und die Unterschrift des Kunden auf dem Gerät. Unterschrieben ist genau die Seite, die er gesehen hat, und danach ändert sich der Bericht nicht mehr.',
+    detail: 'Leistung, Arbeitszeit und Material auf der Baustelle erfassen, auch ohne Netz, dazu Felder, die der Betrieb selbst festlegt, etwa Wetter oder Anfahrt, und die Unterschrift des Kunden auf dem Gerät. Unterschrieben ist genau die Seite, die er gesehen hat; danach ändert sich der Bericht nicht mehr.',
   },
   {
     title: 'Rechnung und E-Rechnung',
     state: 'done',
-    detail: 'Schlussrechnung, kumulierte Abschlagsrechnung und Storno, eine Rechnung über mehrere Regieberichte, an ein Unternehmen im Inland als E-Rechnung, als XRechnung oder ZUGFeRD-PDF, und auf Wunsch direkt per E-Mail an den Kunden. Die Schlussrechnung zieht ab, was auf die Abschläge eingegangen ist. Noch nicht dabei sind Teilrechnung, Gutschrift, Zahlungsbedingungen je Kunde und Skonto und der Empfang von E-Rechnungen.',
+    detail: 'Schlussrechnung, kumulierte Abschlagsrechnung und Storno, eine Rechnung über mehrere Regieberichte, an ein Unternehmen im Inland als E-Rechnung (XRechnung oder ZUGFeRD-PDF) und auf Wunsch direkt per E-Mail an den Kunden. Die Schlussrechnung zieht ab, was auf die Abschläge eingegangen ist. Noch nicht dabei sind Teilrechnung, Gutschrift, Zahlungsbedingungen je Kunde und Skonto und der Empfang von E-Rechnungen.',
   },
   {
     title: 'Zeiterfassung',
@@ -62,22 +45,12 @@ const areas: Area[] = [
   {
     title: 'Dokumentenablage',
     state: 'done',
-    detail: 'Dateien und Fotos an Kunde, Objekt, Anlage und Auftrag. Fotos werden auf dem Gerät verkleinert und warten ohne Netz, bis sie hochgehen, und eine neue Fassung legt sich über die alte, statt sie zu ersetzen.',
+    detail: 'Dateien und Fotos an Kunde, Objekt, Anlage und Auftrag. Fotos werden auf dem Gerät verkleinert und warten ohne Netz, bis sie hochgehen. Eine neue Fassung legt sich über die alte, und die alte bleibt erhalten.',
   },
   {
     title: 'Aufgaben, E-Mail und Push',
     state: 'done',
     detail: 'Aufgaben mit Fälligkeit und verantwortlicher Person an Kunde, Objekt oder Auftrag, mit einer Erinnerung am Morgen. Belege, unterschriebene Regieberichte und Einladungen gehen per E-Mail hinaus, über den Mailserver, den der Betrieb im Büro einträgt. Push-Nachrichten erreichen Büro und Baustelle auch dann, wenn OpenGewerk gerade nicht offen ist.',
-  },
-  {
-    title: 'Fristen',
-    state: 'partial',
-    detail: 'Eine Fristen-Engine für alle Bereiche: eine Frist entsteht von selbst, erinnert mit eigenem Vorlauf die zuständige Person und entfällt, wenn sich ihr Anlass erledigt hat. Die erste Art ist die Wiedervorlage eines Angebots, die Fristen der Wiederholungsprüfungen folgen mit Phase 2.',
-  },
-  {
-    title: 'Tags und Zugang zum Objekt',
-    state: 'done',
-    detail: 'Tags an Kunden und Objekten, etwa nach Gewerk, Region oder Kundentyp, und der Zugang zum Objekt mit Schlüsseln und Codes, die versiegelt gespeichert werden.',
   },
   {
     title: 'Anlagenstruktur',
@@ -90,161 +63,316 @@ const areas: Area[] = [
     detail: 'Die Formular-Engine und mit ihr das erste Protokoll, die Erstprüfung nach DIN VDE 0100-600: je Stromkreis gemessen, jeder Wert mit seinem Grenzwert und dessen Fundstelle, vom Prüfer auf dem Gerät unterschrieben und als PDF. E-Check, VDE 0105-100, DGUV V3 und VDE-AR-N 4105 folgen mit Phase 2.',
   },
   {
-    title: 'Installation und Sicherung',
-    state: 'done',
-    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Die neueste Fassung ist 0.6.2 vom 23.10.2026.',
-  },
-  {
-    title: 'Buchhaltung',
-    state: 'planned',
-    detail: 'Journal, offene Posten, Mahnwesen, EÜR, Umsatzsteuer-Voranmeldung, Anlagenbuchhaltung, Bilanz und GuV.',
+    title: 'Fristen',
+    state: 'partial',
+    detail: 'Eine Fristen-Engine für alle Bereiche: Eine Frist entsteht von selbst, erinnert mit eigenem Vorlauf die zuständige Person und entfällt, wenn sich ihr Anlass erledigt hat. Die erste Art ist die Wiedervorlage eines Angebots; die Fristen der Wiederholungsprüfungen folgen mit Phase 2.',
   },
   {
     title: 'Plantafel und Material',
     state: 'partial',
     detail: 'Gebaut sind Artikel und Lieferanten mit der Preiseinheit des Großhandels; der Import aus DATANORM 4 steht auf dem Server und bekommt noch einen Bildschirm. Disposition mit Drag and Drop, Lager und Fahrzeuglager und IDS-Connect fehlen noch.',
   },
+  {
+    title: 'Tags und Zugang zum Objekt',
+    state: 'done',
+    detail: 'Tags an Kunden und Objekten, etwa nach Gewerk, Region oder Kundentyp, und der Zugang zum Objekt mit Schlüsseln und Codes, die versiegelt gespeichert werden.',
+  },
+  {
+    title: 'Anmeldung und Zugänge',
+    state: 'done',
+    detail: 'Anmeldung mit Passwort und zweitem Faktor, Wiederherstellungscodes, Passwort ändern und per Link zurückholen, Rollen vom Inhaber bis zum Monteur, Einladung über einen Einmal-Link, Geräteliste mit Widerruf, Passkeys mit Bestätigung durch Passwort und zweiten Faktor. Eine neue E-Mail-Adresse gilt erst, wenn der Link in einer Mail an sie geöffnet ist. Eine Instanz trägt mehrere Betriebe, gewechselt wird in der Kopfleiste ohne neue Anmeldung.',
+  },
+  {
+    title: 'Offline und Abgleich',
+    state: 'done',
+    detail: 'Die Baustellen-App hält ihre Daten auf dem Gerät, schickt Änderungen nach und zeigt einen Konflikt auf einem eigenen Bildschirm, wo ein Mensch entscheidet. Das Gerät eines Monteurs hält nur die Aufträge, auf denen er eingeteilt ist.',
+  },
+  {
+    title: 'Nummernkreise und Festschreibung',
+    state: 'done',
+    detail: 'Lückenlose Belegnummern je Kreis und Jahr. Ein festgeschriebener Beleg ändert sich nicht mehr, er wird storniert, so wie es die GoBD verlangen.',
+  },
+  {
+    title: 'Audit-Log',
+    state: 'done',
+    detail: 'Jede Änderung auf Feldebene, mit einer Hashkette darüber. Die Sicherung hält den Kopf der Kette fest, ein Prüflauf hält ihn gegen die laufende Datenbank. Der Inhaber sieht das Protokoll im Büro.',
+  },
+  {
+    title: 'Installation und Sicherung',
+    state: 'done',
+    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Die neueste Fassung ist 0.6.5 vom 30.10.2026.',
+  },
+  {
+    title: 'Buchhaltung',
+    state: 'planned',
+    detail: 'Journal, offene Posten, Mahnwesen, EÜR, Umsatzsteuer-Voranmeldung, Anlagenbuchhaltung, Bilanz und GuV.',
+  },
 ];
 ---
 
 <Page
-  title="Funktionen der Handwerkersoftware OpenGewerk: CRM, Aufträge, Belege, Baustelle"
-  description="Was die Handwerkersoftware OpenGewerk heute kann und was noch fehlt: Kunde, Objekt und Anlage, Aufträge, Angebot, Regiebericht, Rechnung und E-Rechnung, Zeiterfassung, Prüfprotokoll, Offline-Abgleich und Rollen."
-  breadcrumb="Funktionen"
+  title="Handwerkersoftware für Elektro und PV: Funktionen von OpenGewerk"
+  description="Open-Source-Handwerkersoftware mit CRM und ERP in einem: Kunde, Objekt und Anlage, Angebot, Regiebericht, Rechnung und E-Rechnung, Prüfprotokoll, Baustellen-App ohne Netz. Mit dem Stand je Bereich."
+  breadcrumb="Handwerkersoftware"
 >
   <section class="section section-dark">
     <div class="wrap measure stack">
-      <h1>Was die Handwerkersoftware kann, und was noch nicht</h1>
+      <h1>Handwerkersoftware für Elektro- und PV-Betriebe</h1>
       <p class="lead">
-        Diese Seite führt beides auf. Eine Liste, die nur die Absicht nennt, hilft
-        niemandem bei der Entscheidung, ob die Software für den eigenen Betrieb schon
-        in Frage kommt.
+        Kundenverwaltung, Aufträge, Belege und Baustelle in einer Anwendung, auf dem
+        eigenen Server. Gebaut für Betriebe, die Anlagen errichten und prüfen; die
+        kaufmännische Seite passt auf jeden Handwerksbetrieb.
+      </p>
+      <p class="button-row">
+        <a class="button button-primary" href="/self-hosting/">Installieren</a>
+        <a class="button button-outline" href="#stand">Was schon geht</a>
       </p>
     </div>
   </section>
 
   <section class="section section-tint">
-    <div class="wrap stack-loose">
-      <h2>Der Stand je Bereich</h2>
-      <AreaTable
-        areas={areas}
-        caption="Funktionsbereiche der Handwerkersoftware mit ihrem Entwicklungsstand"
-      />
-      <p class="muted">
-        Stand dieser Seite: Oktober 2026, Fassung 0.6.2. Der Fahrplan dahinter steht unter{' '}
-        <a href="/roadmap/">Stand und Fahrplan</a>, die Arbeit selbst liegt offen als{' '}
-        <a href={LINKS.repository + '/issues'} rel="noopener">Issues auf GitHub</a>.
-      </p>
+    <div class="wrap">
+      <h2>Ein Auftrag von Anfang bis Ende</h2>
+      <ol class="steps">
+        <li class="card stack">
+          <h3>Angebot</h3>
+          <p>
+            Positionen mit Titeln und Textbausteinen, das PDF mit Briefkopf und die
+            Belehrungen für Verbraucher hängen von selbst dran. Aus dem Angebot wird die
+            Auftragsbestätigung.
+          </p>
+        </li>
+        <li class="card stack">
+          <h3>Baustelle</h3>
+          <p>
+            Der Monteur sieht nur seine Aufträge, erfasst Zeit und Material im
+            Regiebericht und lässt den Kunden auf dem Gerät unterschreiben, auch ohne
+            Netz.
+          </p>
+        </li>
+        <li class="card stack">
+          <h3>Rechnung</h3>
+          <p>
+            Abschläge, Schlussrechnung und Storno. Unternehmen bekommen eine E-Rechnung
+            als XRechnung oder ZUGFeRD-PDF, auf Wunsch gleich per E-Mail.
+          </p>
+        </li>
+        <li class="card stack">
+          <h3>Prüfprotokoll</h3>
+          <p>
+            Die Erstprüfung nach VDE 0100-600 je Stromkreis, jeder Messwert mit
+            Grenzwert und Fundstelle, unterschrieben auf dem Gerät.
+          </p>
+        </li>
+      </ol>
     </div>
   </section>
 
   <section class="section">
+    <div class="wrap shot-trio">
+      <Screenshot
+        src={offer}
+        alt="Angebot im Entwurf: Kopf mit Betreff, Datum, Umsatzsteuer und Zahlungsziel, Texte über und unter den Positionen, zwei Titel mit Positionen und Summen, darunter die Belehrungen für Verbraucher"
+        caption="Das Angebot im Büro, mit Positionen und Belehrungen."
+        draft={true}
+      />
+      <Screenshot
+        src={report}
+        alt="Regiebericht auf dem Telefon ohne Netz: Arbeitszeit 3:30 Stunden, drei Posten Material und ein Feld für die Unterschrift des Kunden"
+        caption="Der Regiebericht auf der Baustelle, gespeichert auch ohne Netz."
+        draft={true}
+      />
+      <Screenshot
+        src={invoice}
+        alt="Festgeschriebene Schlussrechnung mit Positionen, abgezogenen Abschlagsrechnungen und Rechnungsbetrag, rechts die E-Rechnung als ZUGFeRD-PDF und XRechnung, Zahlungseingänge und der Versand per E-Mail"
+        caption="Die Schlussrechnung zieht die Abschläge ab und geht als E-Rechnung hinaus."
+        draft={true}
+      />
+    </div>
+  </section>
+
+  <section class="section section-tint">
     <div class="wrap split">
       <div class="stack">
         <h2>Kunde, Objekt, Anlage, Auftrag</h2>
         <p>
-          Die meisten Systeme sind kundenzentriert: alles hängt am Kunden, und das
-          Gebäude ist ein Adressfeld. Im Handwerk trägt das nicht weit. Eine
-          Hausverwaltung hat vierzig Objekte, in jedem Objekt stehen Anlagen, und die
-          Anlage überlebt den Mieterwechsel und oft genug auch den Eigentümer.
+          In vielen Programmen hängt alles am Kunden, und das Gebäude ist ein
+          Adressfeld. Im Handwerk reicht das nicht weit: Eine Hausverwaltung hat vierzig
+          Objekte, in jedem stehen Anlagen, und die Anlage überlebt den Mieterwechsel und
+          oft auch den Eigentümer.
         </p>
         <p>
-          Deshalb sind Objekt und Anlage eigene Gegenstände mit eigener Akte. Jeder
-          Auftrag, jede Messung und jedes Protokoll hängt an der Anlage, um die es
-          geht. Wer in fünf Jahren wissen will, was an diesem Zählerschrank gemacht
-          wurde, findet es an der Anlage und nicht in der Auftragshistorie eines
-          Kunden, den es nicht mehr gibt.
+          Objekt und Anlage haben deshalb eine eigene Akte. Jeder Auftrag, jede Messung
+          und jedes Protokoll hängt an der Anlage, um die es geht. Wer in fünf Jahren
+          wissen will, was an diesem Zählerschrank gemacht wurde, findet es dort, auch
+          wenn es den Kunden von damals nicht mehr gibt.
         </p>
       </div>
       <Screenshot
         src={job}
-        alt="Auftrag im Büro mit der Kette der Belege von Angebot bis Rechnung, den Belegen mit ihrem Status, Notizen von der Baustelle, Zeiten, Dateien und rechts Kunde, Objekt, Anlage, Monteuren und Aufgaben"
+        alt="Auftrag im Büro mit der Kette der Belege von Angebot bis Rechnung, Notizen von der Baustelle, Zeiten und Dateien, rechts Kunde, Objekt, Anlage, Monteure und Aufgaben"
         caption="Der Auftrag im Büro, mit allem, was an ihm hängt."
         draft={true}
       />
     </div>
   </section>
 
-  <section class="section section-tint">
+  <section class="section">
     <div class="wrap split">
       <Screenshot
         src={conflict}
         alt="Abgleich im Büro mit einer abgelehnten Änderung und einem Konflikt an einer Anlage, je Feld der Wert auf dem Gerät, im System und der, den das Gerät zuletzt sah, darunter die beiden Entscheidungen"
-        caption="Ein Konflikt bekommt einen Bildschirm und eine Entscheidung, keine stille Regel."
+        caption="Ein Konflikt bekommt einen eigenen Bildschirm, und ein Mensch entscheidet."
         draft={true}
       />
       <div class="stack">
-        <h2>Die Baustelle hat kein Netz, die App rechnet trotzdem</h2>
+        <h2>Auf der Baustelle ohne Netz</h2>
         <p>
-          Die Regeln, nach denen das Gerät entscheidet, liegen nicht im Server,
-          sondern in einer Schicht, die beide Seiten benutzen. Das Telefon rechnet
-          also dieselbe Antwort aus wie der Server, bevor es überhaupt etwas schickt.
-          Eine Änderung, die abgelehnt würde, fällt damit auf dem Gerät auf und nicht
-          erst zwei Stunden später.
+          Das Telefon rechnet mit denselben Regeln wie der Server, bevor es etwas
+          schickt. Eine Änderung, die der Server ablehnen würde, fällt so schon auf dem
+          Gerät auf und nicht erst zwei Stunden später im Büro.
         </p>
         <p>
-          Widersprechen sich zwei Änderungen wirklich, entscheidet ein Mensch. Der
-          Konfliktbildschirm zeigt den Stand auf dem Gerät, den Stand auf dem Server
-          und was daraus wird. Die Entscheidung läuft anschließend durch denselben
-          Weg wie jede andere Änderung und landet im selben Audit-Log.
+          Widersprechen sich zwei Änderungen, zeigt der Konfliktbildschirm den Stand auf
+          dem Gerät, den Stand auf dem Server und was daraus wird. Die Entscheidung läuft
+          danach denselben Weg wie jede andere Änderung und landet im selben Audit-Log.
         </p>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap split">
-      <div class="stack">
-        <h2>Rollen, zweiter Faktor, und keine Selbstregistrierung</h2>
-        <p>
-          Eine frische Installation zeigt keine Anmeldung, sondern die Ersteinrichtung:
-          Name des Betriebs, Name und Adresse der Person, die ihn führt, und ein
-          Passwort. Daraus entstehen Betrieb, Konto und Zugehörigkeit in einem Zug.
-          Danach verschwindet die Einrichtung wieder, und zwar weil die Instanz nicht
-          mehr leer ist und nicht weil jemand einen Schalter umgelegt hat.
-        </p>
-        <p>
-          Jeder weitere Zugang entsteht im Büro und bekommt einen Einmal-Link, dessen
-          Passwort die eingeladene Person selbst wählt. Ein Passwort, das der Chef
-          weitergibt, ist eines, das ein Kollege kennt. Für die Rolle des Inhabers ist
-          der zweite Faktor Pflicht.
-        </p>
-      </div>
-      <Screenshot
-        src={accounts}
-        alt="Zugänge des Betriebs mit den Rollen je Konto, Zustand, letzter Anmeldung, Geräten und Sperren, darunter eine offene Einladung"
-        caption="Zugänge mit Rollen, Geräten und Einladungen. Die Rolle Inhaber verlangt einen zweiten Faktor."
-        draft={true}
-      />
     </div>
   </section>
 
   <section class="section section-tint">
+    <div class="wrap">
+      <h2>Zwei Bereiche im Detail</h2>
+      <div class="card-grid">
+        <article class="card stack">
+          <h3>Elektro und PV</h3>
+          <p>
+            Die Anlage bis zum Stromkreis, das Stromkreisverzeichnis als PDF, die
+            PV-Struktur mit Wechselrichtern, Strings und Modulen und das Prüfprotokoll
+            nach VDE 0100-600. Der Import aus der Software der Messgeräte ist geplant.
+          </p>
+          <p><a href="/elektro-und-pv/">Zu Elektro und PV</a></p>
+        </article>
+        <article class="card stack">
+          <h3>Buchhaltung</h3>
+          <p>
+            Geplant ist ein eigenes Journal in doppelter Buchführung, mit offenen Posten,
+            Umsatzsteuer-Voranmeldung und am Ende Bilanz und GuV. Gebaut sind schon
+            Nummernkreise und Festschreibung nach GoBD.
+          </p>
+          <p><a href="/buchhaltung/">Zur Buchhaltung</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="stand">
+    <div class="wrap stack-loose">
+      <h2>Was gebaut ist und was noch fehlt</h2>
+      <p class="measure-text">
+        Hier steht beides, damit sich jeder Betrieb selbst ein Bild machen kann, ob die
+        Software für ihn schon in Frage kommt.
+      </p>
+      <AreaTable
+        areas={areas}
+        caption="Funktionsbereiche der Handwerkersoftware mit ihrem Entwicklungsstand"
+      />
+      <p class="muted">
+        Stand dieser Seite: 30.10.2026, Fassung 0.6.5. Die Phasen stehen unter{' '}
+        <a href="/roadmap/">Stand und Fahrplan</a>, die Arbeit selbst liegt offen als{' '}
+        <a href={LINKS.repository + '/issues'} rel="noopener">Issues auf GitHub</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="wrap split">
+      <div class="stack">
+        <h2>Zugänge und Rollen</h2>
+        <p>
+          Eine frische Installation beginnt mit der Ersteinrichtung: Name des Betriebs,
+          Name und Adresse der Person, die ihn führt, und ein Passwort. Ist die Instanz
+          nicht mehr leer, verschwindet die Einrichtung von selbst. Selbst registrieren
+          kann sich niemand.
+        </p>
+        <p>
+          Jeder weitere Zugang entsteht im Büro und bekommt einen Einmal-Link; das
+          Passwort wählt die eingeladene Person selbst. Ein Passwort, das der Chef
+          weitergibt, kennt eben auch ein Kollege. Für den Inhaber ist der zweite Faktor
+          Pflicht.
+        </p>
+      </div>
+      <Screenshot
+        src={accounts}
+        alt="Zugänge des Betriebs mit Rolle, Zustand, letzter Anmeldung und Geräten je Konto, darunter eine offene Einladung"
+        caption="Zugänge mit Rollen, Geräten und Einladungen."
+        draft={true}
+      />
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap measure stack-loose is-centered">
       <h2>Was OpenGewerk bewusst nicht tut</h2>
       <ul class="marker-list">
         <li>
-          Keine Funktion hinter einem größeren Tarif. Es gibt keine Tarife, also auch
-          keine Schnittstelle, die erst ab der mittleren Stufe mitkommt.
+          Funktionen nach Tarif verteilen. Es gibt keine Tarife, also auch keine
+          Schnittstelle, die erst ab der mittleren Stufe mitkommt.
         </li>
         <li>
-          Keine Daten bei einem Anbieter. Es gibt keinen Anbieter. Die Instanz läuft
-          dort, wo der Betrieb sie hinstellt.
+          Daten bei einem Anbieter ablegen. Die Instanz läuft dort, wo der Betrieb sie
+          hinstellt.
         </li>
         <li>
-          Kein Löschen von Belegen. Ein festgeschriebener Beleg wird storniert, und
-          beides steht im Log.
+          Belege löschen. Ein festgeschriebener Beleg wird storniert, und beides steht
+          im Log.
         </li>
         <li>
-          Keine KI, die im Hintergrund mitliest. Vorgesehen sind selbst gehostete
-          Modelle und ausschließlich dort, wo eine Abfrage die Aufgabe nicht löst.
+          Eine KI im Hintergrund mitlesen lassen. Vorgesehen sind selbst gehostete
+          Modelle, und nur dort, wo eine Abfrage die Aufgabe nicht löst.
         </li>
       </ul>
       <p class="button-row">
-        <a class="button button-primary" href="/elektro-und-pv/">Kernmodul Elektro und PV</a>
+        <a class="button button-primary" href="/self-hosting/">Installieren</a>
         <a class="button button-outline" href="/alternativen/">Vergleich mit anderen</a>
       </p>
     </div>
   </section>
 </Page>
 
+<style>
+  .steps {
+    list-style: none;
+    counter-reset: step;
+    margin: var(--space-m) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+
+  .steps > li {
+    counter-increment: step;
+  }
+
+  .steps h3::before {
+    content: counter(step) '. ';
+    color: var(--copper-text);
+  }
+
+  .shot-trio {
+    display: grid;
+    gap: var(--space-l);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    align-items: start;
+  }
+
+  h2 + .card-grid {
+    margin-block-start: var(--space-m);
+  }
+
+  .measure-text {
+    max-width: 48rem;
+  }
+</style>

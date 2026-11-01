@@ -5,6 +5,7 @@ import { LINKS } from '../site';
 
 import installation from '../assets/screens/anlagenstruktur.png';
 import testReport from '../assets/screens/pruefprotokoll-vde-0100-600.png';
+import pvSystem from '../assets/screens/pv-anlage.png';
 
 const standards = [
   {
@@ -38,18 +39,19 @@ const software = [
 ---
 
 <Page
-  title="Elektro und PV: Prüfprotokolle, Stromkreise und Messgeräte-Import"
-  description="Das Kernmodul von OpenGewerk: Anlagenakte bis zum Stromkreis, Prüfprotokolle nach VDE 0100-600 und DGUV V3, Import aus IZYTRONIQ, Metrel, Fluke und Benning, PV-Dokumentation."
+  title="Elektro und PV: Stromkreisverzeichnis, Prüfprotokoll, PV-Struktur"
+  description="Das Kernmodul der Handwerkersoftware OpenGewerk: die Anlage bis zum Stromkreis, das Stromkreisverzeichnis, das Prüfprotokoll nach VDE 0100-600 und die PV-Struktur. DGUV V3 und Messgeräte-Import sind geplant."
   breadcrumb="Elektro und PV"
+  parent={{ name: 'Handwerkersoftware', path: '/funktionen/' }}
 >
   <section class="section section-dark">
     <div class="wrap measure stack">
-      <h1>Elektro und Photovoltaik, nicht als Gewerkeliste</h1>
+      <h1>Elektro und Photovoltaik bis zum Stromkreis</h1>
       <p class="lead">
-        Handwerkersoftware, die alle Gewerke gleich behandelt, endet bei der Anlage
-        mit einem Freitextfeld. Für einen Elektrobetrieb ist genau dort der Anfang der
-        Arbeit. OpenGewerk bildet deshalb die Anlage als Struktur ab und nicht als
-        Notiz.
+        Handwerkersoftware, die alle Gewerke gleich behandelt, hört bei der Anlage mit
+        einem Freitextfeld auf. Für einen Elektrobetrieb fängt dort die Arbeit erst an.
+        OpenGewerk bildet die Anlage deshalb als Struktur ab: Verteiler, Felder,
+        Stromkreise und Betriebsmittel.
       </p>
     </div>
   </section>
@@ -73,8 +75,8 @@ const software = [
           <h2>Die Anlage bis zum Stromkreis</h2>
           <p>
             Unter der Anlage liegen Verteiler, darin Felder, darin Stromkreise und
-            daran die Betriebsmittel. Das ist das Stromkreisverzeichnis, nur eben als
-            Daten und nicht als Zettel in der Tür des Zählerschranks.
+            daran die Betriebsmittel. Das ist das Stromkreisverzeichnis als Daten; der
+            Zettel für die Tür des Zählerschranks wird daraus als PDF gedruckt.
           </p>
           <p>
             Daran hängt alles andere: die Messwerte je Stromkreis, das Protokoll, in
@@ -99,9 +101,9 @@ const software = [
         <article class="card stack">
           <h2>PV-Dokumentation</h2>
           <p>
-            Module, Wechselrichter, Speicher und Zähler gehören zur Anlage, nicht in
-            einen Ordner daneben. Die PV-Struktur mit Wechselrichtern, Strings und
-            Modulen steht, die Seriennummern liest die Kamera ein. Die Unterlagen nach
+            Module, Wechselrichter, Speicher und Zähler hängen an der Anlage. Gebaut
+            ist die PV-Struktur mit Wechselrichtern, Strings und Modulen; die
+            Seriennummern liest die Kamera ein. Die Unterlagen nach
             VDE-AR-N 4105 sollen aus denselben Daten entstehen und kommen mit Phase 2.
           </p>
           <p>
@@ -114,12 +116,23 @@ const software = [
   </section>
 
   <section class="section">
+    <div class="wrap">
+      <Screenshot
+        src={pvSystem}
+        alt="Akte einer PV-Anlage mit einem Wechselrichter, zwei Strings und 24 Modulen, dazu Speicher und Wallbox als eigene Anlagen, Prüfprotokolle, Aufträge an der Anlage und Dateien wie Stringplan und Typenschild"
+        caption="Eine PV-Anlage mit Wechselrichter, Speicher und Wallbox."
+        draft={true}
+      />
+    </div>
+  </section>
+
+  <section class="section section-tint">
     <div class="wrap stack-loose">
       <h2>Prüfprotokolle</h2>
       <p class="lead">
-        Alle Protokolle entstehen über dieselbe Formular-Engine: ein Formular ist ein
-        Datensatz mit Wiederholgruppen und einer Version, kein fest verdrahtetes
-        Formular im Quelltext. Ändert eine Norm ihre Vorgaben, kommt eine neue Version
+        Alle Protokolle entstehen über dieselbe Formular-Engine. Ein Formular ist dort
+        ein Datensatz mit Wiederholgruppen und einer Version und steht nicht fest im
+        Quelltext. Ändert eine Norm ihre Vorgaben, kommt eine neue Version
         des Formulars dazu, und die alten Protokolle bleiben so, wie sie unterschrieben
         wurden.
       </p>
@@ -146,7 +159,7 @@ const software = [
     </div>
   </section>
 
-  <section class="section section-tint">
+  <section class="section">
     <div class="wrap split">
       <Screenshot
         src={testReport}
@@ -155,44 +168,41 @@ const software = [
         draft={true}
       />
       <div class="stack">
-        <h3>Stand heute</h3>
+        <h2>Was heute geht</h2>
         <p>
           Gebaut sind die Anlagenstruktur mit dem Stromkreisverzeichnis als PDF, die
           Formular-Engine und mit ihr das erste Protokoll, das der Erstprüfung nach
           DIN VDE 0100-600. Es entsteht auf der Baustelle auch ohne Netz, mit einem
           Messblock je Stromkreis aus dem Stromkreisverzeichnis, der Prüfer
           unterschreibt es auf dem Gerät, und das letzte Protokoll einer Anlage ist die
-          Vorlage des nächsten. Die Engine ist nur so weit gebaut, wie dieses eine
-          Protokoll sie braucht; eine Engine ohne ein Formular, das sie benutzt, wird an
-          den falschen Stellen allgemein. Die übrigen Protokolle der Tabelle folgen
-          mit Phase 2.
+          Vorlage des nächsten. Die übrigen Protokolle der Tabelle folgen mit Phase 2.
         </p>
         <p>
-          Der Grenzwert kommt dabei nicht aus dem Kopf des Monteurs, sondern aus dem
-          Regelpaket, jeder mit seiner Fundstelle: bei einem B16 darf die
-          Schleifenimpedanz höchstens 2,87 Ohm betragen, damit die Sicherung rechtzeitig
-          auslöst. Ein Wert darüber ist ein Befund und sperrt das Protokoll nicht, er
-          wird aufgeschrieben und im PDF markiert. Abgenommen sind die Grenzwerte noch
+          Den Grenzwert liefert das Regelpaket, jeden mit seiner Fundstelle. Bei einem
+          B16 darf die Schleifenimpedanz zum Beispiel höchstens 2,87 Ohm betragen, damit
+          die Sicherung rechtzeitig auslöst. Ein Wert darüber ist ein Befund: Er wird
+          aufgeschrieben und im PDF markiert, abschließen lässt sich das Protokoll
+          trotzdem. Abgenommen sind die Grenzwerte noch
           nicht; das tut vor dem ersten Einsatz eine Elektrofachkraft.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-tint">
     <div class="wrap split">
       <div class="stack">
-        <h2>Messwerte abtippen ist verlorene Zeit</h2>
+        <h2>Geplant: Messwerte aus der Software der Messgeräte</h2>
         <p>
-          Die Geräte selbst geben selten brauchbare Rohdaten heraus. Was sich auswerten
+          Messwerte von Hand abzutippen kostet Zeit und bringt Tippfehler. Geplant ist
+          deshalb ein Import. Die Geräte selbst geben selten brauchbare Rohdaten heraus. Was sich auswerten
           lässt, sind die Exporte ihrer PC-Software, teils in einem eigenen Format,
           teils als CSV, XML oder PDF.
         </p>
         <p>
           Deshalb steht vor dem Ausbau dieses Teils ein Machbarkeitsnachweis mit einer
           echten Exportdatei aus dem Pilotbetrieb. Das Ergebnis darf ausdrücklich auch
-          lauten, dass sich ein Format nicht lohnt. Eine Einschätzung ohne echte Datei
-          wäre geraten, und genau dafür ist ein Machbarkeitsnachweis nicht da.
+          lauten, dass sich ein Format nicht lohnt.
         </p>
       </div>
       <div class="card stack">
@@ -230,8 +240,8 @@ const software = [
       <h2>Sie führen einen Elektro- oder PV-Betrieb?</h2>
       <p class="lead">
         Dann wissen Sie besser als jedes Konzept, welche Angaben ein Protokoll wirklich
-        braucht und woran ein Import scheitert. Diese Rückmeldung ist gerade das, was
-        dem Projekt am meisten fehlt.
+        braucht und woran ein Import scheitert. Diese Rückmeldung hilft dem Projekt
+        gerade am meisten.
       </p>
       <div class="button-row">
         <a class="button button-primary" href="/mitmachen/">Rückmeldung geben</a>

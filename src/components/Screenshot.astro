@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -41,10 +41,21 @@ const sizes =
   form === 'phone'
     ? '(width >= 30rem) 20rem, calc(100vw - 3rem)'
     : '(width >= 82rem) 76rem, calc(100vw - 3rem)';
+
+// The enlarged view gets the whole file at its own width. Without JavaScript
+// the link opens exactly this file, so the picture can still be enlarged.
+const full = await getImage({ src, width: src.width, format: 'webp' });
 ---
 
 <figure class:list={['shot', form === 'phone' && 'shot-phone']}>
-  <div class="shot-frame">
+  <a
+    class="shot-frame"
+    href={full.src}
+    data-zoom
+    data-width={src.width}
+    data-height={src.height}
+  >
+    <span class="sr-only">Bild vergrößern: </span>
     <Image
       src={src}
       alt={alt}
@@ -53,7 +64,8 @@ const sizes =
       loading={eager ? 'eager' : 'lazy'}
       decoding={eager ? 'sync' : 'async'}
     />
-  </div>
+    <span class="shot-hint" aria-hidden="true">Vergrößern</span>
+  </a>
   <figcaption>
     {draft && <span class="badge badge-partial">Entwurf</span>}
     <span>{caption}</span>
@@ -77,6 +89,9 @@ const sizes =
   }
 
   .shot-frame {
+    position: relative;
+    display: block;
+    cursor: zoom-in;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
@@ -89,8 +104,40 @@ const sizes =
   }
 
   .shot-frame :global(img) {
+    display: block;
     width: 100%;
     height: auto;
+  }
+
+  /* The hint says what a click does. It is always there on a touch screen,
+   * where nothing hovers, and on a pointer it comes with hover and focus. */
+  .shot-hint {
+    position: absolute;
+    inset-block-end: 0.75rem;
+    inset-inline-end: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-s);
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    font-size: var(--font-s);
+    font-weight: 600;
+  }
+
+  @media (hover: hover) {
+    .shot-hint {
+      opacity: 0;
+    }
+
+    .shot-frame:hover .shot-hint,
+    .shot-frame:focus-visible .shot-hint {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .shot-hint {
+      transition: opacity 150ms ease;
+    }
   }
 
   figcaption {

@@ -1,0 +1,137 @@
+---
+// One dialog per page shows any screenshot at full size. Every screenshot is a
+// link to its full file, so without JavaScript the browser opens that file and
+// nothing is lost; this script only turns the click into the dialog.
+---
+
+<dialog class="lightbox" aria-labelledby="lightbox-caption">
+  <div class="lightbox-bar">
+    <p id="lightbox-caption" class="lightbox-caption"></p>
+    <button type="button" class="button button-primary lightbox-close" autofocus>
+      Schließen
+    </button>
+  </div>
+  <div class="lightbox-stage">
+    <img class="lightbox-image" alt="" />
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    const dialog = document.querySelector('.lightbox');
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+
+    const image = dialog.querySelector('.lightbox-image');
+    const caption = dialog.querySelector('.lightbox-caption');
+    let opener = null;
+
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[data-zoom]');
+      // A click with a modifier key keeps its usual meaning: a new tab.
+      if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return;
+      event.preventDefault();
+
+      const shown = link.querySelector('img');
+      const figure = link.closest('figure');
+      opener = link;
+      image.src = link.href;
+      image.alt = shown ? shown.alt : '';
+      image.width = Number(link.dataset.width);
+      image.height = Number(link.dataset.height);
+      // The caption holds the badge and the text as separate spans; joined
+      // without a gap they would read as one word.
+      const parts = figure?.querySelectorAll('figcaption > *') ?? [];
+      caption.textContent = Array.from(parts, (part) => part.textContent.trim()).join(': ');
+      dialog.showModal();
+    });
+
+    dialog.querySelector('.lightbox-close').addEventListener('click', () => dialog.close());
+
+    // A click on the dark area around the picture closes it, a click on the
+    // picture itself does not: someone reading a detail should not lose it.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog || event.target.classList.contains('lightbox-stage')) {
+        dialog.close();
+      }
+    });
+
+    // Escape closes the dialog natively. Either way the focus goes back to the
+    // picture that was opened, so a keyboard user carries on where they were.
+    dialog.addEventListener('close', () => {
+      image.removeAttribute('src');
+      opener?.focus();
+      opener = null;
+    });
+  })();
+</script>
+
+<style>
+  .lightbox {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--ink);
+    color: var(--ink-on-dark);
+  }
+
+  .lightbox[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lightbox::backdrop {
+    background: rgb(27 36 48 / 0.85);
+  }
+
+  .lightbox-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding: var(--space-xs) var(--space-s);
+    border-bottom: 1px solid rgb(244 241 234 / 0.15);
+  }
+
+  .lightbox-caption {
+    margin: 0;
+    font-size: var(--font-s);
+    color: var(--ink-muted-on-dark);
+  }
+
+  .lightbox-close {
+    flex: 0 0 auto;
+  }
+
+  /* Tall phone screens scroll inside the stage instead of shrinking until
+   * nothing is readable; wide office screens fit the width. */
+  .lightbox-stage {
+    flex: 1 1 auto;
+    overflow: auto;
+    display: grid;
+    place-items: start center;
+    padding: var(--space-s);
+  }
+
+  .lightbox-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-s);
+    background: var(--surface);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox[open] {
+      animation: lightbox-in 150ms ease-out;
+    }
+
+    @keyframes lightbox-in {
+      from {
+        opacity: 0;
+      }
+    }
+  }
+</style>

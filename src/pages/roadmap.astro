@@ -16,7 +16,7 @@ const phases: Phase[] = [
     title: 'MVP für den Pilotbetrieb',
     state: 'active',
     result:
-      'Am Ende arbeitet der Pilotbetrieb produktiv damit. Gebaut ist alles, was der Fahrplan dafür nennt: Anmeldung, Ersteinrichtung und Benutzerverwaltung, die Oberfläche von Kunde bis Auftrag samt Anlagenstruktur und Stromkreisverzeichnis, Angebot, Kostenvoranschlag und Auftragsbestätigung mit Belehrungen, der Regiebericht mit Unterschrift und eigenen Feldern, Abschlags- und Schlussrechnung mit Storno und die E-Rechnung als XRechnung und ZUGFeRD-PDF, dazu Zeiterfassung, Dokumentenablage, Aufgaben, der Versand per E-Mail, das Prüfprotokoll nach VDE 0100-600 und Releases mit signierten Abbildern. Erschienen sind die Fassungen 0.1.0 vom 24.09.2026 bis 0.6.2 vom 23.10.2026. Offen sind die fachkundige Abnahme der Regelpakete und Grenzwerte und ein Praxistest der E-Rechnung bei einem echten Empfänger.',
+      'Am Ende arbeitet der Pilotbetrieb produktiv damit. Gebaut ist alles, was der Fahrplan dafür nennt: Anmeldung, Ersteinrichtung und Benutzerverwaltung, die Oberfläche von Kunde bis Auftrag samt Anlagenstruktur und Stromkreisverzeichnis, Angebot, Kostenvoranschlag und Auftragsbestätigung mit Belehrungen, der Regiebericht mit Unterschrift und eigenen Feldern, Abschlags- und Schlussrechnung mit Storno und die E-Rechnung als XRechnung und ZUGFeRD-PDF, dazu Zeiterfassung, Dokumentenablage, Aufgaben, der Versand per E-Mail, das Prüfprotokoll nach VDE 0100-600 und Releases mit signierten Abbildern. Erschienen sind die Fassungen 0.1.0 vom 24.09.2026 bis 0.6.5 vom 30.10.2026; mit 0.6.4 ist jeder Befund der Sicherheitsprüfung vom Oktober 2026 behoben. Offen sind die fachkundige Abnahme der Regelpakete und Grenzwerte und ein Praxistest der E-Rechnung bei einem echten Empfänger.',
   },
   {
     number: '1b',
@@ -77,7 +77,7 @@ const phases: Phase[] = [
 >
   <section class="section section-dark">
     <div class="wrap measure stack">
-      <h1>Wo die Handwerkersoftware im Oktober 2026 steht</h1>
+      <h1>Stand und Fahrplan der Handwerkersoftware</h1>
       <p class="lead">
         OpenGewerk wird entlang eines Pilotbetriebs gebaut, eines Elektro- und
         PV-Unternehmens. Version 1 ist erreicht, wenn dessen Aufträge vollständig in
@@ -101,18 +101,16 @@ const phases: Phase[] = [
 
   <section class="section">
     <div class="wrap measure stack-loose is-centered">
-      <h2>Warum der Fahrplan hier steht und nicht als Versprechen</h2>
+      <h2>Warum die Phasen kein Datum tragen</h2>
       <p>
-        Es gibt kein Datum an diesen Phasen. Das Projekt entsteht neben einem laufenden
-        Betrieb, und ein genanntes Datum wäre eine Zahl, die niemand einhält. Was es
-        stattdessen gibt, ist Offenheit über den Stand: jede Aufgabe liegt als Issue
-        auf GitHub, jede größere Entscheidung als Architekturentscheidung mit
+        Das Projekt entsteht neben einem laufenden Betrieb, und ein genanntes Datum wäre
+        eine Zahl, die niemand einhält. Offen ist dafür der Stand: Jede Aufgabe liegt als
+        Issue auf GitHub, jede größere Entscheidung als Architekturentscheidung mit
         Begründung.
       </p>
       <p>
-        Eine Regel dabei hat sich als wichtig erwiesen: die Liste der Issues ist nicht
-        der Fortschritt, sie ist nur so vollständig wie der letzte Schnitt. Verbindlich
-        ist der Fahrplan im Konzept, die Issues sind die Abschrift davon.
+        Die Liste der Issues ist dabei nur so vollständig wie der letzte Schnitt.
+        Verbindlich ist der Fahrplan im Konzept; die Issues sind seine Abschrift.
       </p>
       <div class="button-row">
         <a class="button button-primary" href={LINKS.repository + '/issues'} rel="noopener">

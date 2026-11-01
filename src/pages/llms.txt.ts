@@ -6,7 +6,7 @@
 // It carries no statement about the state of the software. That changes with
 // every release and has its place on the pages this file points to.
 import type { APIRoute } from 'astro';
-import { LINKS, NAVIGATION, SITE } from '../site';
+import { LINKS, PAGES, SITE } from '../site';
 
 const absolute = (path: string) => new URL(path, SITE.url).href;
 
@@ -17,16 +17,11 @@ const lines = [
   '',
   `> ${SITE.description}`,
   '',
-  'OpenGewerk ist ein Open-Source-Projekt und kein gehosteter Dienst. Es baut zwei Anwendungen auf einem gemeinsamen Fundament: die Handwerkersoftware für Elektro- und PV-Betriebe und OpenGewerk Haustechnik für Organisationen, die Gebäude mit eigener Haustechnik betreiben. Beide laufen über Docker auf einem Server, den der Betrieb oder Betreiber selbst stellt oder mietet, kosten keine Lizenzgebühren und halten alle Daten dort. Was gebaut ist und was noch fehlt, steht für die Handwerkersoftware auf den Seiten Handwerk und Stand, für die Haustechnik auf ihrer Seite und deren Stand. Die Seiten sind auf Deutsch.',
+  'OpenGewerk ist ein Open-Source-Projekt und kein gehosteter Dienst. Es baut zwei Anwendungen auf einem gemeinsamen Fundament: die Handwerkersoftware für Elektro- und PV-Betriebe und OpenGewerk Haustechnik für Organisationen, die Gebäude mit eigener Haustechnik betreiben. Beide laufen über Docker auf einem Server, den der Betrieb oder Betreiber selbst stellt oder mietet, kosten keine Lizenzgebühren und halten alle Daten dort. Was gebaut ist und was noch fehlt, steht für die Handwerkersoftware auf ihrer Seite und der Seite Stand der Handwerkersoftware, für die Haustechnik auf der Seite Stand der Haustechnik. Die Seiten sind auf Deutsch.',
   '',
   '## Seiten',
   '',
-  ...NAVIGATION.map((page) => entry(page.label, absolute(page.href), page.hint)),
-  entry(
-    'Stand der Haustechnik',
-    absolute('/haustechnik/stand/'),
-    'Was in OpenGewerk Haustechnik gebaut ist und die Phasen bis zum Vollausbau.',
-  ),
+  ...PAGES.map((page) => entry(page.label, absolute(page.href), page.hint)),
   entry(
     'Betriebs- oder Dienstvereinbarung',
     absolute('/haustechnik/vereinbarung/'),
@@ -46,7 +41,7 @@ const lines = [
   entry('Planungskonzept der Haustechnik', LINKS.haustechnikConcept, 'Das Konzept von OpenGewerk Haustechnik mit allen Bereichen und dem Fahrplan.'),
   entry('Architekturentscheidungen', LINKS.decisions, 'Die Entscheidungen zur Architektur, je eine Datei.'),
   entry('Docker Hub', LINKS.dockerHub, 'Die veröffentlichten Abbilder der Handwerkersoftware.'),
-  entry('Kanzlei-Hub', LINKS.kanzlei, 'Der getrennte Hub, über den ein Steuerberater angebunden wird.'),
+  entry('Kanzlei-Hub', LINKS.kanzlei, 'Der geplante, getrennte Hub, über den ein Steuerberater angebunden werden soll.'),
   entry('API-Vertrag', LINKS.apiSpec, 'Der Schnittstellenvertrag zwischen Anwendung und Kanzlei-Hub, unter Apache-2.0.'),
   '',
   '## Optional',

@@ -62,18 +62,29 @@ const schema = [
 >
   <section class="section section-dark">
     <div class="wrap measure stack">
-      <h1>Die Software läuft dort, wo der Betrieb sie hinstellt</h1>
+      <h1>OpenGewerk auf dem eigenen Server</h1>
       <p class="lead">
-        Self-hosted heißt nicht, dass jemand eine Bastelanleitung abarbeitet.
-        Betriebsfähigkeit gehört zum Produkt: Start, Sicherung, Rückspielen und Update
-        sind mitgeliefert und werden mit jeder Änderung durchgetestet.
+        OpenGewerk läuft auf einer Maschine, die der Betrieb selbst stellt oder mietet.
+        Start, Sicherung, Rückspielen und Update sind mitgeliefert und laufen bei jeder
+        Änderung durch die Tests.
+      </p>
+      <p class="button-row">
+        <a class="button button-primary" href="#start">In vier Schritten starten</a>
+        <a class="button button-outline" href="#haustechnik">Haustechnik installieren</a>
       </p>
     </div>
   </section>
 
-  <section class="section section-tint">
+  <section class="section section-tint" id="start">
     <div class="wrap stack-loose">
-      <h2>Der Start ist ein Befehl</h2>
+      <h2>In vier Schritten starten</h2>
+      <ol class="quick-steps">
+        <li>Das Paket der neuesten Fassung von der Release-Seite herunterladen.</li>
+        <li>Auf einer Maschine mit Docker entpacken und <code>sh docker/start.sh</code> aufrufen.</li>
+        <li>Einen Reverse Proxy mit HTTPS davorstellen, die Vorlagen liegen im Paket.</li>
+        <li>Im Browser die Ersteinrichtung mit dem Einrichtungscode abschließen.</li>
+      </ol>
+      <h3>Der Start im Einzelnen</h3>
       <p>
         Das Paket der neuesten Fassung von der{' '}
         <a href={LINKS.repository + '/releases'} rel="noopener">Release-Seite</a>{' '}
@@ -98,7 +109,7 @@ const schema = [
         findet. Danach folgen Name des Betriebs, Name und Adresse der Person, die ihn
         führt, ein Passwort und direkt danach der zweite Faktor. Am besten geschieht das
         gleich nach dem ersten Start. Alles Weitere, vom Briefkopf bis zum Mailserver,
-        wird im Büro eingestellt und nicht in einer Datei.
+        wird danach in der Oberfläche eingestellt.
       </p>
       <div class="note">
         <p>
@@ -113,7 +124,7 @@ const schema = [
           Befehl, dann baut er die Abbilder selbst.
         </p>
       </div>
-      <h2>Davor gehört ein Reverse Proxy mit HTTPS</h2>
+      <h3>Davor gehört ein Reverse Proxy mit HTTPS</h3>
       <p>
         Die Instanz lauscht nur auf <code>127.0.0.1</code>, denn eine Anwendung, die
         Rechnungen führt, steht nicht unverschlüsselt im Netz. Davor gehört ein Reverse
@@ -194,13 +205,12 @@ const schema = [
           <h2>Rückspielen</h2>
           <p>
             Ein zweiter Lauf spielt eine Sicherung zurück, ein dritter prüft sie gegen
-            die laufende Datenbank. Geprüft wird über die Prüfsummen der Dateien, nicht
-            über einen Blick auf den Zeitstempel.
+            die laufende Datenbank. Verglichen werden dabei die Prüfsummen der
+            Dateien.
           </p>
           <p>
-            Während des Rückspielens wird der Anwendung die Anmeldung entzogen. Offene
-            Verbindungen zu zählen genügt dafür nicht, der Verbindungspool schließt sie
-            von selbst und die Zählung steht auf null, während die Anwendung läuft.
+            Während des Rückspielens wird der Anwendung die Anmeldung an der Datenbank
+            entzogen, damit nichts dazwischen schreibt.
           </p>
         </article>
 
@@ -208,8 +218,7 @@ const schema = [
           <h2>Update</h2>
           <p>
             Derselbe Befehl wie beim ersten Start: erst migrieren, dann tauschen.
-            Schlägt die Migration fehl, läuft die alte Fassung weiter, statt dass eine
-            halb aktualisierte Instanz stehen bleibt.
+            Schlägt die Migration fehl, läuft die alte Fassung einfach weiter.
           </p>
           <p>
             Alle ausstehenden Migrationen laufen in einer einzigen Transaktion. Ein
@@ -224,7 +233,7 @@ const schema = [
   <section class="section">
     <div class="wrap split">
       <div class="stack">
-        <h2>Keine Cloud heißt hier wirklich keine Cloud</h2>
+        <h2>Keine Cloud, kein Anbieter</h2>
         <p>
           Es gibt keinen Anbieter, bei dem Daten zwischengespeichert würden, keine
           Telemetrie und keinen Lizenzserver, der eine Instanz freischaltet. Wer eine
@@ -232,8 +241,8 @@ const schema = [
           Servers und nicht OpenGewerk.
         </p>
         <p>
-          Mehrere Betriebe auf einer Instanz sind möglich und in der Datenbank selbst
-          getrennt, nicht erst in der Anwendung. Diese Trennung gilt auch für die
+          Mehrere Betriebe auf einer Instanz sind möglich und schon in der Datenbank
+          voneinander getrennt. Diese Trennung gilt auch für die
           Rolle, mit der die Anwendung arbeitet: sie darf am Schema nichts ändern, und
           eine Instanz, die sich mit den Zugangsdaten des Eigentümers anmelden will,
           startet gar nicht erst.
@@ -247,16 +256,15 @@ const schema = [
           Mandantentrennung.
         </p>
         <p>
-          Der Grund ist unscheinbar und wichtig: für den Eigentümer einer Tabelle greift
-          die Trennung nur mit einem zusätzlichen Schalter. Eine Anwendung, die als
-          Eigentümer verbindet, hätte eine Absicherung, die aussieht wie eine und keine
-          ist.
+          Der Grund: Für den Eigentümer einer Tabelle greift die Trennung nur mit einem
+          zusätzlichen Schalter. Eine Anwendung, die als Eigentümer verbindet, wäre ohne
+          ihn nicht getrennt.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="section section-tint">
+  <section class="section section-tint" id="haustechnik">
     <div class="wrap measure stack-loose">
       <h2>OpenGewerk Haustechnik auf derselben Maschine</h2>
       <p>
@@ -311,6 +319,16 @@ const schema = [
 </Page>
 
 <style>
+  .quick-steps {
+    margin: 0;
+    padding-inline-start: 1.5rem;
+    max-width: 48rem;
+    font-size: var(--font-l, 1.125rem);
+  }
+
+  .quick-steps li + li {
+    margin-block-start: var(--space-xs);
+  }
 
   .space-above {
     margin-block-start: var(--space-l);

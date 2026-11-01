@@ -6,8 +6,12 @@ import { NAVIGATION, LINKS } from '../site';
 // entry, such as the state of the Haustechnik under /haustechnik/, marks its
 // entry as the section the reader is in.
 const here = Astro.url.pathname;
-const currentFor = (href: string) =>
-  here === href ? 'page' : href !== '/' && here.startsWith(href) ? 'true' : undefined;
+const currentFor = (href: string, also: readonly string[]) =>
+  here === href
+    ? 'page'
+    : [href, ...also].some((prefix) => prefix !== '/' && here.startsWith(prefix))
+      ? 'true'
+      : undefined;
 ---
 
 <header class="header">
@@ -43,7 +47,7 @@ const currentFor = (href: string) =>
         {
           NAVIGATION.map((entry) => (
             <li>
-              <a href={entry.href} aria-current={currentFor(entry.href)}>
+              <a href={entry.href} aria-current={currentFor(entry.href, entry.also)}>
                 {entry.label}
               </a>
             </li>
