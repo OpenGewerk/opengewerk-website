@@ -41,7 +41,7 @@ const areas: Area[] = [
   {
     title: 'Zeiterfassung',
     state: 'done',
-    detail: 'Auf der Baustelle am Auftrag gestartet und gestoppt, auch ohne Netz, mit den Warnungen aus dem Arbeitszeitgesetz und der Aufbewahrung nach dem Mindestlohngesetz. Eine Korrektur ist ein neuer Eintrag, den Standort gibt es nur mit Einwilligung. Das Zeitkonto mit Überstunden kommt mit Phase 2.',
+    detail: 'Auf der Baustelle am Auftrag gestartet und gestoppt, auch ohne Netz, mit den Warnungen aus dem Arbeitszeitgesetz und der Aufbewahrung nach dem Mindestlohngesetz. Eine Korrektur ist ein neuer Eintrag, den Standort gibt es nur mit Einwilligung. Dazu das Zeitkonto: die Überstunden aus der vereinbarten Arbeitszeit, gezählt mit den gesetzlichen Feiertagen des Bundeslands.',
   },
   {
     title: 'Dokumentenablage',
@@ -61,17 +61,32 @@ const areas: Area[] = [
   {
     title: 'Prüfprotokolle',
     state: 'partial',
-    detail: 'Die Formular-Engine und mit ihr das erste Protokoll, die Erstprüfung nach DIN VDE 0100-600: je Stromkreis gemessen, jeder Wert mit seinem Grenzwert und dessen Fundstelle, vom Prüfer auf dem Gerät unterschrieben und als PDF. VDE 0105-100, DGUV V3, die Prüfung der Elektroinstallation als Bericht je Objekt und VDE-AR-N 4105 folgen mit Phase 2.',
+    detail: 'Die Formular-Engine mit den Protokollen: Erstprüfung nach DIN VDE 0100-600 und Wiederholungsprüfung nach DIN VDE 0105-100, je Stromkreis gemessen, jeder Wert mit seinem Grenzwert und dessen Fundstelle; die Prüfung der Elektroinstallation als Prüfbericht je Objekt, das Geräteverzeichnis mit der Prüfung nach DGUV Vorschrift 3, das Inbetriebsetzungsprotokoll nach VDE-AR-N 4105 und die Inbetriebnahme von Wallbox und Speicher. Jedes unterschreibt der Prüfer auf dem Gerät, und jedes kommt als PDF heraus. Der Import aus Messgeräten fehlt noch.',
   },
   {
     title: 'Fristen',
     state: 'partial',
-    detail: 'Eine Fristen-Engine für alle Bereiche: Eine Frist entsteht von selbst, erinnert mit eigenem Vorlauf die zuständige Person und entfällt, wenn sich ihr Anlass erledigt hat. Die erste Art ist die Wiedervorlage eines Angebots; die Fristen der Wiederholungsprüfungen folgen mit Phase 2.',
+    detail: 'Eine Fristen-Engine für alle Bereiche: Eine Frist entsteht von selbst, erinnert mit eigenem Vorlauf die zuständige Person und entfällt, wenn sich ihr Anlass erledigt hat. Gebaut sind die Wiedervorlage eines Angebots, die nächste Prüfung einer Anlage und eines Geräts, ablaufende Qualifikationen und Eintragungen im Installateurverzeichnis, der Mindestbestand im Lager, das Ende der Gewährleistung und die Frist des Kunden zur Beseitigung eines Mangels. Wartungsverträge und Zahlungsfristen folgen.',
   },
   {
     title: 'Plantafel und Material',
     state: 'partial',
-    detail: 'Gebaut sind Artikel und Lieferanten mit der Preiseinheit des Großhandels; der Import aus DATANORM 4 steht auf dem Server und bekommt noch einen Bildschirm. Disposition mit Drag and Drop, Lager und Fahrzeuglager und IDS-Connect fehlen noch.',
+    detail: 'Die Plantafel mit Terminen, Serien, Urlaub und Krankheit, dazu das Kalender-Abo. Artikel und Lieferanten mit der Preiseinheit des Großhandels, der Import aus DATANORM, Verkaufspreise aus Einkaufspreis und Aufschlag und der Metallzuschlag; Lager und Fahrzeuge mit Bestand, der Lieferschein und das Scannen von Material auf der Baustelle. Serviceaufträge mit Disposition und IDS-Connect fehlen noch.',
+  },
+  {
+    title: 'Personal',
+    state: 'done',
+    detail: 'Die Mitarbeiterakte mit der vereinbarten Arbeitszeit ab einem Tag und den Qualifikationen samt Ablauf, Urlaub und Krankheit mit Antrag, Entscheidung und Nachricht, das Zeitkonto und die gesetzlichen Feiertage aller 16 Länder.',
+  },
+  {
+    title: 'PV, Netzbetreiber und Förderung',
+    state: 'done',
+    detail: 'Die PV-Anlagendokumentation mit Prüfung der Gleichstromseite, Stringplan, Komponentenliste, Ertragsprognose und der Mappe für den Betreiber. Die Netzbetreiber mit der Eintragung im Installateurverzeichnis, Anmeldung und Fertigmeldung als vorausgefüllte Datenblätter, die Ausfüllhilfe für das Marktstammdatenregister und die Förderunterlagen nach den Vorlagen des Betriebs.',
+  },
+  {
+    title: 'Abnahme und Mängel',
+    state: 'done',
+    detail: 'Das Abnahmeprotokoll nach § 640 BGB, auf dem Gerät unterschrieben, mit der Gewährleistungsfrist ab Abnahme nach BGB oder VOB/B und der Aufforderung zur Abnahme. Mängel mit Fotos und Status bis zur Abnahme durch den Kunden mit Unterschrift, die Vorbehalte der Abnahme als Mängel und der Mängelbericht als PDF.',
   },
   {
     title: 'Tags und Zugang zum Objekt',
@@ -101,7 +116,7 @@ const areas: Area[] = [
   {
     title: 'Installation und Sicherung',
     state: 'done',
-    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Die neueste Fassung ist 0.6.5 vom 30.10.2026.',
+    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Die neueste Fassung ist 0.7.0 vom 03.11.2026.',
   },
   {
     title: 'Buchhaltung',
@@ -294,7 +309,7 @@ const areas: Area[] = [
         caption="Funktionsbereiche der Handwerkersoftware mit ihrem Entwicklungsstand"
       />
       <p class="muted">
-        Stand dieser Seite: 30.10.2026, Fassung 0.6.5. Die Phasen stehen unter{' '}
+        Stand dieser Seite: 03.11.2026, Fassung 0.7.0. Die Phasen stehen unter{' '}
         <a href="/roadmap/">Stand und Fahrplan</a>, die Arbeit selbst liegt offen als{' '}
         <a href={LINKS.repository + '/issues'} rel="noopener">Issues auf GitHub</a>.
       </p>
