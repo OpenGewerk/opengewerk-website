@@ -18,7 +18,7 @@ const questions = [
   {
     question: 'Kann ich OpenGewerk heute schon einsetzen?',
     answer:
-      'Die Haustechnik ja: Sie ist am 15.10.2026 als Fassung 0.1.0 erschienen, und der Pilotbetrieb arbeitet inzwischen nur noch mit ihr. Die Handwerkersoftware noch nicht ganz. Gebaut ist, was der Fahrplan für den ersten produktiven Einsatz vorsieht, von Kunde, Objekt und Anlage über Angebot, Regiebericht und Rechnung samt E-Rechnung bis zum Prüfprotokoll nach VDE 0100-600, im Büro und auf der Baustelle. Vor dem ersten Einsatz im Elektrobetrieb, der das Projekt als Pilotkunde begleitet, stehen noch die fachliche Abnahme der Regeln und Grenzwerte und ein Praxistest der E-Rechnung an. Die Buchhaltung kommt danach. Die neuesten Fassungen sind 0.6.5 und 0.2.5, beide vom 30.10.2026.',
+      'Die Haustechnik ja: Sie ist am 15.10.2026 als Fassung 0.1.0 erschienen, und der Pilotbetrieb arbeitet inzwischen nur noch mit ihr. Die Handwerkersoftware noch nicht ganz. Gebaut ist, was der Fahrplan für den ersten produktiven Einsatz vorsieht, von Kunde, Objekt und Anlage über Angebot, Regiebericht und Rechnung samt E-Rechnung bis zum Prüfprotokoll nach VDE 0100-600, im Büro und auf der Baustelle; seit 0.7.0 dazu der größte Teil des Kerns für Elektro und PV, mit den übrigen Prüfprotokollen, Lager, Plantafel, Abnahme und Mängeln. Vor dem ersten Einsatz im Elektrobetrieb, der das Projekt als Pilotkunde begleitet, stehen noch die fachliche Abnahme der Regeln und Grenzwerte und ein Praxistest der E-Rechnung an. Die Buchhaltung kommt danach. Die neuesten Fassungen sind 0.7.0 vom 03.11.2026 und 0.2.5 vom 30.10.2026.',
   },
   {
     question: 'Wo liegen meine Daten?',
@@ -167,10 +167,10 @@ const schema = [
           <ul class="marker-list">
             <li>Kunde, Objekt und Anlage bis zum einzelnen Stromkreis</li>
             <li>Angebot, Regiebericht mit Unterschrift, Rechnung und E-Rechnung</li>
-            <li>Prüfprotokoll nach VDE 0100-600 mit Grenzwert und Fundstelle</li>
+            <li>Prüfprotokolle nach VDE 0100-600, VDE 0105-100 und DGUV Vorschrift 3 mit Grenzwert und Fundstelle</li>
             <li>Die Baustellen-App arbeitet ohne Netz weiter</li>
           </ul>
-          <p><span class="badge badge-partial">Fassung 0.6.5, vor dem ersten produktiven Einsatz</span></p>
+          <p><span class="badge badge-partial">Fassung 0.7.0, vor dem ersten produktiven Einsatz</span></p>
           <p class="button-row">
             <a class="button button-primary" href="/funktionen/">Zur Handwerkersoftware</a>
           </p>
@@ -253,17 +253,19 @@ const schema = [
       <h2>Wie weit die beiden Anwendungen sind</h2>
       <div class="card-grid">
         <article class="card stack">
-          <h3>Handwerkersoftware, Fassung 0.6.5</h3>
+          <h3>Handwerkersoftware, Fassung 0.7.0</h3>
           <p>
             Vom Angebot bis zur E-Rechnung ist alles gebaut, was ein Auftrag braucht,
-            dazu Zeiterfassung, Dokumente, Aufgaben, die Anlage bis zum Stromkreis und
-            das erste Prüfprotokoll. Mit 0.6.4 ist jeder Befund der Sicherheitsprüfung
-            vom Oktober behoben.
+            dazu Zeiterfassung, Dokumente, Aufgaben und die Anlage bis zum Stromkreis.
+            Mit 0.7.0 kam der größte Teil von Phase 2: die übrigen Prüfprotokolle, PV
+            und Netzbetreiber, Lager und Lieferschein, Personal und Plantafel, Abnahme
+            und Mängel.
           </p>
           <p>
             Es fehlen noch die fachliche Abnahme der Regeln und Grenzwerte und ein
-            Praxistest der E-Rechnung. Danach kommen die Buchhaltung, weitere
-            Prüfprotokolle und der Messgeräte-Import.
+            Praxistest der E-Rechnung. Aus Phase 2 stehen Serviceaufträge,
+            Wartungsverträge, die Funktionen der DSGVO und der Messgeräte-Import aus,
+            danach kommt die Buchhaltung.
           </p>
           <p><a href="/roadmap/">Stand und Fahrplan der Handwerkersoftware</a></p>
         </article>
