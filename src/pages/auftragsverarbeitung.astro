@@ -1,0 +1,740 @@
+---
+import Page from '../layouts/Page.astro';
+import { partA, tradesPartASource } from '../measures-part-a';
+
+// Part A of annex 1 is the one the trades application makes the measures of a
+// business from (opengewerk#319), read from its template at build time.
+const sections = await partA(tradesPartASource);
+
+// The template stays on one page so that printing it from the browser gives the
+// contract and nothing else: everything around it is marked .no-print, and the
+// header and footer of the layout are hidden by the print rules below.
+---
+
+<Page
+  title="Vertrag zur Auftragsverarbeitung für OpenGewerk"
+  description="Vorlage für den Vertrag nach Art. 28 DSGVO zwischen einem Handwerksbetrieb und dem Dienstleister, der seine Instanz betreibt, mit den technischen und organisatorischen Maßnahmen als Anlage."
+  breadcrumb="Auftragsverarbeitung"
+>
+  <section class="section section-dark no-print">
+    <div class="wrap measure stack is-column">
+      <h1>Vertrag zur Auftragsverarbeitung</h1>
+      <p class="lead">
+        Eine Vorlage für den Vertrag zwischen einem Handwerksbetrieb und dem Dienstleister,
+        der seine Instanz von OpenGewerk betreibt, nach Art. 28 Abs. 3 DSGVO. Die
+        technischen und organisatorischen Maßnahmen, die die Anwendung mitbringt, stehen
+        als eigene Anlage dabei. Für OpenGewerk Haustechnik gibt es eine
+        <a href="/haustechnik/auftragsverarbeitung/">eigene Vorlage</a>.
+      </p>
+      <div class="note stack">
+        <p><strong>Nicht rechtlich geprüft.</strong></p>
+        <p>
+          Diese Vorlage ist im Projekt entstanden, und noch hat sie kein Fachanwalt
+          gesehen. Sie ersetzt keine Rechtsberatung. Wer sie verwendet, lässt sie vor der
+          Unterschrift prüfen. Sobald die Prüfung stattgefunden hat, steht das hier.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section no-print">
+    <div class="wrap measure stack-loose legal is-column">
+      <div>
+        <h2>Wann es diesen Vertrag braucht</h2>
+        <p>
+          Verantwortlich für die Daten in einer Instanz ist der Betrieb, der mit ihr
+          arbeitet. Betreibt ein Dienstleister die Instanz für ihn, richtet sie also ein,
+          spielt Updates ein, sichert sie oder hat Zugang zu ihrem Server, ist er
+          Auftragsverarbeiter, und beide schließen diesen Vertrag. Arbeiten mehrere
+          Betriebe auf einer Instanz desselben Dienstleisters, schließt jeder seinen
+          eigenen.
+        </p>
+        <p>
+          Betreibt der Betrieb die Instanz selbst, im eigenen Haus, braucht es für die
+          Anwendung keinen solchen Vertrag; wer dort Zugang zum Server hat, regelt er
+          intern. Mietet er nur den Server und betreibt die Instanz selbst, schließt er
+          den Vertrag mit dem Anbieter des Servers, auf dessen Vorlage. Den Mailserver,
+          über den seine E-Mails gehen, trägt der Betrieb selbst ein; mit dessen Anbieter
+          schließt er einen eigenen Vertrag.
+        </p>
+        <p>
+          Das Projekt OpenGewerk ist in keinem Fall beteiligt. Die Anwendung meldet nichts
+          an das Projekt, fragt keinen Lizenzserver und kennt keine Registrierung.
+        </p>
+      </div>
+
+      <div>
+        <h2>So wird die Vorlage benutzt</h2>
+        <ul class="marker-list">
+          <li>Die Linien füllen beide Seiten aus, von den Kästchen kreuzen sie an, was zutrifft.</li>
+          <li>
+            Teil B der Anlage 1 und die Anlage 2 füllt der Dienstleister für seinen Betrieb
+            aus. Teil A beschreibt die Anwendung und gilt für jede Instanz.
+          </li>
+          <li>
+            Gedruckt aus dem Browser kommt nur der Vertrag mit seinen Anlagen aufs Papier,
+            ohne diese Erklärung.
+          </li>
+          <li>
+            Welche Tätigkeiten der Betrieb mit OpenGewerk hat, mit Zweck, Daten, Empfängern
+            und Löschung, sagt das Verzeichnis der Verarbeitungstätigkeiten, das die
+            Anwendung unter „Einstellungen, Datenschutz“ erzeugt. Dort stehen auch die
+            Maßnahmen mit Teil B der Instanz und das Löschkonzept als PDF.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint print-plain">
+    <div class="wrap measure is-column">
+      <article class="contract legal" aria-labelledby="vertrag">
+        <h2 id="vertrag">Vertrag zur Auftragsverarbeitung nach Art. 28 Abs. 3 DSGVO</h2>
+        <p class="print-only">
+          Vorlage von opengewerk.de für OpenGewerk, Stand 05.11.2026. Nicht rechtlich
+          geprüft.
+        </p>
+
+        <div class="parties">
+          <p>zwischen</p>
+          <dl class="fields">
+            <dt>Name oder Firma</dt><dd><span class="blank"></span></dd>
+            <dt>Anschrift</dt><dd><span class="blank"></span></dd>
+            <dt>vertreten durch</dt><dd><span class="blank"></span></dd>
+          </dl>
+          <p>als Betrieb, der die Anwendung einsetzt, im Folgenden <strong>Verantwortlicher</strong>,</p>
+          <p>und</p>
+          <dl class="fields">
+            <dt>Name oder Firma</dt><dd><span class="blank"></span></dd>
+            <dt>Anschrift</dt><dd><span class="blank"></span></dd>
+            <dt>vertreten durch</dt><dd><span class="blank"></span></dd>
+          </dl>
+          <p>als Dienstleister, der die Instanz betreibt, im Folgenden <strong>Auftragsverarbeiter</strong>.</p>
+        </div>
+
+        <h3>§ 1 Gegenstand und Dauer</h3>
+        <p>
+          (1) Der Auftragsverarbeiter betreibt für den Verantwortlichen eine Instanz der
+          Software OpenGewerk (im Folgenden: die Anwendung). Grundlage ist der
+          Vertrag über <span class="blank"></span> vom <span class="blank short"></span> (im Folgenden: der Hauptvertrag). Dieser Vertrag regelt, wie der
+          Auftragsverarbeiter dabei mit personenbezogenen Daten umgeht.
+        </p>
+        <p>(2) Zum Betrieb gehören die angekreuzten Leistungen:</p>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> der Server, auf dem die Instanz läuft</li>
+          <li><span class="box" aria-hidden="true">☐</span> Einrichtung der Anwendung und das Einspielen neuer Fassungen</li>
+          <li><span class="box" aria-hidden="true">☐</span> Sicherung und Rückspielen</li>
+          <li><span class="box" aria-hidden="true">☐</span> Überwachung des Betriebs und Behebung von Störungen</li>
+          <li><span class="box" aria-hidden="true">☐</span> die Verwaltung der Instanz: den Betrieb anlegen, Teil B der Maßnahmen und die Unterauftragsverarbeiter eintragen, Konten über die Kommandozeile zurückholen</li>
+          <li><span class="box" aria-hidden="true">☐</span> Hilfe für die Nutzer bei Fragen zur Anwendung</li>
+          <li><span class="box" aria-hidden="true">☐</span> Übernahme von Daten aus einer Vorgängeranwendung</li>
+          <li><span class="box" aria-hidden="true">☐</span> weitere: <span class="blank"></span></li>
+        </ul>
+        <p>
+          (3) Die Geräte, auf denen die Nutzer arbeiten, stellt der Verantwortliche. Für sie
+          gilt dieser Vertrag nur, soweit Absatz 2 es nennt.
+        </p>
+        <p>
+          (4) Der Vertrag beginnt mit seiner Unterzeichnung und läuft so lange wie der
+          Hauptvertrag. Er endet mit dem Hauptvertrag, ohne dass es einer Kündigung bedarf.
+          § 11 gilt darüber hinaus, bis alle Daten zurückgegeben und gelöscht sind.
+        </p>
+
+        <h3>§ 2 Art und Zweck der Verarbeitung, Art der Daten, betroffene Personen</h3>
+        <p>
+          (1) Der Verantwortliche führt mit der Anwendung seinen Handwerksbetrieb: Kunden
+          und Leads, Angebote, Aufträge, Belege und Zahlungen, Objekte und Anlagen mit
+          ihren Prüfungen und Mängeln, die Planung der Einsätze, Arbeitszeiten,
+          Mitarbeiterakten, Urlaub und Krankheit, Material und Lager, E-Mails an Kunden und
+          die Nachweise darüber. Der Auftragsverarbeiter verarbeitet die Daten nur, soweit es der
+          Betrieb der Instanz verlangt: er speichert, überträgt, sichert, stellt wieder her
+          und löscht sie. Vom Inhalt nimmt er nur Kenntnis, soweit eine Leistung nach § 1
+          Abs. 2 es im Einzelfall verlangt, etwa um eine Störung zu beheben.
+        </p>
+        <p>(2) Verarbeitet werden, je nachdem, was der Verantwortliche nutzt:</p>
+        <ul class="marker-list">
+          <li>
+            Konten: Name, E-Mail-Adresse, Anmeldedaten (das Passwort als Hash, der zweite
+            Faktor und seine Wiederherstellungscodes verschlüsselt, Passkeys), Sitzungen und
+            Geräte, An- und Abmeldungen, und die Netzadresse einer Anmeldung, soweit der
+            vorgeschaltete Webserver sie durchreicht;
+          </li>
+          <li>Zugehörigkeit zum Verantwortlichen: Rollen, Einladungen, Sperren und der letzte Tag eines Zugangs;</li>
+          <li>
+            Kunden und Leads: Name, Anschrift, E-Mail-Adresse, Telefonnummer,
+            Umsatzsteuer-Identifikationsnummer, Ansprechpartner, Notizen und Anrufe im
+            Verlauf, Anfrage und Quelle eines Leads;
+          </li>
+          <li>
+            Belege und Zahlungen, Objekte und Anlagen mit Prüfprotokollen, Messwerten und
+            Unterschriften mit Zeitpunkt und einer Angabe zum Gerät, Mängel, Fotos, die
+            Zugänge zu einem Objekt (versiegelt) und die Angaben für Netzbetreiber und
+            Förderprogramme;
+          </li>
+          <li>
+            Angaben über Beschäftigte: die Mitarbeiterakte mit vereinbarter Arbeitszeit und
+            Qualifikationen, Arbeitszeiten (der Standort beim Beginn und Ende nur mit
+            Einwilligung der Person), Urlaub, Krankheit, Rufbereitschaft, Termine und
+            Aufgaben, die Angabe der letzten Änderung an jedem Datensatz und das
+            Änderungsprotokoll;
+          </li>
+          <li>Benachrichtigungen: E-Mails im Postausgang, Push-Nachrichten und die Adresse, die ein Browser für Push ausgibt, das Kalender-Abo einer Person;</li>
+          <li>Dokumente, Fotos und freie Texte, die Nutzer ablegen oder schreiben und die Personen nennen oder zeigen können.</li>
+        </ul>
+        <p>
+          Im Einzelnen sagt das das Verzeichnis der Verarbeitungstätigkeiten, das die
+          Anwendung für den Betrieb erzeugt. Besondere Kategorien personenbezogener Daten
+          nach Art. 9 DSGVO hält die Anwendung in einem Fall: dass eine Abwesenheit eine
+          Krankheit ist. Das sieht nur, wer Abwesenheiten pflegt, und es wird zwölf Monate
+          nach ihrem letzten Tag gelöscht.
+        </p>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Der Verantwortliche legt darüber hinaus solche Daten ab, und zwar: <span class="blank"></span></li>
+        </ul>
+        <p>
+          (3) Betroffen sind die Kunden des Verantwortlichen und ihre Ansprechpartner;
+          Interessenten, die noch nicht Kunde sind; die Beschäftigten des Verantwortlichen
+          und andere Personen mit einem Konto; Ansprechpartner bei Lieferanten und
+          Netzbetreibern; Personen, die auf Fotos oder in Dokumenten vorkommen.
+        </p>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Weitere: <span class="blank"></span></li>
+        </ul>
+
+        <h3>§ 3 Weisungen</h3>
+        <p>
+          (1) Der Auftragsverarbeiter verarbeitet die Daten nur auf dokumentierte Weisung
+          des Verantwortlichen, auch bei einer Übermittlung in ein Drittland oder an eine
+          internationale Organisation. Das gilt nicht, wenn ihn das Recht der Union oder
+          eines Mitgliedstaats, dem er unterliegt, zu einer Verarbeitung verpflichtet. Dann
+          teilt er dem Verantwortlichen diese Pflicht vor der Verarbeitung mit, es sei
+          denn, das betreffende Recht verbietet eine solche Mitteilung wegen eines wichtigen
+          öffentlichen Interesses.
+        </p>
+        <p>
+          (2) Weisungen sind dieser Vertrag, der Hauptvertrag und was der Verantwortliche in
+          der Anwendung selbst einstellt, etwa Rollen, Zugänge und das Löschkonzept. Weitere
+          Weisungen erteilt er in Textform an die Ansprechpartner nach § 10. Eine mündliche
+          Weisung bestätigt er unverzüglich in Textform.
+        </p>
+        <p>
+          (3) Ist der Auftragsverarbeiter der Auffassung, dass eine Weisung gegen die DSGVO
+          oder andere Vorschriften über den Datenschutz verstößt, informiert er den
+          Verantwortlichen unverzüglich. Er darf die Weisung aussetzen, bis der
+          Verantwortliche sie bestätigt oder ändert.
+        </p>
+        <p>
+          (4) Kopien der Daten fertigt der Auftragsverarbeiter nur an, soweit der Betrieb sie
+          verlangt, wie die Sicherungen, oder eine gesetzliche Pflicht.
+        </p>
+
+        <h3>§ 4 Vertraulichkeit</h3>
+        <p>
+          (1) Der Auftragsverarbeiter setzt nur Personen ein, die zur Vertraulichkeit
+          verpflichtet sind oder einer angemessenen gesetzlichen Verschwiegenheitspflicht
+          unterliegen, und macht sie mit den Vorschriften über den Datenschutz vertraut. Die
+          Verpflichtung gilt über das Ende ihrer Tätigkeit hinaus.
+        </p>
+        <p>
+          (2) Zugang zum Server, zur Datenbank und zu den Sicherungen haben nur die Personen,
+          die der Auftragsverarbeiter dafür braucht. Wer diesen Zugang hat, kann alles
+          lesen, was in der Instanz steht; das ist der Grund für diesen Absatz.
+        </p>
+
+        <h3>§ 5 Sicherheit der Verarbeitung</h3>
+        <p>
+          (1) Der Auftragsverarbeiter ergreift die Maßnahmen nach Art. 32 DSGVO. Welche das
+          sind, steht in Anlage 1: Teil A beschreibt, was die Anwendung mitbringt, Teil B,
+          was der Auftragsverarbeiter beim Betrieb sicherstellt.
+        </p>
+        <p>
+          (2) Die Maßnahmen dürfen dem technischen Fortschritt folgen, solange das
+          Schutzniveau nicht sinkt. Eine wesentliche Änderung dokumentiert der
+          Auftragsverarbeiter und teilt sie dem Verantwortlichen in Textform mit.
+        </p>
+        <p>
+          (3) Neue Fassungen der Anwendung spielt der Auftragsverarbeiter innerhalb von <span class="blank short"></span> Tagen nach ihrem Erscheinen ein, eine Fassung
+          mit einer Sicherheitskorrektur innerhalb von <span class="blank short"></span> Tagen. Das Projekt liefert eine Sicherheitskorrektur nur für die jeweils neueste
+          Fassung aus.
+        </p>
+
+        <h3>§ 6 Ort der Verarbeitung</h3>
+        <p>
+          (1) Die Daten werden in der Europäischen Union oder im Europäischen
+          Wirtschaftsraum verarbeitet. Eine Übermittlung in ein Drittland erfolgt nur auf
+          vorherige dokumentierte Weisung des Verantwortlichen und nur, wenn die
+          Voraussetzungen der Art. 44 bis 49 DSGVO erfüllt sind.
+        </p>
+        <p>
+          (2) Push-Nachrichten gehen über den Push-Dienst, den der Browser des empfangenden
+          Geräts vorgibt, also über einen Dienst des Herstellers des Browsers, der seinen
+          Sitz auch außerhalb der Union haben kann. Der Auftragsverarbeiter wählt diesen
+          Dienst nicht aus. Der Inhalt einer Push-Nachricht ist auf diesem Weg
+          verschlüsselt, und er nennt keinen Namen, keinen Ort und keinen eingetippten
+          Text. Push kommt nur auf ein Gerät, auf dem die Person es selbst eingeschaltet
+          hat.
+        </p>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Der Verantwortliche bittet seine Beschäftigten, Push nicht einzuschalten.</li>
+        </ul>
+
+        <h3>§ 7 Unterauftragsverarbeiter</h3>
+        <p>
+          (1) Der Verantwortliche genehmigt die in Anlage 2 genannten Unterauftragsverarbeiter.
+        </p>
+        <p>(2) Für weitere Unterauftragsverarbeiter gilt, was angekreuzt ist:</p>
+        <ul class="checks">
+          <li>
+            <span class="box" aria-hidden="true">☐</span> Allgemeine Genehmigung: Der
+            Auftragsverarbeiter teilt die beabsichtigte Hinzuziehung oder Ersetzung
+            mindestens <span class="blank short"></span> Wochen vorher in Textform mit. Der
+            Verantwortliche kann innerhalb dieser Frist aus einem wichtigen Grund des
+            Datenschutzes widersprechen. Dann unterbleibt die Änderung, oder, wo das dem
+            Auftragsverarbeiter nicht zumutbar ist, kann jede Seite den Hauptvertrag und
+            diesen Vertrag zum Zeitpunkt der Änderung kündigen.
+          </li>
+          <li>
+            <span class="box" aria-hidden="true">☐</span> Gesonderte Genehmigung: Ein
+            weiterer Unterauftragsverarbeiter braucht die vorherige Genehmigung des
+            Verantwortlichen in Textform.
+          </li>
+        </ul>
+        <p>
+          (3) Der Auftragsverarbeiter erlegt jedem Unterauftragsverarbeiter vertraglich
+          dieselben Pflichten zum Datenschutz auf wie dieser Vertrag ihm, insbesondere
+          hinreichende Garantien für geeignete technische und organisatorische Maßnahmen.
+          Kommt ein Unterauftragsverarbeiter seinen Pflichten nicht nach, haftet der
+          Auftragsverarbeiter dem Verantwortlichen dafür wie für eigene.
+        </p>
+        <p>
+          (4) Keine Unterauftragsverarbeitung sind Leistungen, die der Auftragsverarbeiter
+          als Nebenleistung in Anspruch nimmt, ohne dass ein Dritter dabei auf die Daten
+          zugreifen kann, etwa Telekommunikation. Auch das Projekt OpenGewerk ist kein
+          Unterauftragsverarbeiter: es erhält aus der Instanz keine Daten.
+        </p>
+
+        <h3>§ 8 Unterstützung des Verantwortlichen</h3>
+        <p>
+          (1) Der Auftragsverarbeiter unterstützt den Verantwortlichen mit geeigneten
+          technischen und organisatorischen Maßnahmen dabei, Anträge betroffener Personen
+          nach Kapitel III der DSGVO zu beantworten. Einen Antrag, der bei ihm eingeht,
+          leitet er unverzüglich an den Verantwortlichen weiter und beantwortet ihn nicht
+          selbst. Auskunft und Datenexport, Löschen und Sperren bietet die Anwendung dem
+          Verantwortlichen selbst an (Anlage 1, A.7); wo sie eine Maßnahme nicht anbietet,
+          stimmen beide ab, wie sie umgesetzt wird, und der Auftragsverarbeiter wirkt mit.
+        </p>
+        <p>
+          (2) Er unterstützt den Verantwortlichen bei dessen Pflichten nach Art. 32 bis 36
+          DSGVO, also bei der Sicherheit, bei der Meldung einer Verletzung des Schutzes
+          personenbezogener Daten, bei einer Datenschutz-Folgenabschätzung und einer
+          vorherigen Konsultation der Aufsichtsbehörde, mit den Informationen, die ihm zur
+          Verfügung stehen.
+        </p>
+        <p>
+          (3) Bemerkt der Auftragsverarbeiter eine Verletzung des Schutzes personenbezogener
+          Daten, meldet er sie dem Verantwortlichen unverzüglich, spätestens innerhalb von <span class="blank short"></span> Stunden. Die Meldung enthält, soweit bekannt,
+          die Angaben nach Art. 33 Abs. 3 DSGVO; was noch fehlt, reicht er nach, sobald er
+          es weiß. Er ergreift sofort, was die Daten sichert und die Folgen mindert. Die
+          Meldung an die Aufsichtsbehörde und an betroffene Personen ist Sache des
+          Verantwortlichen.
+        </p>
+        <p>(4) Ob und wie die Unterstützung vergütet wird, regelt der Hauptvertrag.</p>
+
+        <h3>§ 9 Nachweise und Kontrollen</h3>
+        <p>
+          (1) Der Auftragsverarbeiter stellt dem Verantwortlichen alle Informationen zur
+          Verfügung, die er braucht, um die Einhaltung der Pflichten aus Art. 28 DSGVO
+          nachzuweisen. Er führt ein Verzeichnis nach Art. 30 Abs. 2 DSGVO.
+        </p>
+        <p>
+          (2) Er ermöglicht Überprüfungen einschließlich Inspektionen durch den
+          Verantwortlichen oder einen von ihm beauftragten Prüfer, der zur Verschwiegenheit
+          verpflichtet ist, und trägt dazu bei. Eine Inspektion wird in der Regel <span class="blank short"></span> Tage vorher angekündigt und findet zu den
+          üblichen Geschäftszeiten statt, ohne den Betrieb mehr als nötig zu stören. Als
+          Nachweis dienen kann auch eine Zertifizierung oder die Einhaltung genehmigter
+          Verhaltensregeln nach Art. 40 und 42 DSGVO.
+        </p>
+        <p>(3) Ein Datenschutzbeauftragter ist beim Auftragsverarbeiter</p>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> bestellt: <span class="blank"></span></li>
+          <li><span class="box" aria-hidden="true">☐</span> nicht bestellt, weil keine Pflicht dazu besteht.</li>
+        </ul>
+
+        <h3>§ 10 Ansprechpartner</h3>
+        <dl class="fields">
+          <dt>Für Weisungen beim Verantwortlichen</dt><dd><span class="blank"></span></dd>
+          <dt>Für Weisungen und Meldungen beim Auftragsverarbeiter</dt><dd><span class="blank"></span></dd>
+          <dt>Für Meldungen nach § 8 Abs. 3 beim Verantwortlichen</dt><dd><span class="blank"></span></dd>
+        </dl>
+        <p>Ändert sich ein Ansprechpartner, teilt die Seite das der anderen in Textform mit.</p>
+
+        <h3>§ 11 Rückgabe und Löschung</h3>
+        <p>
+          (1) Endet die Leistung, entscheidet der Verantwortliche, ob die Daten zurückgegeben
+          und dann gelöscht oder nur gelöscht werden. Zurückgegeben werden sie als Archiv
+          der Sicherung, das Datenbank und Dateispeicher zusammen enthält und sich in eine
+          andere Instanz zurückspielen lässt.
+        </p>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Das Archiv wird an einen Schlüssel verschlüsselt, den der Verantwortliche nennt.</li>
+        </ul>
+        <p>
+          (2) Danach löscht der Auftragsverarbeiter alle Daten des Verantwortlichen
+          einschließlich der Kopien innerhalb von <span class="blank short"></span> Tagen.
+          Sicherungen löscht er spätestens, wenn ihre Aufbewahrung nach Anlage 1, B.5
+          abläuft. Das gilt nicht, soweit das Recht der Union oder eines Mitgliedstaats eine
+          Speicherung verlangt. Die Löschung bestätigt er in Textform.
+        </p>
+
+        <h3>§ 12 Haftung</h3>
+        <p>
+          Für die Haftung gegenüber betroffenen Personen gilt Art. 82 DSGVO. Im Verhältnis
+          der Parteien zueinander gilt die Regelung des Hauptvertrags, soweit Art. 82 DSGVO
+          nichts anderes bestimmt.
+        </p>
+
+        <h3>§ 13 Schlussbestimmungen</h3>
+        <p>
+          (1) Dieser Vertrag und seine Änderungen werden schriftlich abgefasst, was auch in
+          einem elektronischen Format geschehen kann (Art. 28 Abs. 9 DSGVO).
+        </p>
+        <p>
+          (2) Widerspricht der Hauptvertrag diesem Vertrag in einer Frage des Datenschutzes,
+          geht dieser Vertrag vor.
+        </p>
+        <p>
+          (3) Ist eine Bestimmung unwirksam, bleiben die übrigen wirksam. An die Stelle der
+          unwirksamen tritt eine, die ihrem Zweck am nächsten kommt.
+        </p>
+        <p>(4) Es gilt das Recht der Bundesrepublik Deutschland.</p>
+
+        <div class="signatures">
+          <div>
+            <p>Für den Verantwortlichen</p>
+            <dl class="fields">
+              <dt>Ort, Datum</dt><dd><span class="blank"></span></dd>
+              <dt>Name</dt><dd><span class="blank"></span></dd>
+              <dt>Unterschrift</dt><dd><span class="blank tall"></span></dd>
+            </dl>
+          </div>
+          <div>
+            <p>Für den Auftragsverarbeiter</p>
+            <dl class="fields">
+              <dt>Ort, Datum</dt><dd><span class="blank"></span></dd>
+              <dt>Name</dt><dd><span class="blank"></span></dd>
+              <dt>Unterschrift</dt><dd><span class="blank tall"></span></dd>
+            </dl>
+          </div>
+        </div>
+      </article>
+
+      <article class="contract legal annex" aria-labelledby="anlage-1">
+        <h2 id="anlage-1">Anlage 1: Technische und organisatorische Maßnahmen</h2>
+        <p>
+          Nach Art. 32 DSGVO. Teil A beschreibt, was die Anwendung mitbringt, auf jeder
+          Instanz gleich, für den Stand <span class="blank"></span> (Fassung oder Datum).
+          Er ist derselbe Text, aus dem eine Instanz die Maßnahmen eines Betriebs erzeugt.
+          Teil B füllt der Auftragsverarbeiter für seinen Betrieb aus; in einer Instanz
+          trägt er ihn im Bereich der Instanz unter „Maßnahmen“ ein.
+        </p>
+
+        <h3>Teil A: Was die Anwendung mitbringt</h3>
+
+        {
+          sections.map((section) => (
+            <>
+              <h4>{section.title}</h4>
+              <ul class="marker-list">
+                {section.statements.map((statement) => (
+                  <li>{statement}</li>
+                ))}
+              </ul>
+            </>
+          ))
+        }
+
+        <h3>Teil B: Was der Auftragsverarbeiter beim Betrieb sicherstellt</h3>
+
+        <h4>B.1 Server und Standort</h4>
+        <dl class="fields">
+          <dt>Land und Ort des Servers</dt><dd><span class="blank"></span></dd>
+          <dt>Rechenzentrum oder Raum</dt><dd><span class="blank"></span></dd>
+        </dl>
+
+        <h4>B.2 Zutritt zum Server</h4>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Rechenzentrum mit Zutrittskontrolle des Anbieters (Anlage 2)</li>
+          <li><span class="box" aria-hidden="true">☐</span> eigener Raum, verschlossen, Schlüssel bei: <span class="blank"></span></li>
+        </ul>
+
+        <h4>B.3 Zugang zum Server und zur Datenbank</h4>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Anmeldung am Server nur mit Schlüssel, nicht mit Passwort</li>
+          <li><span class="box" aria-hidden="true">☐</span> eine Firewall lässt nur die nötigen Ports durch</li>
+          <li><span class="box" aria-hidden="true">☐</span> Anwendung und Datenbank sind nur über den vorgeschalteten Webserver erreichbar</li>
+        </ul>
+        <dl class="fields">
+          <dt>Personen mit Zugang zum Server</dt><dd><span class="blank"></span></dd>
+          <dt>Wo die Schlüssel der Instanz liegen (die Datei <code>.env</code>)</dt><dd><span class="blank"></span></dd>
+        </dl>
+
+        <h4>B.4 Verschlüsselung</h4>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> der vorgeschaltete Webserver liefert die Instanz nur über https mit einem gültigen Zertifikat aus</li>
+          <li><span class="box" aria-hidden="true">☐</span> die Datenträger des Servers sind verschlüsselt</li>
+          <li>
+            <span class="box" aria-hidden="true">☐</span> die Sicherungen sind verschlüsselt
+            (A.5), der private Schlüssel liegt bei: <span class="blank"></span>
+          </li>
+        </ul>
+
+        <h4>B.5 Sicherung</h4>
+        <dl class="fields">
+          <dt>Ziel der Sicherungen</dt><dd><span class="blank"></span></dd>
+          <dt>Aufbewahrte Generationen</dt><dd><span class="blank"></span></dd>
+          <dt>Rückspielen zur Probe, alle</dt><dd><span class="blank"></span> Monate</dd>
+        </dl>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> die Sicherungen liegen nicht auf demselben Datenträger wie die Instanz</li>
+        </ul>
+
+        <h4>B.6 Aktualisierung</h4>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> Sicherheitsupdates des Betriebssystems laufen automatisch</li>
+          <li><span class="box" aria-hidden="true">☐</span> neue Fassungen der Anwendung nach § 5 Abs. 3</li>
+          <li><span class="box" aria-hidden="true">☐</span> vor jedem Update eine Sicherung von Hand</li>
+        </ul>
+
+        <h4>B.7 Protokolle des Servers</h4>
+        <dl class="fields">
+          <dt>Was der Webserver protokolliert, und wie lange</dt><dd><span class="blank"></span></dd>
+        </dl>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> der Webserver reicht die Netzadresse der Anfrage an die Anwendung durch (A.1, § 2 Abs. 2)</li>
+        </ul>
+
+        <h4>B.8 Personal</h4>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true">☐</span> alle Personen mit Zugang sind auf Vertraulichkeit verpflichtet (§ 4)</li>
+          <li><span class="box" aria-hidden="true">☐</span> sie sind im Datenschutz unterwiesen, zuletzt am: <span class="blank short"></span></li>
+        </ul>
+
+        <h4>B.9 Weitere Maßnahmen</h4>
+        <p><span class="blank line"></span></p>
+      </article>
+
+      <article class="contract legal annex" aria-labelledby="anlage-2">
+        <h2 id="anlage-2">Anlage 2: Unterauftragsverarbeiter</h2>
+        <p>
+          Typisch sind der Anbieter des Servers oder des Rechenzentrums und der Ort der
+          Sicherungen. Den Mailserver eines Betriebs trägt der Verantwortliche selbst ein;
+          er gehört nicht in diese Liste.
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Name und Anschrift</th>
+                <th scope="col">Leistung</th>
+                <th scope="col">Ort der Verarbeitung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <p class="muted no-print stand">Stand der Vorlage: 05.11.2026. Nicht rechtlich geprüft.</p>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .legal h2 {
+    font-size: var(--font-h3);
+    margin-block-end: var(--space-xs);
+  }
+
+  .legal p + p {
+    margin-block-start: var(--space-xs);
+  }
+
+  .contract {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--space-m);
+  }
+
+  .contract + .contract {
+    margin-block-start: var(--space-l);
+  }
+
+  .contract h3 {
+    font-size: var(--font-l);
+    margin-block: var(--space-m) var(--space-xs);
+  }
+
+  .contract h4 {
+    margin-block: var(--space-s) 0.35rem;
+  }
+
+  .contract :is(p, ul, dl, .table-scroll) + :is(p, ul, dl, .table-scroll) {
+    margin-block-start: var(--space-xs);
+  }
+
+  .parties > * + * {
+    margin-block-start: var(--space-xs);
+  }
+
+  /* A line to write on. Inline, so that it can sit inside a sentence, and as wide
+   * as the column where it stands alone. */
+  .blank {
+    display: inline-block;
+    min-width: 12rem;
+    max-width: 100%;
+    height: 1.2em;
+    vertical-align: bottom;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .blank.short {
+    min-width: 4rem;
+  }
+
+  .blank.tall {
+    height: 3em;
+  }
+
+  dd > .blank,
+  .blank.line {
+    display: block;
+    width: 100%;
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: 0.5rem var(--space-s);
+    align-items: end;
+  }
+
+  .fields dt {
+    font-size: var(--font-s);
+    color: var(--ink-muted);
+  }
+
+  @media (width < 36rem) {
+    .fields {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.25rem;
+    }
+
+    .fields dd + dt {
+      margin-block-start: 0.5rem;
+    }
+  }
+
+  .checks {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checks li {
+    padding-inline-start: 1.6em;
+    text-indent: -1.6em;
+  }
+
+  .checks li + li {
+    margin-block-start: 0.35rem;
+  }
+
+  .box {
+    display: inline-block;
+    width: 1.6em;
+    text-indent: 0;
+  }
+
+  .signatures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-m);
+    margin-block-start: var(--space-l);
+  }
+
+  .signatures .fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  .annex td {
+    height: 3em;
+  }
+
+  .stand {
+    margin-block-start: var(--space-m);
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  /* Printed from the browser, the page becomes the contract: no header, no
+   * footer, no explanation, no tinted band, and each annex on a page of its own. */
+  @media print {
+    :global(.header),
+    :global(.footer),
+    :global(.skip-link),
+    .no-print {
+      display: none !important;
+    }
+
+    .print-only {
+      display: block;
+    }
+
+    .print-plain {
+      background: none;
+      padding: 0;
+    }
+
+    .contract {
+      border: 0;
+      padding: 0;
+      font-size: 10.5pt;
+    }
+
+    .annex {
+      break-before: page;
+    }
+
+    .contract h3,
+    .contract h4 {
+      break-after: avoid;
+    }
+
+    .signatures,
+    .fields,
+    .checks li {
+      break-inside: avoid;
+    }
+
+    .table-scroll {
+      border: 0;
+      overflow: visible;
+    }
+
+    .annex table {
+      min-width: 0;
+    }
+
+    .annex :is(th, td) {
+      border: 1px solid #000;
+    }
+  }
+</style>

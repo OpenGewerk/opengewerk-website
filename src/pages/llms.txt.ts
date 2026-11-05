@@ -29,8 +29,13 @@ const lines = [
   ),
   entry(
     'Vertrag zur Auftragsverarbeitung',
+    absolute('/auftragsverarbeitung/'),
+    'Vorlage für den Vertrag nach Art. 28 DSGVO zwischen einem Handwerksbetrieb und dem Dienstleister, der seine Instanz von OpenGewerk betreibt, mit den technischen und organisatorischen Maßnahmen als Anlage. Nicht rechtlich geprüft.',
+  ),
+  entry(
+    'Vertrag zur Auftragsverarbeitung für die Haustechnik',
     absolute('/haustechnik/auftragsverarbeitung/'),
-    'Vorlage für den Vertrag nach Art. 28 DSGVO zwischen einem Betreiber und dem Dienstleister, der seine Instanz betreibt, mit den technischen und organisatorischen Maßnahmen als Anlage. Nicht rechtlich geprüft.',
+    'Vorlage für den Vertrag nach Art. 28 DSGVO zwischen einem Betreiber und dem Dienstleister, der seine Instanz von OpenGewerk Haustechnik betreibt, mit den technischen und organisatorischen Maßnahmen als Anlage. Nicht rechtlich geprüft.',
   ),
   '',
   '## Projekt',
