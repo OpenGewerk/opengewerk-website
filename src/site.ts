@@ -34,28 +34,28 @@ export const PROVIDER = {
 } as const;
 
 export const LINKS = {
-  github: 'https://github.com/opengewerk',
-  repository: 'https://github.com/opengewerk/opengewerk',
+  github: 'https://github.com/OpenGewerk',
+  repository: 'https://github.com/OpenGewerk/opengewerk',
   dockerHub: 'https://hub.docker.com/r/opengewerk/opengewerk',
-  discussions: 'https://github.com/opengewerk/opengewerk/discussions',
-  issues: 'https://github.com/opengewerk/opengewerk/issues/new/choose',
+  discussions: 'https://github.com/OpenGewerk/opengewerk/discussions',
+  issues: 'https://github.com/OpenGewerk/opengewerk/issues/new/choose',
   discord: 'https://discord.gg/NRrEvbQdxz',
   reddit: 'https://www.reddit.com/r/OpenGewerk/',
   concept:
-    'https://github.com/opengewerk/opengewerk/blob/main/docs/konzept/Feature-Gliederung.md',
-  decisions: 'https://github.com/opengewerk/opengewerk/tree/main/docs/adr',
+    'https://github.com/OpenGewerk/opengewerk/blob/main/docs/konzept/Feature-Gliederung.md',
+  decisions: 'https://github.com/OpenGewerk/opengewerk/tree/main/docs/adr',
   contributing:
-    'https://github.com/opengewerk/.github/blob/main/CONTRIBUTING.md',
-  license: 'https://github.com/opengewerk/opengewerk/blob/main/LICENSE',
-  kanzlei: 'https://github.com/opengewerk/opengewerk-kanzlei',
-  haustechnik: 'https://github.com/opengewerk/opengewerk-haustechnik',
+    'https://github.com/OpenGewerk/.github/blob/main/CONTRIBUTING.md',
+  license: 'https://github.com/OpenGewerk/opengewerk/blob/main/LICENSE',
+  kanzlei: 'https://github.com/OpenGewerk/opengewerk-kanzlei',
+  haustechnik: 'https://github.com/OpenGewerk/opengewerk-haustechnik',
   haustechnikConcept:
-    'https://github.com/opengewerk/opengewerk-haustechnik/blob/main/docs/konzept/Planungskonzept.md',
+    'https://github.com/OpenGewerk/opengewerk-haustechnik/blob/main/docs/konzept/Planungskonzept.md',
   haustechnikProcedure:
-    'https://github.com/opengewerk/opengewerk-haustechnik/blob/main/docs/verfahrensbeschreibung/Verfahrensbeschreibung.md',
+    'https://github.com/OpenGewerk/opengewerk-haustechnik/blob/main/docs/verfahrensbeschreibung/Verfahrensbeschreibung.md',
   haustechnikPackages:
-    'https://github.com/opengewerk/opengewerk-haustechnik/tree/main/pakete',
-  apiSpec: 'https://github.com/opengewerk/opengewerk-api-spec',
+    'https://github.com/OpenGewerk/opengewerk-haustechnik/tree/main/pakete',
+  apiSpec: 'https://github.com/OpenGewerk/opengewerk-api-spec',
 } as const;
 
 // The main navigation names each thing a visitor might be looking for once:
