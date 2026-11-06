@@ -14,11 +14,11 @@
  */
 
 export const partASource =
-  'https://raw.githubusercontent.com/opengewerk/opengewerk-haustechnik/main/packages/server/templates/measures.md';
+  'https://raw.githubusercontent.com/OpenGewerk/opengewerk-haustechnik/main/packages/server/templates/measures.md';
 
 /** The template of the trades application, without the proofs in square brackets the Haustechnik has. */
 export const tradesPartASource =
-  'https://raw.githubusercontent.com/opengewerk/opengewerk/main/packages/server/templates/measures.md';
+  'https://raw.githubusercontent.com/OpenGewerk/opengewerk/main/packages/server/templates/measures.md';
 
 export interface PartASection {
   /** "A.1 Anmeldung" */

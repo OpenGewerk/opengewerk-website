@@ -44,7 +44,7 @@ Sie liegen als 2x-Export vor, die Tafeln des Büros 2560 px breit, die des Telef
 
 ## Marke
 
-Die Quelle aller Logo- und Icondateien ist und bleibt [`opengewerk/.github`](https://github.com/opengewerk/.github), Ordner `brand/`. Unter `public/marke/` liegen Kopien, aus demselben Grund, aus dem die Anwendung welche hat: eine self-hosted Seite darf ihr Logo nicht zur Laufzeit von GitHub nachladen. **Änderungen gehen zuerst in das Markenrepository, danach wird kopiert, nie umgekehrt.**
+Die Quelle aller Logo- und Icondateien ist und bleibt [`opengewerk/.github`](https://github.com/OpenGewerk/.github), Ordner `brand/`. Unter `public/marke/` liegen Kopien, aus demselben Grund, aus dem die Anwendung welche hat: eine self-hosted Seite darf ihr Logo nicht zur Laufzeit von GitHub nachladen. **Änderungen gehen zuerst in das Markenrepository, danach wird kopiert, nie umgekehrt.**
 
 Auch die Schrift Barlow liegt im Bündel und kommt nicht von einem fremden Server. Das ist keine Kleinigkeit, sondern der Grund, warum die Datenschutzerklärung dieser Seite so kurz sein kann.
 

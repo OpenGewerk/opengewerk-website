@@ -1,15 +1,15 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/opengewerk/.github/main/brand/opengewerk-logo-dark.svg">
-    <img alt="OpenGewerk" src="https://raw.githubusercontent.com/opengewerk/.github/main/brand/opengewerk-logo.svg" width="320">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/OpenGewerk/.github/main/brand/opengewerk-logo-dark.svg">
+    <img alt="OpenGewerk" src="https://raw.githubusercontent.com/OpenGewerk/.github/main/brand/opengewerk-logo.svg" width="320">
   </picture>
 </p>
 
 <p align="center"><strong>Die Website von OpenGewerk unter opengewerk.de</strong></p>
 
 <p align="center">
-  <a href="https://github.com/opengewerk/opengewerk-website/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/opengewerk/opengewerk-website/actions/workflows/ci.yml/badge.svg"></a>
-  <a href="https://github.com/opengewerk/opengewerk-website/actions/workflows/deploy.yml"><img alt="Ausliefern" src="https://github.com/opengewerk/opengewerk-website/actions/workflows/deploy.yml/badge.svg"></a>
+  <a href="https://github.com/OpenGewerk/opengewerk-website/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/OpenGewerk/opengewerk-website/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/OpenGewerk/opengewerk-website/actions/workflows/deploy.yml"><img alt="Ausliefern" src="https://github.com/OpenGewerk/opengewerk-website/actions/workflows/deploy.yml/badge.svg"></a>
 </p>
 
 ## Zweck
@@ -41,9 +41,9 @@ Dieselben Schritte laufen in der CI. Ein Push auf `main` baut und spielt die Sei
 
 ## Mitmachen
 
-- Ein Fehler auf der Seite, ein veralteter Stand oder ein toter Verweis gehört als [Issue](https://github.com/opengewerk/opengewerk-website/issues) hierher, eine Frage zu den Anwendungen in deren Discussions.
-- Sicherheitslücken bitte nicht öffentlich, sondern wie in der [SECURITY.md](https://github.com/opengewerk/.github/blob/main/SECURITY.md) beschrieben.
-- Die Beitragsregeln stehen in der [CONTRIBUTING.md](https://github.com/opengewerk/.github/blob/main/CONTRIBUTING.md).
+- Ein Fehler auf der Seite, ein veralteter Stand oder ein toter Verweis gehört als [Issue](https://github.com/OpenGewerk/opengewerk-website/issues) hierher, eine Frage zu den Anwendungen in deren Discussions.
+- Sicherheitslücken bitte nicht öffentlich, sondern wie in der [SECURITY.md](https://github.com/OpenGewerk/.github/blob/main/SECURITY.md) beschrieben.
+- Die Beitragsregeln stehen in der [CONTRIBUTING.md](https://github.com/OpenGewerk/.github/blob/main/CONTRIBUTING.md).
 
 ## Lizenz
 
