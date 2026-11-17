@@ -93,6 +93,13 @@ for (const [path, source] of Object.entries(sources)) {
   if (!source.startsWith('# ')) {
     throw new Error(`${path}: beginnt nicht mit seinem Titel, davor stünde Frontmatter.`);
   }
+  // Raw HTML outside code, even a tag the subset knows: the application shows
+  // it as words, so it is no part of a text. Inside code it stays code.
+  const prose = source.replace(/```[\s\S]*?```/g, '').replace(/`[^`\n]*`/g, '');
+  const raw = /<[A-Za-z/!?]/.exec(prose);
+  if (raw) {
+    throw new Error(`${path}: rohes HTML (${raw[0]}…) steht nicht in dem Teil von Markdown, den die Anwendung liest.`);
+  }
 }
 
 async function load(found: Record<string, () => Promise<Text>>): Promise<Record<string, Text>> {
