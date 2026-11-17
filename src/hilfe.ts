@@ -21,17 +21,30 @@ const order = {
   handbuch: ['installation', 'update', 'sicherung', 'weitere-betriebe'],
 } as const;
 
+/**
+ * The first paragraph in plain words, as the application shows it under a
+ * title: the signs of code, emphasis and links taken out, the words kept.
+ */
+function plain(paragraph: string): string {
+  return paragraph
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\s+/g, ' ');
+}
+
 function read(folder: HelpText['folder'], found: Record<string, Text>): HelpText[] {
   return Object.entries(found)
     .map(([path, text]) => {
       const slug = path.slice(path.lastIndexOf('/') + 1).replace(/\.md$/, '');
       const title = text.getHeadings().find((heading) => heading.depth === 1)?.text ?? slug;
-      const lead =
+      const lead = plain(
         text
           .rawContent()
           .split(/\n\s*\n/)
           .map((block) => block.trim())
-          .find((block) => block !== '' && !block.startsWith('#')) ?? '';
+          .find((block) => /^[\p{L}\p{N}„"(]/u.test(block)) ?? '',
+      );
       return { folder, slug, title, lead, Content: text.Content };
     })
     .sort(

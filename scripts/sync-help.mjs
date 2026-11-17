@@ -10,6 +10,7 @@
 // it changed.
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const checkout = process.argv[2];
 
@@ -20,9 +21,13 @@ if (!checkout || !existsSync(join(checkout, 'packages/web/help'))) {
 
 const folders = { guides: 'kurzanleitungen', manual: 'handbuch' };
 
+// The texts of this website, wherever the script is called from: anchored at
+// the script, as check-links.mjs anchors its dist.
+const help = fileURLToPath(new URL('../src/hilfe/', import.meta.url));
+
 for (const [from, to] of Object.entries(folders)) {
   const source = join(checkout, 'packages/web/help', from);
-  const target = join('src/hilfe', to);
+  const target = join(help, to);
   mkdirSync(target, { recursive: true });
   const wanted = readdirSync(source).filter((name) => name.endsWith('.md'));
 

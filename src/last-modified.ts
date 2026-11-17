@@ -37,6 +37,10 @@ const cache = new Map<string, string | undefined>();
 /** The source file a route is built from, relative to the repository root. */
 export function pageSource(pathname: string): string {
   const route = pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+  // A text of the help is one page each, built by one route from its Markdown
+  // under src/hilfe; the date that matters is the one of that text.
+  const help = /^hilfe\/(kurzanleitungen|handbuch)\/([a-z0-9-]+)$/.exec(route);
+  if (help) return `src/hilfe/${help[1]}/${help[2]}.md`;
   return `src/pages/${route === '' ? 'index' : route}.astro`;
 }
 
