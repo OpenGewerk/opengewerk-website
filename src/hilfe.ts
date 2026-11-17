@@ -17,7 +17,7 @@ export interface HelpText {
 
 /** The order of the application: the core flows of section 8, the chapters as a setup needs them. */
 const order = {
-  kurzanleitungen: ['angebot', 'regiebericht-zur-rechnung', 'plantafel', 'pruefprotokoll'],
+  kurzanleitungen: ['angebot', 'regiebericht-zur-rechnung', 'plantafel', 'protokoll'],
   handbuch: ['installation', 'update', 'sicherung', 'weitere-betriebe'],
 } as const;
 
@@ -43,7 +43,7 @@ function read(folder: HelpText['folder'], found: Record<string, Text>): HelpText
           .rawContent()
           .split(/\n\s*\n/)
           .map((block) => block.trim())
-          .find((block) => /^[\p{L}\p{N}„"(]/u.test(block)) ?? '',
+          .find((block) => block !== '' && !/^(?:#|[-*+] |\d+\. |>)/.test(block)) ?? '',
       );
       return { folder, slug, title, lead, Content: text.Content };
     })
@@ -69,20 +69,43 @@ const allowedTag =
 
 async function holdToSubset(found: Record<string, Text>): Promise<Record<string, Text>> {
   for (const [path, text] of Object.entries(found)) {
-    for (const [tag] of (await text.compiledContent()).matchAll(/<[^>]*>/g)) {
+    const html = await text.compiledContent();
+    for (const [tag] of html.matchAll(/<[^>]*>/g)) {
       if (!allowedTag.test(tag)) {
         throw new Error(`${path}: ${tag} steht nicht in dem Teil von Markdown, den die Anwendung liest.`);
       }
+    }
+    // A tag without its ">" escapes the loop above, and the page around the
+    // text would close it. Text writes "<" as &lt;, so once every tag above has
+    // passed, a "<" after the last ">" can only be such a tag.
+    if (html.lastIndexOf('<') > html.lastIndexOf('>')) {
+      throw new Error(`${path}: ein Tag ohne Ende steht nicht in dem Teil von Markdown, den die Anwendung liest.`);
     }
   }
   return found;
 }
 
+// The sources as written, checked before any text is loaded as a module:
+// frontmatter can name a layout, and Astro imports that as code while the
+// module of the text loads. A text starts with its title, so nothing can.
+const sources = import.meta.glob<string>('./hilfe/*/*.md', { query: '?raw', import: 'default', eager: true });
+for (const [path, source] of Object.entries(sources)) {
+  if (!source.startsWith('# ')) {
+    throw new Error(`${path}: beginnt nicht mit seinem Titel, davor stünde Frontmatter.`);
+  }
+}
+
+async function load(found: Record<string, () => Promise<Text>>): Promise<Record<string, Text>> {
+  const loaded: Record<string, Text> = {};
+  for (const [path, loader] of Object.entries(found)) loaded[path] = await loader();
+  return loaded;
+}
+
 export const guides = read(
   'kurzanleitungen',
-  await holdToSubset(import.meta.glob<Text>('./hilfe/kurzanleitungen/*.md', { eager: true })),
+  await holdToSubset(await load(import.meta.glob<Text>('./hilfe/kurzanleitungen/*.md'))),
 );
 export const chapters = read(
   'handbuch',
-  await holdToSubset(import.meta.glob<Text>('./hilfe/handbuch/*.md', { eager: true })),
+  await holdToSubset(await load(import.meta.glob<Text>('./hilfe/handbuch/*.md'))),
 );

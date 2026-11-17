@@ -5,8 +5,9 @@ on:
     branches: [main]
   pull_request:
   # The deploy calls this workflow as its gate, so it has to be callable. That
-  # one line is the only difference to the identical file in the other three
-  # repositories, which have nothing to deploy.
+  # line and the job "build" at the end are what this file has beyond the
+  # jobs it shares with the other three repositories, which have nothing to
+  # deploy and nothing to build.
   workflow_call:
 
 permissions:
@@ -175,9 +176,6 @@ jobs:
           ALLOWED = {
               # The id field of the issue templates, an identifier and not prose.
               "pruefung",
-              # The name of a text of the help of the application, part of its
-              # address under /hilfe/ (opengewerk#269).
-              "pruefprotokoll",
           }
 
           EXEMPT = {"LICENSE"}

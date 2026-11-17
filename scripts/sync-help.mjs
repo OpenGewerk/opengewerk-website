@@ -8,8 +8,17 @@
 //
 // Files that are gone there are removed here, and the script names every file
 // it changed.
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
+import {
+  copyFileSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+} from 'node:fs';
+import { join, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const checkout = process.argv[2];
@@ -20,6 +29,30 @@ if (!checkout || !existsSync(join(checkout, 'packages/web/help'))) {
 }
 
 const folders = { guides: 'kurzanleitungen', manual: 'handbuch' };
+
+// Only what really lies in the checkout is copied: no link, to a folder or a
+// file, brings in what stands somewhere else on the machine. A link stops the
+// script before it copies anything.
+const home = realpathSync(checkout);
+
+function inCheckout(path, kind) {
+  const stat = lstatSync(path);
+  const fits = kind === 'folder' ? stat.isDirectory() : stat.isFile();
+  const inside = relative(home, realpathSync(path));
+
+  if (!fits || stat.isSymbolicLink() || inside.startsWith('..') || isAbsolute(inside)) {
+    console.error(`${path} ist kein ${kind === 'folder' ? 'Ordner' : 'Text'} im Checkout, sondern ein Link oder etwas anderes.`);
+    process.exit(1);
+  }
+}
+
+for (const from of Object.keys(folders)) {
+  const source = join(checkout, 'packages/web/help', from);
+  inCheckout(source, 'folder');
+  for (const name of readdirSync(source).filter((entry) => entry.endsWith('.md'))) {
+    inCheckout(join(source, name), 'file');
+  }
+}
 
 // The texts of this website, wherever the script is called from: anchored at
 // the script, as check-links.mjs anchors its dist.
