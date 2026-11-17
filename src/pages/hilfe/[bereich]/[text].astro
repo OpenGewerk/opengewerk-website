@@ -1,0 +1,29 @@
+---
+import Page from '../../../layouts/Page.astro';
+import { chapters, guides, type HelpText } from '../../../hilfe';
+
+export function getStaticPaths() {
+  return [...guides, ...chapters].map((text) => ({
+    params: { bereich: text.folder, text: text.slug },
+    props: { text },
+  }));
+}
+
+const { text } = Astro.props as { text: HelpText };
+const { Content } = text;
+const section = text.folder === 'kurzanleitungen' ? 'Kurzanleitung' : 'Handbuch';
+---
+
+<Page
+  title={`${text.title}: ${section} zu OpenGewerk`}
+  description={text.lead}
+  breadcrumb={text.title}
+  parent={{ name: 'Hilfe', path: '/hilfe/' }}
+>
+  <section class="section">
+    <div class="wrap measure stack">
+      <Content />
+      <p><a href="/hilfe/">Zur Übersicht der Hilfe</a></p>
+    </div>
+  </section>
+</Page>

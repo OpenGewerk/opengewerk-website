@@ -110,6 +110,11 @@ export const PAGES = [
     hint: 'Start über Docker, Sicherung, Update und was der Server braucht.',
   },
   {
+    href: '/hilfe/',
+    label: 'Hilfe',
+    hint: 'Kurzanleitungen zur Handwerkersoftware und das Handbuch für den Betrieb einer Instanz.',
+  },
+  {
     href: '/alternativen/',
     label: 'Vergleich',
     hint: 'Gegenüber openHandwerk, plancraft, sevdesk, Odoo, Dolibarr und ERPNext.',
