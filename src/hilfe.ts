@@ -93,12 +93,14 @@ for (const [path, source] of Object.entries(sources)) {
   if (!source.startsWith('# ')) {
     throw new Error(`${path}: beginnt nicht mit seinem Titel, davor stünde Frontmatter.`);
   }
-  // Raw HTML outside code, even a tag the subset knows: the application shows
-  // it as words, so it is no part of a text. Inside code it stays code.
-  const prose = source.replace(/```[\s\S]*?```/g, '').replace(/`[^`\n]*`/g, '');
-  const raw = /<[A-Za-z/!?]/.exec(prose);
+  // Raw HTML, even a tag the subset knows: the application shows it as words,
+  // so it is no part of a text. Checked in code as well: telling code from
+  // prose with expressions missed an escaped backtick and a fence in the middle
+  // of a paragraph, and the parser then read the tag as HTML. A placeholder in
+  // code is written without angle brackets.
+  const raw = /<[A-Za-z/!?]/.exec(source);
   if (raw) {
-    throw new Error(`${path}: rohes HTML (${raw[0]}…) steht nicht in dem Teil von Markdown, den die Anwendung liest.`);
+    throw new Error(`${path}: "${raw[0]}…" sieht nach rohem HTML aus, und das steht in keinem Text, auch nicht in Code.`);
   }
 }
 
