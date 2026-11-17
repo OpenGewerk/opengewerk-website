@@ -1,0 +1,57 @@
+---
+import Page from '../layouts/Page.astro';
+import { chapters, guides } from '../hilfe';
+---
+
+<Page
+  title="Hilfe zur Handwerkersoftware"
+  description="Kurzanleitungen zu den wichtigsten Abläufen in OpenGewerk und das Handbuch für den Betrieb einer Instanz: Installation, Update, Sicherung und weitere Betriebe."
+  breadcrumb="Hilfe"
+>
+  <section class="section section-dark">
+    <div class="wrap measure stack">
+      <h1>Hilfe zur Handwerkersoftware</h1>
+      <p class="lead">
+        Die Hilfe steht in OpenGewerk selbst, neben jeder Seite und auf der Baustelle auch ohne Netz.
+        Hier stehen die Kurzanleitungen und das Handbuch noch einmal, aus denselben Texten, für die
+        Zeit vor der ersten Instanz oder wenn eine gerade nicht läuft.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="space-below">Kurzanleitungen</h2>
+      <div class="card-grid">
+        {
+          guides.map((guide) => (
+            <article class="card stack">
+              <h3>
+                <a href={`/hilfe/kurzanleitungen/${guide.slug}/`}>{guide.title}</a>
+              </h3>
+              <p>{guide.lead}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="wrap">
+      <h2 class="space-below">Handbuch für den Betrieb einer Instanz</h2>
+      <div class="card-grid">
+        {
+          chapters.map((chapter) => (
+            <article class="card stack">
+              <h3>
+                <a href={`/hilfe/handbuch/${chapter.slug}/`}>{chapter.title}</a>
+              </h3>
+              <p>{chapter.lead}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Page>

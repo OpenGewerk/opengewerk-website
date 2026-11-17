@@ -5,8 +5,9 @@ on:
     branches: [main]
   pull_request:
   # The deploy calls this workflow as its gate, so it has to be callable. That
-  # one line is the only difference to the identical file in the other three
-  # repositories, which have nothing to deploy.
+  # line and the job "build" at the end are what this file has beyond the
+  # jobs it shares with the other three repositories, which have nothing to
+  # deploy and nothing to build.
   workflow_call:
 
 permissions:

@@ -6,7 +6,7 @@ Wie die Seite aufgebaut ist und wonach sie sich richtet: Ordner, Schreibweise, B
 
 | Pfad | Inhalt |
 | --- | --- |
-| `src/pages/` | Eine Datei je Route. Die Dateinamen sind deutsch, weil sie die Adresse sind, die ein Besucher liest |
+| `src/pages/` | Eine Datei je Route, bis auf die Texte der Hilfe, die eine Route aus `src/hilfe` baut. Die Dateinamen sind deutsch, weil sie die Adresse sind, die ein Besucher liest |
 | `src/layouts/Page.astro` | Der einzige Rahmen. Titel, Beschreibung, Canonical, Open Graph und die strukturierten Daten stehen dort und nirgends sonst |
 | `src/components/` | Kopf, Fuß, der Rahmen für die Oberflächenbilder und die beiden Bausteine der Stand-Seiten: die Tabelle mit dem Stand je Bereich und die Liste der Phasen. Beide Anwendungen nutzen sie, damit ihre Seiten gleich aussehen |
 | `src/site.ts` | Name, Adresse, Navigation, ausgehende Verweise und die Anbieterangaben. Alles, was auf mehr als einer Seite steht |
@@ -15,6 +15,9 @@ Wie die Seite aufgebaut ist und wonach sie sich richtet: Ordner, Schreibweise, B
 | `src/assets/screens/` | Die Oberflächenbilder. Dateinamen deutsch, weil sie aus den Artboards des Entwurfs stammen und sich so zuordnen lassen |
 | `public/marke/` | Logo, Icon und Vorschaubild, siehe unten |
 | `scripts/check-links.mjs` | Prüft nach dem Bauen, dass kein interner Verweis ins Leere geht |
+| `src/hilfe/` | Kurzanleitungen und Handbuch der Handwerkersoftware, abgeschrieben aus `packages/web/help` der Anwendung. Dort ist die Quelle, hier wird nichts von Hand geändert |
+| `src/hilfe.ts` | Liest die Texte der Hilfe, mit Titel, erstem Absatz und der Reihenfolge der Anwendung |
+| `scripts/sync-help.mjs` | Zieht die Texte der Hilfe nach einer Änderung in der Anwendung nach: `node scripts/sync-help.mjs <Checkout von opengewerk>` |
 
 ## Konventionen
 

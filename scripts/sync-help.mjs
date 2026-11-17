@@ -1,0 +1,79 @@
+// Copies the quick guides and the manual from a checkout of opengewerk into
+// src/hilfe (#269 of opengewerk). The help ships with the application and is
+// read there without a network; these pages are a copy of the same files for
+// whoever has no instance at hand, so the application is the source and this
+// is run after a change there:
+//
+//   node scripts/sync-help.mjs ../opengewerk
+//
+// Files that are gone there are removed here, and the script names every file
+// it changed.
+import {
+  copyFileSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+} from 'node:fs';
+import { join, relative, isAbsolute } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const checkout = process.argv[2];
+
+if (!checkout || !existsSync(join(checkout, 'packages/web/help'))) {
+  console.error('Aufruf: node scripts/sync-help.mjs <Pfad zu einem Checkout von opengewerk>');
+  process.exit(1);
+}
+
+const folders = { guides: 'kurzanleitungen', manual: 'handbuch' };
+
+// Only what really lies in the checkout is copied: no link, to a folder or a
+// file, brings in what stands somewhere else on the machine. A link stops the
+// script before it copies anything.
+const home = realpathSync(checkout);
+
+function inCheckout(path, kind) {
+  const stat = lstatSync(path);
+  const fits = kind === 'folder' ? stat.isDirectory() : stat.isFile();
+  const inside = relative(home, realpathSync(path));
+
+  if (!fits || stat.isSymbolicLink() || inside.startsWith('..') || isAbsolute(inside)) {
+    console.error(`${path} ist kein ${kind === 'folder' ? 'Ordner' : 'Text'} im Checkout, sondern ein Link oder etwas anderes.`);
+    process.exit(1);
+  }
+}
+
+for (const from of Object.keys(folders)) {
+  const source = join(checkout, 'packages/web/help', from);
+  inCheckout(source, 'folder');
+  for (const name of readdirSync(source).filter((entry) => entry.endsWith('.md'))) {
+    inCheckout(join(source, name), 'file');
+  }
+}
+
+// The texts of this website, wherever the script is called from: anchored at
+// the script, as check-links.mjs anchors its dist.
+const help = fileURLToPath(new URL('../src/hilfe/', import.meta.url));
+
+for (const [from, to] of Object.entries(folders)) {
+  const source = join(checkout, 'packages/web/help', from);
+  const target = join(help, to);
+  mkdirSync(target, { recursive: true });
+  const wanted = readdirSync(source).filter((name) => name.endsWith('.md'));
+
+  for (const name of wanted) {
+    const before = existsSync(join(target, name)) ? readFileSync(join(target, name), 'utf8') : null;
+    copyFileSync(join(source, name), join(target, name));
+    if (before !== readFileSync(join(target, name), 'utf8')) console.log(`geändert: ${to}/${name}`);
+  }
+
+  for (const name of readdirSync(target)) {
+    if (!wanted.includes(name)) {
+      rmSync(join(target, name));
+      console.log(`entfernt: ${to}/${name}`);
+    }
+  }
+}
