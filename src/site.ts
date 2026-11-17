@@ -92,7 +92,7 @@ export const PAGES = [
   {
     href: '/buchhaltung/',
     label: 'Buchhaltung',
-    hint: 'Was geplant ist: eigenes Journal, GoBD, E-Rechnung im Ein- und Ausgang.',
+    hint: 'Was geplant ist: eigenes Journal und der Empfang von E-Rechnungen. Festschreibung nach GoBD und E-Rechnung im Ausgang gibt es schon.',
   },
   {
     href: '/haustechnik/',
