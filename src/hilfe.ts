@@ -47,15 +47,42 @@ function read(folder: HelpText['folder'], found: Record<string, Text>): HelpText
       );
       return { folder, slug, title, lead, Content: text.Content };
     })
-    .sort(
-      (one, other) =>
-        (order[folder] as readonly string[]).indexOf(one.slug) -
-        (order[folder] as readonly string[]).indexOf(other.slug),
-    );
+    .sort((one, other) => place(folder, one.slug) - place(folder, other.slug));
+}
+
+/** Where a text stands in its order; one the order does not name yet comes last. */
+function place(folder: HelpText['folder'], slug: string): number {
+  const at = (order[folder] as readonly string[]).indexOf(slug);
+  return at === -1 ? Number.MAX_SAFE_INTEGER : at;
+}
+
+/**
+ * The tags a text may become: exactly the part of Markdown the application
+ * reads (headings, paragraphs, lists, bold, code and links to https). The
+ * application shows these texts as words and never as HTML; the website
+ * renders them with the whole of Markdown, so a tag outside this part, raw
+ * HTML or a link to anything but https, stops the build instead of reaching
+ * a page.
+ */
+const allowedTag =
+  /^<(?:\/?(?:h[1-3]|p|ul|ol|li|strong|code|a)|h[1-3] id="[^"]*"|ol start="[0-9]+"|a href="https:\/\/[^"]*")>$/;
+
+async function holdToSubset(found: Record<string, Text>): Promise<Record<string, Text>> {
+  for (const [path, text] of Object.entries(found)) {
+    for (const [tag] of (await text.compiledContent()).matchAll(/<[^>]*>/g)) {
+      if (!allowedTag.test(tag)) {
+        throw new Error(`${path}: ${tag} steht nicht in dem Teil von Markdown, den die Anwendung liest.`);
+      }
+    }
+  }
+  return found;
 }
 
 export const guides = read(
   'kurzanleitungen',
-  import.meta.glob<Text>('./hilfe/kurzanleitungen/*.md', { eager: true }),
+  await holdToSubset(import.meta.glob<Text>('./hilfe/kurzanleitungen/*.md', { eager: true })),
 );
-export const chapters = read('handbuch', import.meta.glob<Text>('./hilfe/handbuch/*.md', { eager: true }));
+export const chapters = read(
+  'handbuch',
+  await holdToSubset(import.meta.glob<Text>('./hilfe/handbuch/*.md', { eager: true })),
+);

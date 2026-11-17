@@ -175,6 +175,9 @@ jobs:
           ALLOWED = {
               # The id field of the issue templates, an identifier and not prose.
               "pruefung",
+              # The name of a text of the help of the application, part of its
+              # address under /hilfe/ (opengewerk#269).
+              "pruefprotokoll",
           }
 
           EXEMPT = {"LICENSE"}
