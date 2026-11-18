@@ -18,7 +18,7 @@ const questions = [
   {
     question: 'Welchen Server braucht OpenGewerk?',
     answer:
-      'Eine Maschine mit Docker, auf x86_64 oder ARM64. Anwendung und Datenbank zusammen bleiben im Leerlauf unter 120 MiB Arbeitsspeicher, gemessen mit einem Limit von einem Gigabyte, mit dem PDF-Renderer unter 600 MiB. Ein kleiner virtueller Server reicht für einen Betrieb aus, ein Gerät im eigenen Netz ebenso.',
+      'Eine Maschine mit Docker Engine ab 28.3.3 und Docker Compose ab 2.22, auf x86_64 oder ARM64. Anwendung und Datenbank zusammen bleiben im Leerlauf unter 120 MiB Arbeitsspeicher, gemessen mit einem Limit von einem Gigabyte, mit dem PDF-Renderer unter 600 MiB. Ein kleiner virtueller Server reicht für einen Betrieb aus, ein Gerät im eigenen Netz ebenso.',
   },
   {
     question: 'Wie werden die Daten gesichert?',
@@ -81,7 +81,7 @@ const schema = [
       <h2>In vier Schritten starten</h2>
       <ol class="quick-steps">
         <li>Das Paket der neuesten Fassung von der Release-Seite herunterladen.</li>
-        <li>Auf einer Maschine mit Docker entpacken und <code>sh docker/start.sh</code> aufrufen.</li>
+        <li>Auf einer Maschine mit Docker Engine ab 28.3.3 entpacken und <code>sh docker/start.sh</code> aufrufen.</li>
         <li>Einen Reverse Proxy mit HTTPS davorstellen, die Vorlagen liegen im Paket.</li>
         <li>Im Browser die Ersteinrichtung mit dem Einrichtungscode abschließen.</li>
       </ol>
@@ -89,7 +89,8 @@ const schema = [
       <p>
         Das Paket der neuesten Fassung von der{' '}
         <a href={LINKS.repository + '/releases'} rel="noopener">Release-Seite</a>{' '}
-        herunterladen, auf einer Maschine mit Docker entpacken und im Ordner{' '}
+        herunterladen, auf einer Maschine mit Docker Engine ab 28.3.3 und Docker Compose
+        ab 2.22 entpacken und im Ordner{' '}
         <code>opengewerk</code> aufrufen:
       </p>
       <pre><code>sh docker/start.sh</code></pre>
@@ -128,7 +129,10 @@ const schema = [
       <h3>Davor gehört ein Reverse Proxy mit HTTPS</h3>
       <p>
         Die Instanz lauscht nur auf <code>127.0.0.1</code>, denn eine Anwendung, die
-        Rechnungen führt, steht nicht unverschlüsselt im Netz. Davor gehört ein Reverse
+        Rechnungen führt, steht nicht unverschlüsselt im Netz. Das hält Docker erst ab
+        Engine 28.3.3: Vor 28.0.0 erreichen Rechner im selben Netz auch einen Port auf{' '}
+        <code>127.0.0.1</code>, und 28.2.0 bis 28.3.2 öffnen ihn nach einem Neuladen von
+        firewalld wieder (CVE-2025-54388). Davor gehört ein Reverse
         Proxy mit TLS, und für die beiden üblichen liegen vollständige Vorlagen im Paket
         unter <code>docker/proxy/</code>:{' '}
         <a href={LINKS.repository + '/blob/main/docker/proxy/apache.conf'} rel="noopener">apache.conf</a>{' '}
