@@ -89,6 +89,31 @@ const areas: Area[] = [
     detail: 'Das Abnahmeprotokoll nach § 640 BGB, auf dem Gerät unterschrieben, mit der Gewährleistungsfrist ab Abnahme nach BGB oder VOB/B und der Aufforderung zur Abnahme. Mängel mit Fotos und Status bis zur Abnahme durch den Kunden mit Unterschrift, die Vorbehalte der Abnahme als Mängel und der Mängelbericht als PDF.',
   },
   {
+    title: 'Serviceaufträge und Notdienst',
+    state: 'done',
+    detail: 'Serviceaufträge mit Schnellerfassung am Telefon und Abrechnung vor Ort, der Notdienst mit Rufbereitschaftsplan und Zuschlägen für Nacht, Wochenende und Feiertag. Telefon und Büro halten fest, welchen Zuschlag sie einem Verbraucher vor dem Auftrag genannt haben, mit Umsatzsteuer, und die Rechnung nimmt höchstens diesen.',
+  },
+  {
+    title: 'Wartungsverträge',
+    state: 'done',
+    detail: 'Wartungsverträge mit Intervall, Laufzeit und Kündigungsfrist und die Dauerrechnung daraus. Kunden bekommen auf Wunsch eine Erinnerung, wenn eine Prüfung oder Wartung fällig wird, und eine Bestätigung zu Termin und Auftragseingang.',
+  },
+  {
+    title: 'Vertrieb und Verlauf',
+    state: 'done',
+    detail: 'Leads mit einer Pipeline, abgelehnte Angebote mit ihrem Grund und der Verlauf mit Notizen und Anrufen am Kunden und am Objekt.',
+  },
+  {
+    title: 'Datenschutz',
+    state: 'done',
+    detail: 'Kunden sperren und löschen nach einem Löschkonzept, Auskunft und Datenexport je Person nach Art. 15 und 20 DSGVO, dazu das Verzeichnis der Verarbeitungstätigkeiten und die technischen und organisatorischen Maßnahmen als Dokumente.',
+  },
+  {
+    title: 'Hilfe',
+    state: 'done',
+    detail: 'Im Büro zu jeder Seite ein Text, auf der Baustelle Hilfe im Menü, dazu Kurzanleitungen, eine Suche und die Versionshinweise, auch ohne Netz. Wer die Instanz betreibt, findet das Handbuch in ihrem Bereich.',
+  },
+  {
     title: 'Tags und Zugang zum Objekt',
     state: 'done',
     detail: 'Tags an Kunden und Objekten, etwa nach Gewerk, Region oder Kundentyp, und der Zugang zum Objekt mit Schlüsseln und Codes, die versiegelt gespeichert werden.',
@@ -116,7 +141,7 @@ const areas: Area[] = [
   {
     title: 'Installation und Sicherung',
     state: 'done',
-    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Die neueste Fassung ist 0.7.0 vom 03.11.2026.',
+    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Ab der Fassung nach 0.9.0 aktualisiert sich eine Instanz auf Linux aus ihrem Bereich, mit einer Sicherung vorher und geprüfter Signatur. Die neueste Fassung ist 0.9.0 vom 25.11.2026.',
   },
   {
     title: 'Buchhaltung',
@@ -309,7 +334,7 @@ const areas: Area[] = [
         caption="Funktionsbereiche der Handwerkersoftware mit ihrem Entwicklungsstand"
       />
       <p class="muted">
-        Stand dieser Seite: 03.11.2026, Fassung 0.7.0. Die Phasen stehen unter{' '}
+        Stand dieser Seite: 25.11.2026, Fassung 0.9.0. Die Phasen stehen unter{' '}
         <a href="/roadmap/">Stand und Fahrplan</a>, die Arbeit selbst liegt offen als{' '}
         <a href={LINKS.repository + '/issues'} rel="noopener">Issues auf GitHub</a>.
       </p>
