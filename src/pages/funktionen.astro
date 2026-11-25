@@ -66,12 +66,12 @@ const areas: Area[] = [
   {
     title: 'Fristen',
     state: 'partial',
-    detail: 'Eine Fristen-Engine für alle Bereiche: Eine Frist entsteht von selbst, erinnert mit eigenem Vorlauf die zuständige Person und entfällt, wenn sich ihr Anlass erledigt hat. Gebaut sind die Wiedervorlage eines Angebots, die nächste Prüfung einer Anlage und eines Geräts, ablaufende Qualifikationen und Eintragungen im Installateurverzeichnis, der Mindestbestand im Lager, das Ende der Gewährleistung und die Frist des Kunden zur Beseitigung eines Mangels. Wartungsverträge und Zahlungsfristen folgen.',
+    detail: 'Eine Fristen-Engine für alle Bereiche: Eine Frist entsteht von selbst, erinnert mit eigenem Vorlauf die zuständige Person und entfällt, wenn sich ihr Anlass erledigt hat. Gebaut sind die Wiedervorlage eines Angebots, die nächste Prüfung einer Anlage und eines Geräts, ablaufende Qualifikationen und Eintragungen im Installateurverzeichnis, der Mindestbestand im Lager, das Ende der Gewährleistung, die Frist des Kunden zur Beseitigung eines Mangels, die fällige Wartung, die Kündigungsfrist und die Rechnung eines Wartungsvertrags und die Antwort auf eine Auskunft oder Löschanfrage nach der DSGVO. Zahlungsfristen folgen.',
   },
   {
     title: 'Plantafel und Material',
     state: 'partial',
-    detail: 'Die Plantafel mit Terminen, Serien, Urlaub und Krankheit, dazu das Kalender-Abo. Artikel und Lieferanten mit der Preiseinheit des Großhandels, der Import aus DATANORM, Verkaufspreise aus Einkaufspreis und Aufschlag und der Metallzuschlag; Lager und Fahrzeuge mit Bestand, der Lieferschein und das Scannen von Material auf der Baustelle. Serviceaufträge mit Disposition und IDS-Connect fehlen noch.',
+    detail: 'Die Plantafel mit Terminen, Serien, Urlaub und Krankheit, dazu das Kalender-Abo. Artikel und Lieferanten mit der Preiseinheit des Großhandels, der Import aus DATANORM, Verkaufspreise aus Einkaufspreis und Aufschlag und der Metallzuschlag; Lager und Fahrzeuge mit Bestand, der Lieferschein und das Scannen von Material auf der Baustelle. IDS-Connect fehlt noch.',
   },
   {
     title: 'Personal',
@@ -87,6 +87,31 @@ const areas: Area[] = [
     title: 'Abnahme und Mängel',
     state: 'done',
     detail: 'Das Abnahmeprotokoll nach § 640 BGB, auf dem Gerät unterschrieben, mit der Gewährleistungsfrist ab Abnahme nach BGB oder VOB/B und der Aufforderung zur Abnahme. Mängel mit Fotos und Status bis zur Abnahme durch den Kunden mit Unterschrift, die Vorbehalte der Abnahme als Mängel und der Mängelbericht als PDF.',
+  },
+  {
+    title: 'Serviceaufträge und Notdienst',
+    state: 'done',
+    detail: 'Serviceaufträge mit Schnellerfassung am Telefon und Abrechnung vor Ort, der Notdienst mit Rufbereitschaftsplan und Zuschlägen für Nacht, Wochenende und Feiertag. Telefon und Büro halten fest, welchen Zuschlag sie einem Verbraucher vor dem Auftrag genannt haben, mit Umsatzsteuer, und die Rechnung nimmt höchstens diesen.',
+  },
+  {
+    title: 'Wartungsverträge',
+    state: 'done',
+    detail: 'Wartungsverträge mit Intervall, Laufzeit und Kündigungsfrist und die Dauerrechnung daraus. Kunden bekommen auf Wunsch eine Erinnerung, wenn eine Prüfung oder Wartung fällig wird, und eine Bestätigung zu Termin und Auftragseingang.',
+  },
+  {
+    title: 'Vertrieb und Verlauf',
+    state: 'done',
+    detail: 'Leads mit einer Pipeline, abgelehnte Angebote mit ihrem Grund und der Verlauf mit Notizen und Anrufen am Kunden und am Objekt.',
+  },
+  {
+    title: 'Datenschutz',
+    state: 'done',
+    detail: 'Kunden sperren und löschen nach einem Löschkonzept, Auskunft und Datenexport je Person nach Art. 15 und 20 DSGVO, dazu das Verzeichnis der Verarbeitungstätigkeiten und die technischen und organisatorischen Maßnahmen als Dokumente.',
+  },
+  {
+    title: 'Hilfe',
+    state: 'done',
+    detail: 'Im Büro zu jeder Seite ein Text, auf der Baustelle Hilfe im Menü, dazu Kurzanleitungen, eine Suche und die Versionshinweise, auch ohne Netz. Wer die Instanz betreibt, findet das Handbuch in ihrem Bereich.',
   },
   {
     title: 'Tags und Zugang zum Objekt',
@@ -116,7 +141,7 @@ const areas: Area[] = [
   {
     title: 'Installation und Sicherung',
     state: 'done',
-    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Die neueste Fassung ist 0.7.0 vom 03.11.2026.',
+    detail: 'Start mit einem Befehl, der die Konfiguration selbst ausfüllt, eine Sicherung jede Nacht mit Anzeige im Büro, Rückspielen und Update. Seit der ersten Fassung, 0.1.0, kommt OpenGewerk als Release mit signierten Abbildern für x86_64 und ARM64, seit 0.4.0 auch über Docker Hub. Eine Instanz aus dem Paket auf Linux, die auf 0.9.0 oder neuer läuft, lässt sich in ihrem Bereich auf Knopfdruck auf eine neuere Fassung aktualisieren, mit einer Sicherung vorher und geprüfter Signatur; auf 0.9.0 selbst kommt sie noch von Hand. Die neueste Fassung ist 0.9.0 vom 25.11.2026.',
   },
   {
     title: 'Buchhaltung',
@@ -309,7 +334,7 @@ const areas: Area[] = [
         caption="Funktionsbereiche der Handwerkersoftware mit ihrem Entwicklungsstand"
       />
       <p class="muted">
-        Stand dieser Seite: 03.11.2026, Fassung 0.7.0. Die Phasen stehen unter{' '}
+        Stand dieser Seite: 25.11.2026, Fassung 0.9.0. Die Phasen stehen unter{' '}
         <a href="/roadmap/">Stand und Fahrplan</a>, die Arbeit selbst liegt offen als{' '}
         <a href={LINKS.repository + '/issues'} rel="noopener">Issues auf GitHub</a>.
       </p>
