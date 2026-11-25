@@ -15,6 +15,8 @@ Wie die Seite aufgebaut ist und wonach sie sich richtet: Ordner, Schreibweise, B
 | `src/assets/screens/` | Die Oberflächenbilder. Dateinamen deutsch, weil sie aus den Artboards des Entwurfs stammen und sich so zuordnen lassen |
 | `public/marke/` | Logo, Icon und Vorschaubild, siehe unten |
 | `scripts/check-links.mjs` | Prüft nach dem Bauen, dass kein interner Verweis ins Leere geht |
+| `scripts/check-pages.mjs` | Prüft nach dem Bauen Titel (30 bis 60 Zeichen) und Beschreibung (70 bis 155) jeder Seite, die gefunden werden darf, und dass keine Seite eingebettete Skripte, Styles oder Event-Handler enthält |
+| `public/scripts/` | Die beiden Skripte der Seite (Menü im Kopf, Lightbox) als Dateien, nicht eingebettet, damit die Content-Security-Policy des vHosts bei `'self'` bleiben kann |
 | `src/hilfe/` | Kurzanleitungen und Handbuch der Handwerkersoftware, abgeschrieben aus `packages/web/help` der Anwendung. Dort ist die Quelle, hier wird nichts von Hand geändert |
 | `src/hilfe.ts` | Liest die Texte der Hilfe, mit Titel, erstem Absatz und der Reihenfolge der Anwendung |
 | `scripts/sync-help.mjs` | Zieht die Texte der Hilfe nach einer Änderung in der Anwendung nach: `node scripts/sync-help.mjs <Checkout von opengewerk>` |
@@ -64,6 +66,8 @@ Was dafür eingebaut ist, damit es niemand erneut sucht:
 - `llms.txt` entsteht beim Bauen aus `src/site.ts` (`src/pages/llms.txt.ts`): was das Projekt ist, welche Seiten es gibt und was jede beantwortet. Zum Stand der Software sagt die Datei nichts, das steht auf den Seiten, auf die sie verweist.
 - Adressen tragen immer einen Schrägstrich am Ende, passend zu `trailingSlash: 'always'`. Damit läuft kein interner Verweis über eine Weiterleitung.
 - `check-links.mjs` fängt den vertippten internen Verweis, den sonst niemand bemerkt.
+- `check-pages.mjs` hält Titel und Beschreibung in den Längen, die ein Suchergebnis zeigt. Für die Hilfe kürzt `excerpt()` in `src/hilfe.ts` den ersten Absatz an einer Wortgrenze.
+- Der vHost schickt eine Content-Security-Policy, die Skripte und Styles nur von der Seite selbst erlaubt. Komponenten-Styles gehen deshalb als Datei hinaus (`build.inlineStylesheets: 'never'`), und `check-pages.mjs` schlägt an, sobald etwas Eingebettetes zurückkommt. JSON-LD ist davon ausgenommen, es sind Daten, kein Code.
 
 ## Eine Eigenheit, die nach einem Fehler aussieht
 

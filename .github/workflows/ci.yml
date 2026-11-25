@@ -278,3 +278,6 @@ jobs:
 
       - name: Interne Verweise prüfen
         run: pnpm run check:links
+
+      - name: Titel, Beschreibungen und eingebetteten Code prüfen
+        run: pnpm run check:pages

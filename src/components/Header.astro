@@ -16,10 +16,13 @@ const currentFor = (href: string, also: readonly string[]) =>
 
 <header class="header">
   <div class="wrap header-inner">
-    <a class="header-brand" href="/" aria-label="OpenGewerk, zur Startseite">
+    <a class="header-brand" href="/">
+      {/* The link's name is text, which a crawler and a screen reader both read;
+          an aria-label is read by the second only (#66). */}
+      <span class="sr-only">OpenGewerk, zur Startseite</span>
       <img
         src="/marke/logo.svg"
-        alt="OpenGewerk"
+        alt=""
         width="476"
         height="100"
         fetchpriority="high"
@@ -69,34 +72,9 @@ const currentFor = (href: string, also: readonly string[]) =>
   and from then on CSS keys the collapsed state off data-js. It sits right after
   the header so the swap happens before the first paint.
 */}
-<script is:inline>
-  (() => {
-    const header = document.querySelector('.header');
-    const toggle = header?.querySelector('.nav-toggle');
-    if (!header || !toggle) return;
-
-    header.dataset.js = '';
-    toggle.hidden = false;
-
-    const setOpen = (open) => {
-      header.toggleAttribute('data-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
-    };
-
-    toggle.addEventListener('click', () => {
-      setOpen(!header.hasAttribute('data-open'));
-    });
-
-    // Escape closes it and hands the focus back to the button, otherwise the
-    // focus would sit on a link nobody can see any more.
-    header.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && header.hasAttribute('data-open')) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-  })();
-</script>
+{/* A file, not inline, so the Content-Security-Policy of the vHost can stay at
+   'self' (#64). A classic script without defer still runs right here. */}
+<script is:inline src="/scripts/header.js"></script>
 
 <style>
   .header {
