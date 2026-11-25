@@ -30,6 +30,13 @@ export default defineConfig({
     }),
   ],
 
+  build: {
+    // Component styles go out as files, never as <style> in the page, so the
+    // Content-Security-Policy of the vHost can stay at 'self' (#64).
+    // scripts/check-pages.mjs fails the check if anything inline comes back.
+    inlineStylesheets: 'never',
+  },
+
   image: {
     // The interface previews are wide screenshots. Astro emits avif and webp
     // next to the original and picks per browser.

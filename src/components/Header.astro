@@ -16,10 +16,13 @@ const currentFor = (href: string, also: readonly string[]) =>
 
 <header class="header">
   <div class="wrap header-inner">
-    <a class="header-brand" href="/" aria-label="OpenGewerk, zur Startseite">
+    <a class="header-brand" href="/">
+      {/* The link's name is text, which a crawler and a screen reader both read;
+          an aria-label is read by the second only (#66). */}
+      <span class="sr-only">OpenGewerk, zur Startseite</span>
       <img
         src="/marke/logo.svg"
-        alt="OpenGewerk"
+        alt=""
         width="476"
         height="100"
         fetchpriority="high"
@@ -62,41 +65,12 @@ const currentFor = (href: string, also: readonly string[]) =>
 </header>
 
 {/*
-  Progressive enhancement, and the order matters. The markup ships with the
-  navigation visible and the button hidden, so a browser without JavaScript
-  keeps a working, wrapping list instead of a menu that cannot be opened. Only
-  this script turns it into a burger: it marks the header, unhides the button
-  and from then on CSS keys the collapsed state off data-js. It sits right after
-  the header so the swap happens before the first paint.
+  Progressive enhancement. The markup ships with the navigation visible and the
+  button hidden, so a browser without JavaScript keeps a working, wrapping list
+  instead of a menu that cannot be opened. /scripts/header.js, loaded in the
+  <head> of Page.astro, marks the page with html[data-js] before the first
+  paint, and the CSS below collapses the list into a burger from then on.
 */}
-<script is:inline>
-  (() => {
-    const header = document.querySelector('.header');
-    const toggle = header?.querySelector('.nav-toggle');
-    if (!header || !toggle) return;
-
-    header.dataset.js = '';
-    toggle.hidden = false;
-
-    const setOpen = (open) => {
-      header.toggleAttribute('data-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
-    };
-
-    toggle.addEventListener('click', () => {
-      setOpen(!header.hasAttribute('data-open'));
-    });
-
-    // Escape closes it and hands the focus back to the button, otherwise the
-    // focus would sit on a link nobody can see any more.
-    header.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && header.hasAttribute('data-open')) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-  })();
-</script>
 
 <style>
   .header {
@@ -159,8 +133,9 @@ const currentFor = (href: string, also: readonly string[]) =>
     color: var(--ink-muted) !important;
   }
 
-  /* The button exists only where the script ran, so [hidden] and this rule can
-   * never contradict each other. */
+  /* The button shows only where the script marked the page (html[data-js]),
+   * then the display below wins over [hidden]. Its handlers sit on the
+   * document from the same moment, so the button works as soon as it shows. */
   .nav-toggle {
     display: none;
     align-items: center;
@@ -198,20 +173,20 @@ const currentFor = (href: string, also: readonly string[]) =>
    * navigation becomes a burger menu. Measured, not guessed: at 768 px the row
    * still fits, underneath it starts to wrap. */
   @media (width < 48rem) {
-    .header[data-js] .nav-toggle {
+    :global(html[data-js]) .nav-toggle {
       display: inline-flex;
     }
 
-    .header[data-js] nav {
+    :global(html[data-js]) .header nav {
       display: none;
       width: 100%;
     }
 
-    .header[data-js][data-open] nav {
+    :global(html[data-js]) .header[data-open] nav {
       display: block;
     }
 
-    .header[data-js] .header-nav {
+    :global(html[data-js]) .header-nav {
       flex-direction: column;
       align-items: stretch;
       gap: 0;
@@ -220,7 +195,7 @@ const currentFor = (href: string, also: readonly string[]) =>
       font-size: var(--font-m);
     }
 
-    .header[data-js] .header-nav a {
+    :global(html[data-js]) .header-nav a {
       display: block;
       padding: 0.75rem 0.25rem;
       min-height: 44px;
@@ -229,8 +204,8 @@ const currentFor = (href: string, also: readonly string[]) =>
       padding-left: 0.75rem;
     }
 
-    .header[data-js] .header-nav a:hover,
-    .header[data-js] .header-nav a[aria-current] {
+    :global(html[data-js]) .header-nav a:hover,
+    :global(html[data-js]) .header-nav a[aria-current] {
       border-bottom-color: var(--line);
       border-left-color: var(--copper);
       background: var(--surface-sunken);

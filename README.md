@@ -28,6 +28,7 @@ pnpm run dev          # Entwicklungsserver
 pnpm run check        # Typen
 pnpm run build        # baut nach dist/
 pnpm run check:links  # braucht ein gebautes dist/
+pnpm run check:pages  # Titel, Beschreibungen, nichts Eingebettetes; braucht dist/
 ```
 
 Dieselben Schritte laufen in der CI. Ein Push auf `main` baut und spielt die Seite aus.

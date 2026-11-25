@@ -12,6 +12,8 @@ export interface HelpText {
   readonly slug: string;
   readonly title: string;
   readonly lead: string;
+  /** The lead cut to what a search result shows, for the meta description (#65). */
+  readonly description: string;
   readonly Content: Text['Content'];
 }
 
@@ -33,6 +35,23 @@ function plain(paragraph: string): string {
     .replace(/\s+/g, ' ');
 }
 
+/** What a search result shows of a description before it cuts it off. */
+export const DESCRIPTION_MAX = 155;
+
+/**
+ * The text up to DESCRIPTION_MAX characters, cut at the last word that fits
+ * and closed with an ellipsis, so a long first paragraph never ends mid-word.
+ */
+export function excerpt(text: string, max = DESCRIPTION_MAX): string {
+  if (text.length <= max) return text;
+  // A space at max - 1 still leaves room for the ellipsis, so the word before
+  // it stays. Without any space the text is cut hard, one short of max.
+  const cut = text.slice(0, max);
+  const space = cut.lastIndexOf(' ');
+  const head = space > 0 ? cut.slice(0, space) : cut.slice(0, max - 1);
+  return `${head.replace(/[\s,;:.]+$/, '')}…`;
+}
+
 function read(folder: HelpText['folder'], found: Record<string, Text>): HelpText[] {
   return Object.entries(found)
     .map(([path, text]) => {
@@ -45,7 +64,7 @@ function read(folder: HelpText['folder'], found: Record<string, Text>): HelpText
           .map((block) => block.trim())
           .find((block) => block !== '' && !/^(?:#|[-*+] |\d+\. |>)/.test(block)) ?? '',
       );
-      return { folder, slug, title, lead, Content: text.Content };
+      return { folder, slug, title, lead, description: excerpt(lead), Content: text.Content };
     })
     .sort((one, other) => place(folder, one.slug) - place(folder, other.slug));
 }

@@ -12,11 +12,14 @@ export function getStaticPaths() {
 const { text } = Astro.props as { text: HelpText };
 const { Content } = text;
 const section = text.folder === 'kurzanleitungen' ? 'Kurzanleitung' : 'Handbuch';
+// The project's name goes only where the title still fits a search result (#65).
+const long = `${text.title}: ${section} zu OpenGewerk`;
+const pageTitle = long.length <= 60 ? long : `${text.title}: ${section}`;
 ---
 
 <Page
-  title={`${text.title}: ${section} zu OpenGewerk`}
-  description={text.lead}
+  title={pageTitle}
+  description={text.description}
   breadcrumb={text.title}
   parent={{ name: 'Hilfe', path: '/hilfe/' }}
 >
