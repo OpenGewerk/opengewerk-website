@@ -44,9 +44,12 @@ export const DESCRIPTION_MAX = 155;
  */
 export function excerpt(text: string, max = DESCRIPTION_MAX): string {
   if (text.length <= max) return text;
-  const cut = text.slice(0, max - 1);
+  // A space at max - 1 still leaves room for the ellipsis, so the word before
+  // it stays. Without any space the text is cut hard, one short of max.
+  const cut = text.slice(0, max);
   const space = cut.lastIndexOf(' ');
-  return `${(space > 0 ? cut.slice(0, space) : cut).replace(/[\s,;:.]+$/, '')}…`;
+  const head = space > 0 ? cut.slice(0, space) : cut.slice(0, max - 1);
+  return `${head.replace(/[\s,;:.]+$/, '')}…`;
 }
 
 function read(folder: HelpText['folder'], found: Record<string, Text>): HelpText[] {

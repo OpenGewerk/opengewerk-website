@@ -58,12 +58,14 @@ function lengthProblems(html) {
 
 function inlineProblems(html) {
   const problems = [];
-  for (const match of html.matchAll(/<script\b([^>]*)>/g)) {
+  for (const match of html.matchAll(/<script\b([^>]*)>/gi)) {
     const attributes = match[1];
-    if (/\bsrc=/.test(attributes) || /type="application\/ld\+json"/.test(attributes)) continue;
+    // src as an attribute of its own, not the tail of data-src.
+    if (/(?:^|\s)src\s*=/i.test(attributes) || /type="application\/ld\+json"/i.test(attributes)) continue;
     problems.push('eingebettetes <script>');
   }
-  if (/<style\b/.test(html)) problems.push('eingebettetes <style>');
+  if (/<style\b/i.test(html)) problems.push('eingebettetes <style>');
+  if (/\shref\s*=\s*["']?\s*javascript:/i.test(html)) problems.push('javascript:-Verweis');
   // The attribute name alone counts: double, single or no quotes, with or
   // without space around the equals sign.
   if (/<[a-z][^>]*\sstyle\s*=/i.test(html)) problems.push('style-Attribut');
