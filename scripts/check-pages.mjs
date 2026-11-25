@@ -56,20 +56,31 @@ function lengthProblems(html) {
   return problems;
 }
 
+// A start tag with its attributes. Quoted values are taken whole, so a ">" in
+// a value (sizes="(width >= 30rem) …" on every screenshot) does not end the
+// tag and hide the attributes after it.
+const TAG = /<([a-z][^\s/>]*)((?:\s+[^\s"'>/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*)\s*\/?>/gi;
+const ATTRIBUTE = /\s+([^\s"'>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+
 function inlineProblems(html) {
   const problems = [];
-  for (const match of html.matchAll(/<script\b([^>]*)>/gi)) {
-    const attributes = match[1];
-    // src as an attribute of its own, not the tail of data-src.
-    if (/(?:^|\s)src\s*=/i.test(attributes) || /type="application\/ld\+json"/i.test(attributes)) continue;
-    problems.push('eingebettetes <script>');
+  for (const [, tagName, attributeText] of html.matchAll(TAG)) {
+    const tag = tagName.toLowerCase();
+    const attributes = new Map();
+    for (const [, name, double, single, bare] of attributeText.matchAll(ATTRIBUTE)) {
+      attributes.set(name.toLowerCase(), double ?? single ?? bare ?? '');
+    }
+
+    if (tag === 'script' && !attributes.has('src') && attributes.get('type') !== 'application/ld+json') {
+      problems.push('eingebettetes <script>');
+    }
+    if (tag === 'style') problems.push('eingebettetes <style>');
+    if (/^\s*javascript:/i.test(attributes.get('href') ?? '')) problems.push('javascript:-Verweis');
+    for (const name of attributes.keys()) {
+      if (name === 'style') problems.push(`style-Attribut an <${tag}>`);
+      if (/^on[a-z]+$/.test(name)) problems.push(`${name}-Attribut (Event-Handler) an <${tag}>`);
+    }
   }
-  if (/<style\b/i.test(html)) problems.push('eingebettetes <style>');
-  if (/\shref\s*=\s*["']?\s*javascript:/i.test(html)) problems.push('javascript:-Verweis');
-  // The attribute name alone counts: double, single or no quotes, with or
-  // without space around the equals sign.
-  if (/<[a-z][^>]*\sstyle\s*=/i.test(html)) problems.push('style-Attribut');
-  if (/<[a-z][^>]*\son[a-z]+\s*=/i.test(html)) problems.push('on…-Attribut (Event-Handler)');
   return problems;
 }
 
