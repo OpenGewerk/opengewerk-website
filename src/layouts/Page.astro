@@ -75,6 +75,10 @@ const asJson = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c'
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* A classic script in the head blocks rendering until it ran, so the
+        burger menu is collapsed before the first paint. A file, not inline,
+        so the Content-Security-Policy of the vHost can stay at 'self' (#64). */}
+    <script is:inline src="/scripts/header.js"></script>
 
     <title>{title}</title>
     <meta name="description" content={description} />

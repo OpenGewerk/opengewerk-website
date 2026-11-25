@@ -1,9 +1,15 @@
-(() => {
+// Loaded as a classic script in <head>, so it runs before the first paint.
+// It marks the page as scripted right away; the CSS of the header keys the
+// collapsed burger menu off html[data-js]. A browser without JavaScript never
+// sets the mark and keeps the working, wrapping list. The handlers need the
+// header, which does not exist yet at this point, so they wait for the parser.
+document.documentElement.dataset.js = '';
+
+document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.header');
   const toggle = header?.querySelector('.nav-toggle');
   if (!header || !toggle) return;
 
-  header.dataset.js = '';
   toggle.hidden = false;
 
   const setOpen = (open) => {
@@ -23,4 +29,4 @@
       toggle.focus();
     }
   });
-})();
+});

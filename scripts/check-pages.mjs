@@ -64,8 +64,10 @@ function inlineProblems(html) {
     problems.push('eingebettetes <script>');
   }
   if (/<style\b/.test(html)) problems.push('eingebettetes <style>');
-  if (/<[a-z][^>]*\sstyle="/i.test(html)) problems.push('style-Attribut');
-  if (/<[a-z][^>]*\son[a-z]+="/i.test(html)) problems.push('on…-Attribut (Event-Handler)');
+  // The attribute name alone counts: double, single or no quotes, with or
+  // without space around the equals sign.
+  if (/<[a-z][^>]*\sstyle\s*=/i.test(html)) problems.push('style-Attribut');
+  if (/<[a-z][^>]*\son[a-z]+\s*=/i.test(html)) problems.push('on…-Attribut (Event-Handler)');
   return problems;
 }
 

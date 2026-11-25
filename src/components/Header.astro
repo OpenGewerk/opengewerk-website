@@ -65,16 +65,12 @@ const currentFor = (href: string, also: readonly string[]) =>
 </header>
 
 {/*
-  Progressive enhancement, and the order matters. The markup ships with the
-  navigation visible and the button hidden, so a browser without JavaScript
-  keeps a working, wrapping list instead of a menu that cannot be opened. Only
-  this script turns it into a burger: it marks the header, unhides the button
-  and from then on CSS keys the collapsed state off data-js. It sits right after
-  the header so the swap happens before the first paint.
+  Progressive enhancement. The markup ships with the navigation visible and the
+  button hidden, so a browser without JavaScript keeps a working, wrapping list
+  instead of a menu that cannot be opened. /scripts/header.js, loaded in the
+  <head> of Page.astro, marks the page with html[data-js] before the first
+  paint, and the CSS below collapses the list into a burger from then on.
 */}
-{/* A file, not inline, so the Content-Security-Policy of the vHost can stay at
-   'self' (#64). A classic script without defer still runs right here. */}
-<script is:inline src="/scripts/header.js"></script>
 
 <style>
   .header {
@@ -137,8 +133,9 @@ const currentFor = (href: string, also: readonly string[]) =>
     color: var(--ink-muted) !important;
   }
 
-  /* The button exists only where the script ran, so [hidden] and this rule can
-   * never contradict each other. */
+  /* The button shows only where the script marked the page (html[data-js]),
+   * then the display below wins over [hidden], which the script lifts once the
+   * header is parsed. */
   .nav-toggle {
     display: none;
     align-items: center;
@@ -176,20 +173,20 @@ const currentFor = (href: string, also: readonly string[]) =>
    * navigation becomes a burger menu. Measured, not guessed: at 768 px the row
    * still fits, underneath it starts to wrap. */
   @media (width < 48rem) {
-    .header[data-js] .nav-toggle {
+    :global(html[data-js]) .nav-toggle {
       display: inline-flex;
     }
 
-    .header[data-js] nav {
+    :global(html[data-js]) .header nav {
       display: none;
       width: 100%;
     }
 
-    .header[data-js][data-open] nav {
+    :global(html[data-js]) .header[data-open] nav {
       display: block;
     }
 
-    .header[data-js] .header-nav {
+    :global(html[data-js]) .header-nav {
       flex-direction: column;
       align-items: stretch;
       gap: 0;
@@ -198,7 +195,7 @@ const currentFor = (href: string, also: readonly string[]) =>
       font-size: var(--font-m);
     }
 
-    .header[data-js] .header-nav a {
+    :global(html[data-js]) .header-nav a {
       display: block;
       padding: 0.75rem 0.25rem;
       min-height: 44px;
@@ -207,8 +204,8 @@ const currentFor = (href: string, also: readonly string[]) =>
       padding-left: 0.75rem;
     }
 
-    .header[data-js] .header-nav a:hover,
-    .header[data-js] .header-nav a[aria-current] {
+    :global(html[data-js]) .header-nav a:hover,
+    :global(html[data-js]) .header-nav a[aria-current] {
       border-bottom-color: var(--line);
       border-left-color: var(--copper);
       background: var(--surface-sunken);
