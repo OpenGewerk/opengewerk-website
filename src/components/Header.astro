@@ -17,12 +17,12 @@ const currentFor = (href: string, also: readonly string[]) =>
 <header class="header">
   <div class="wrap header-inner">
     <a class="header-brand" href="/">
-      {/* The link's name is text, which a crawler and a screen reader both read;
-          an aria-label is read by the second only (#66). */}
-      <span class="sr-only">OpenGewerk, zur Startseite</span>
+      {/* The image carries the link's name as its alt text, which a crawler and
+          a screen reader both read; an aria-label is read by the second only
+          (#66). An empty alt counts as missing for a crawler (#68). */}
       <img
         src="/marke/logo.svg"
-        alt=""
+        alt="OpenGewerk, zur Startseite"
         width="476"
         height="100"
         fetchpriority="high"
