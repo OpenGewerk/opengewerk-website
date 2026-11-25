@@ -6,9 +6,15 @@ export const SITE = {
   name: 'OpenGewerk',
   url: 'https://opengewerk.de',
   tagline: 'Self-hosted Software für Handwerk und Haustechnik',
-  /** What the project is in two sentences. The front page and llms.txt both open with it. */
+  /** What the project is in two sentences. llms.txt and the WebSite node of the front page open with it. */
   description:
     'Open-Source-Software auf dem eigenen Server: die Handwerkersoftware für Elektro und PV, CRM und ERP in einem, und OpenGewerk Haustechnik für Betreiber von Gebäuden. Offline vor Ort, ohne Lizenzkosten, AGPL-3.0.',
+  /**
+   * The same in what a search result shows, at most 155 characters: the
+   * description of the front page. Change it together with `description`.
+   */
+  snippet:
+    'Open-Source-Software auf dem eigenen Server: Handwerkersoftware für Elektro und PV mit CRM und ERP, dazu OpenGewerk Haustechnik. Offline vor Ort, AGPL-3.0.',
   /** Falls back as the Open Graph image wherever a page brings none. */
   socialImage: '/marke/social.png',
 } as const;

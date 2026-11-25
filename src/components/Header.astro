@@ -134,8 +134,8 @@ const currentFor = (href: string, also: readonly string[]) =>
   }
 
   /* The button shows only where the script marked the page (html[data-js]),
-   * then the display below wins over [hidden], which the script lifts once the
-   * header is parsed. */
+   * then the display below wins over [hidden]. Its handlers sit on the
+   * document from the same moment, so the button works as soon as it shows. */
   .nav-toggle {
     display: none;
     align-items: center;
